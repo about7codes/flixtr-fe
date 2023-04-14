@@ -1,0 +1,25 @@
+
+ https://www.flaticon.com/free-icon/abstract-shape_6009969?term=abstract&page=1&position=81&page=1&position=81&related_id=6009969&origin=search#
+
+##Roadmap -----------
+
+- Home page
+- Error page
+- Login page
+- Signup page
+- List movies/tv page
+- View movie info page
+- View tv show info page
+- Watch movie page
+- Watch Tv show page
+- Search movie/tv show
+- Watchlist page
+- Profile/Account page
+- Pagination
+- Navbar
+- Footer
+- Side bar
+- Snackbar setup
+- Redux setup
+- React Query setup
+- Node js server setup
