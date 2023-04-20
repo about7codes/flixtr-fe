@@ -9,7 +9,7 @@ import Poster from "../Poster/Poster";
 import { MovieData } from "../../types/apiResponses";
 
 type TileSliderProps = {
-  movieData?: MovieData;
+  movieData?: MovieData[];
 };
 
 const TileSlider = ({ movieData }: TileSliderProps) => {

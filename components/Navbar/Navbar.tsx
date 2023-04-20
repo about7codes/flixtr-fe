@@ -18,7 +18,48 @@ import Sidebar from "../Sidebar/Sidebar";
 
 type NavbarProps = {};
 
-const pages = ["Movies", "TV Shows", "Watchlist"];
+const pageTitles = ["Movies", "TV Shows", "Watchlist"];
+export const appRoutes = [
+  {
+    title: "Movies",
+    childRoutes: [
+      {
+        childTitle: "Popular",
+        childPath: "/movie/popular",
+      },
+      {
+        childTitle: "Recent",
+        childPath: "/movie/recent",
+      },
+      {
+        childTitle: "Top rated",
+        childPath: "/movie/top-rated",
+      },
+    ],
+  },
+  {
+    title: "TV Shows",
+    childRoutes: [
+      {
+        childTitle: "Popular",
+        childPath: "/tv/popular",
+      },
+      {
+        childTitle: "Recent",
+        childPath: "/tv/recent",
+      },
+      {
+        childTitle: "Top rated",
+        childPath: "/tv/top-rated",
+      },
+    ],
+  },
+  {
+    title: "Watchlist",
+    path: "/watchlist",
+  },
+];
+
 const settings = ["Profile", "Logout"];
 
 const Navbar = () => {
@@ -32,7 +73,8 @@ const Navbar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (path: string) => {
+    console.log("path: ", path);
     setSidebarOpen(false);
   };
 
@@ -96,13 +138,14 @@ const Navbar = () => {
               FLIXTR
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
+              {/* desktop btn links */}
+              {appRoutes.map(({ title, path }) => (
                 <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
+                  key={title}
+                  onClick={() => handleCloseNavMenu(path ?? '/')}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page}
+                  {title}
                 </Button>
               ))}
             </Box>
@@ -112,7 +155,7 @@ const Navbar = () => {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt="Remy Sharp"
-                    // src="/static/images/avatar/2.jpg"
+                  // src="/static/images/avatar/2.jpg"
                   />
                 </IconButton>
               </Tooltip>
