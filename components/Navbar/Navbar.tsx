@@ -18,7 +18,6 @@ import Sidebar from "../Sidebar/Sidebar";
 
 type NavbarProps = {};
 
-const pageTitles = ["Movies", "TV Shows", "Watchlist"];
 export const appRoutes = [
   {
     title: "Movies",

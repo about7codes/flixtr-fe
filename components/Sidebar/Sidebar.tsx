@@ -36,11 +36,19 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
     >
       <List>
         {/* mobile btn links */}
-        {appRoutes.map(({ title, path, childRoutes }, index) => (
+        {appRoutes.map(({ title, path, childRoutes }) => (
           <ListItem
             key={title}
             disablePadding
-            onClick={() => path ? customRedirect(path) : setIsDropped(title)}
+            onClick={() => {
+              if (path) {
+                customRedirect(path)
+                handleCloseNavMenu(path);
+              } else {
+                setIsDropped(title)
+
+              }
+            }}
             sx={{ display: 'block' }}
           >
             <ListItemButton>
