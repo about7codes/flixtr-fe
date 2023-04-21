@@ -19,7 +19,7 @@ import { ExpandLess, ExpandMore, StarBorder } from "@mui/icons-material";
 
 type SidebarProps = {
   sidebarOpen: boolean;
-  handleCloseNavMenu: (path: string) => void;
+  handleCloseNavMenu: () => void;
 };
 
 const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
@@ -31,29 +31,26 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
     <Box
       sx={{ width: 250, background: "#222", height: "100%" }}
       role="presentation"
-    // onClick={toggleDrawer(anchor, false)}
-    // onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
         {/* mobile btn links */}
-        {appRoutes.map(({ title, path, childRoutes }) => (
+        {appRoutes.map(({ title, icon, path, childRoutes }) => (
           <ListItem
             key={title}
             disablePadding
             onClick={() => {
               if (path) {
                 customRedirect(path)
-                handleCloseNavMenu(path);
+                handleCloseNavMenu();
               } else {
                 setIsDropped(title)
-
               }
             }}
             sx={{ display: 'block' }}
           >
             <ListItemButton>
               <ListItemIcon>
-                <InboxIcon color="secondary" />
+                {icon}
               </ListItemIcon>
               <ListItemText primary={title} />
               {!path && (isDropped == title ? <ExpandLess /> : <ExpandMore />)}
@@ -65,7 +62,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
                 <List component="div" disablePadding key={childPath}>
                   <ListItemButton sx={{ pl: 4 }} onClick={() => {
                     customRedirect(childPath);
-                    handleCloseNavMenu(childPath);
+                    handleCloseNavMenu();
                   }}>
                     <ListItemIcon>
                       <StarBorder color="secondary" />

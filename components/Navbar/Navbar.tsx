@@ -15,6 +15,9 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import Sidebar from "../Sidebar/Sidebar";
 import { useCustomRedirect } from "../../hooks/app.hooks";
 
@@ -23,6 +26,7 @@ type NavbarProps = {};
 export const appRoutes = [
   {
     title: "Movies",
+    icon: <OndemandVideoIcon color="secondary" />,
     childRoutes: [
       {
         childTitle: "Popular",
@@ -40,6 +44,7 @@ export const appRoutes = [
   },
   {
     title: "TV Shows",
+    icon: <LiveTvIcon color="secondary" />,
     childRoutes: [
       {
         childTitle: "Popular",
@@ -57,6 +62,7 @@ export const appRoutes = [
   },
   {
     title: "Watchlist",
+    icon: <SubscriptionsIcon color="secondary" />,
     path: "/watchlist",
   },
 ];
@@ -70,8 +76,6 @@ const Navbar = () => {
   const [anchorElLinks, setAnchorElLinks] = useState<null | HTMLElement>(null);
   const [openLinksMenu, setOpenLinksMenu] = useState<null | string>(null);
 
-
-
   const handleOpenNavMenu = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -79,8 +83,7 @@ const Navbar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (path: string) => {
-    console.log("path: ", path);
+  const handleCloseNavMenu = () => {
     setSidebarOpen(false);
   };
 
@@ -120,7 +123,7 @@ const Navbar = () => {
                 textDecoration: "none",
               }}
             >
-              LOGO
+              FLIXTR
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

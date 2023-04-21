@@ -6,10 +6,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { styles as classes } from "./tileSlider.styles";
 import Poster from "../Poster/Poster";
-import { MovieData } from "../../types/apiResponses";
+import { MovieData, MovieResult } from "../../types/apiResponses";
 
 type TileSliderProps = {
-  movieData?: MovieData[];
+  movieData?: MovieResult[];
 };
 
 const TileSlider = ({ movieData }: TileSliderProps) => {
@@ -36,10 +36,11 @@ const TileSlider = ({ movieData }: TileSliderProps) => {
         </Typography>
       </Box>
       <Box>
+
         <Slider {...settings}>
-          {[0, 1, 2, 3, 4, 5, 6].map((num) => (
-            <div key={num}>
-              <Poster />
+          {movieData?.map((singleMovieData, index) => (
+            <div key={index}>
+              <Poster singleMovieData={singleMovieData} />
             </div>
           ))}
         </Slider>

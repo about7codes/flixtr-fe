@@ -3,20 +3,29 @@ import Image from "next/image";
 import { Box, Typography } from "@mui/material";
 import { styles as classes } from "./poster.styles";
 import Link from "next/link";
+import { MovieResult } from "../../types/apiResponses";
 
-type PosterProps = {};
+type PosterProps = {
+  singleMovieData: MovieResult
+};
 
-const Poster = () => {
-  const id = 22;
-  const title = "moviename";
+const Poster = ({ singleMovieData }: PosterProps) => {
+  const { id, title, release_date } = singleMovieData;
+
+  const toUrlFriendly = (phrase: string) => {
+    const withOutSpecialChar = phrase.replace(/[&#,+()$~%'.":!*?<>{}]/g, "");
+    return withOutSpecialChar.replace(/\s+/g, "-").toLowerCase();
+  }
+  const titleConverted = toUrlFriendly(title);
+
   return (
     <Box sx={classes.poster}>
-      <Link href={`/movie/${id}/${title}`}>
+      <Link href={`/movie/${id}/${titleConverted}`}>
         <Box sx={classes.posterUp}>
           <Image
             className="poster-img"
             src={
-              "https://image.tmdb.org/t/p/w220_and_h330_face/ccBe5BVeibdBEQU7l6P6BubajWV.jpg"
+              "https://image.tmdb.org/t/p/w220_and_h330_face/" + singleMovieData.poster_path
             }
             //   layout="fill"
             //   placeholder="blur"
@@ -29,8 +38,8 @@ const Poster = () => {
           />
         </Box>
         <Box sx={classes.posterDown}>
-          <Typography variant="subtitle2">The Peripheral</Typography>
-          <Typography variant="subtitle2">2022</Typography>
+          <Typography variant="subtitle2" sx={classes.posterTitle}>{title}</Typography>
+          <Typography variant="subtitle2">{new Date(release_date).getFullYear()}</Typography>
         </Box>
       </Link>
     </Box>

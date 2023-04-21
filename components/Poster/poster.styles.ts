@@ -9,4 +9,13 @@ export const styles = {
   },
   posterUp: {},
   posterDown: {},
+  posterTitle: {
+    fontSize: "0.85rem",
+    display: "-webkit-box",
+    WebkitLineClamp: "1",
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    fontWeight: "500",
+  },
 };
