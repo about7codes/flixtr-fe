@@ -13,7 +13,7 @@ type TileSliderProps = {
 };
 
 const TileSlider = ({ movieData }: TileSliderProps) => {
-  console.log("TileSlider", movieData);
+  // console.log("TileSlider", movieData);
   const settings = {
     arrows: true,
     dots: true,

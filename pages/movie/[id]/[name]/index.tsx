@@ -1,14 +1,17 @@
 import React from "react";
 import { GetServerSidePropsContext } from "next";
+import { MovieResult } from "../../../../types/apiResponses";
 
-type MovieInfoProps = {};
+type MovieInfoProps = {
+  singleMovieData: MovieResult;
+};
 
-function MovieInfo({ data }: any) {
-  // console.log('movieInfo: ', data);
+function MovieInfo({ singleMovieData }: MovieInfoProps) {
+  console.log('movieInfo: ', singleMovieData);
   return <div>
     <div>MovieInfo</div>
-    <div>id: {data.id}</div>
-    <div>name: {data.title}</div>
+    <div>id: {singleMovieData.id}</div>
+    <div>name: {singleMovieData.title}</div>
     <div>MovieInfo</div>
   </div>;
 }
@@ -29,7 +32,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
     return {
       props: {
-        data
+        singleMovieData: data
       }
     };
 
