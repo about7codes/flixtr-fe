@@ -6,6 +6,7 @@ import {
   Button,
   Container,
   IconButton,
+  ListItem,
   Menu,
   MenuItem,
   Toolbar,
@@ -15,6 +16,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
 import Sidebar from "../Sidebar/Sidebar";
+import { useCustomRedirect } from "../../hooks/app.hooks";
 
 type NavbarProps = {};
 
@@ -62,8 +64,13 @@ export const appRoutes = [
 const settings = ["Profile", "Logout"];
 
 const Navbar = () => {
+  const { customRedirect } = useCustomRedirect();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [anchorElLinks, setAnchorElLinks] = useState<null | HTMLElement>(null);
+  const [openLinksMenu, setOpenLinksMenu] = useState<null | string>(null);
+
+
 
   const handleOpenNavMenu = () => {
     setSidebarOpen(!sidebarOpen);
@@ -80,6 +87,17 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleClickMenuLinks = (event: React.MouseEvent<HTMLElement>, title: string) => {
+    setAnchorElLinks(event.currentTarget);
+    setOpenLinksMenu(title);
+  };
+
+  const handleCloseMenuLinks = () => {
+    setAnchorElLinks(null);
+    setOpenLinksMenu(null);
+  };
+
 
   return (
     <>
@@ -138,14 +156,49 @@ const Navbar = () => {
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {/* desktop btn links */}
-              {appRoutes.map(({ title, path }) => (
-                <Button
-                  key={title}
-                  onClick={() => handleCloseNavMenu(path ?? '/')}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {title}
-                </Button>
+              {appRoutes.map(({ title, path, childRoutes }) => (
+                <Box key={title}>
+                  <Button
+                    onClick={(e) => {
+                      if (path) {
+                        customRedirect(path);
+                      } else {
+                        handleClickMenuLinks(e, title);
+                      }
+                    }}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    {title}
+                  </Button>
+                  <Menu
+                    id="link-menu"
+                    anchorEl={anchorElLinks}
+                    open={openLinksMenu == title}
+                    onClose={handleCloseMenuLinks}
+                    sx={{
+                      "& .MuiMenu-list, & .MuiMenu-paper": {
+                        background: '#333'
+                      },
+                    }}
+                  >
+                    {childRoutes && childRoutes.map(({ childTitle, childPath }) => (
+                      <MenuItem
+                        key={childPath}
+                        sx={{
+                          "&:hover": {
+                            background: '#96bdd9',
+                            color: '#303030',
+                          },
+                        }}
+                        onClick={() => {
+                          customRedirect(childPath ? childPath : '/');
+                          handleCloseMenuLinks();
+                        }}
+                      >{childTitle ? childTitle : ''}</MenuItem>
+
+                    ))}
+                  </Menu>
+                </Box>
               ))}
             </Box>
 
@@ -159,7 +212,13 @@ const Navbar = () => {
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: "45px" }}
+                sx={{
+                  mt: "45px",
+                  "& .MuiMenu-list, & .MuiMenu-paper": {
+                    background: '#333'
+                  },
+                }}
+
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -173,9 +232,15 @@ const Navbar = () => {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
+
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem sx={{
+                    "&:hover": {
+                      background: '#96bdd9',
+                      color: '#303030',
+                    },
+                  }} key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
