@@ -17,10 +17,18 @@ export interface MovieResult {
   media_type: MediaType.Movie;
   genre_ids: number[];
   popularity: number;
-  release_date: Date;
+  release_date: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
+  runtime: number;
+  homepage: string;
+  genres: { name: string; id: number }[];
+  spoken_languages: { english_name: string; name: string }[];
+  status: string;
+  revenue: number;
+  budget: number;
+  imdb_id: string;
 }
 
 export enum MediaType {

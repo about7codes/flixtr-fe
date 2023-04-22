@@ -34,7 +34,7 @@ const Poster = ({ singleMovieData }: PosterProps) => {
             width={150}
             height={225}
             // blurDataURL={"https://image.tmdb.org/t/p/w780" + (type==="movie"|| type==="tv"?item.poster_path:item.profile_path)}
-            alt={"movie"}
+            alt={"poster"}
           />
         </Box>
         <Box sx={classes.posterDown}>

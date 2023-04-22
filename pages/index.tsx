@@ -3,12 +3,12 @@ import type { GetServerSidePropsContext, NextPage } from "next";
 import TileSlider from "../components/TileSider/TileSlider";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
-import { MovieData, PeopleData, SeriesData } from "../types/apiResponses";
+import { MovieData, MovieResult, PeopleData, PeopleResult, SeriesData, SeriesResult } from "../types/apiResponses";
 
 type HomeProps = {
-  movieData: MovieData[];
-  seriesData: SeriesData[];
-  peopleData: PeopleData[];
+  movieData: MovieResult[];
+  seriesData: SeriesResult[];
+  peopleData: PeopleResult[];
 };
 
 const Home: NextPage<HomeProps> = ({ movieData, seriesData, peopleData }) => {
