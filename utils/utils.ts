@@ -27,3 +27,9 @@ export const formatToUSD = (num?: number): string => {
   });
   return formatter.format(num);
 };
+
+export const formatImgSrc = (urlLink: string, path?: string): string => {
+  if (!path) return "/assets/img-na.png";
+
+  return urlLink + path;
+};

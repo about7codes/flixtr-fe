@@ -7,8 +7,15 @@ export const styles = {
     justifyContent: "center",
   },
   imageBox: {
-    flex: "0 1 150px",
     padding: "40px 0px",
+    // maxWidth: "300px",
+    height: "450px",
+    flex: "0 1 300px",
+    position: "relative",
+    "@media (max-width: 1000px)": {
+      height: "330px",
+      flex: "0 1 220px",
+    },
   },
   detailMid: {
     flex: "1 1 320px",
@@ -16,6 +23,7 @@ export const styles = {
   },
   mediaTitle: {
     fontWeight: "bold",
+    marginBottom: "10px",
   },
   belowTitle: {
     display: "grid",

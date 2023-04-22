@@ -5,7 +5,9 @@ import { MovieResult } from "../../../../types/apiResponses";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { styles as classes } from "../../../../styles/movieInfo.styles";
 import Link from "next/link";
-import { formatMinutes, formatToUSD } from "../../../../utils/utils";
+import { formatImgSrc, formatMinutes, formatToUSD } from "../../../../utils/utils";
+import ImgRoll from "../../../../components/ImgRoll/ImgRoll";
+import CastRoll from "../../../../components/CastRoll/CastRoll";
 
 type MovieInfoProps = {
   singleMovieData: MovieResult;
@@ -13,7 +15,12 @@ type MovieInfoProps = {
 
 function MovieInfo({ singleMovieData }: MovieInfoProps) {
   console.log('movieInfo: ', singleMovieData);
-  const { backdrop_path, poster_path, title, runtime, overview, homepage, genres, adult, status, release_date, revenue, budget, imdb_id, spoken_languages } = singleMovieData;
+  const { backdrop_path, poster_path, title,
+    runtime, overview, homepage, genres, adult,
+    status, release_date, revenue, budget, imdb_id,
+    spoken_languages, images: { backdrops },
+    credits: { cast }
+  } = singleMovieData;
 
   return (
     <Grid>
@@ -24,11 +31,14 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
         </Box>
         <Box sx={classes.imageBox}>
           <Image
-            width={220}
-            height={330}
+            fill
             className="poster-img"
-            src={"https://image.tmdb.org/t/p/w780" + poster_path}
-            alt={"poster"}
+            placeholder="blur"
+            style={poster_path ? { objectFit: 'cover', objectPosition: 'top' } : { objectFit: 'contain', objectPosition: 'center' }}
+            blurDataURL={formatImgSrc("https://image.tmdb.org/t/p/w780", poster_path)}
+            src={formatImgSrc("https://image.tmdb.org/t/p/w780", poster_path)}
+            sizes={formatImgSrc("https://image.tmdb.org/t/p/w780", poster_path)}
+            alt={title}
           />
         </Box>
         <Box sx={classes.detailMid}>
@@ -130,7 +140,11 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
       </Grid>
 
       <Grid item>
+        <ImgRoll imageList={backdrops} />
+      </Grid>
 
+      <Grid item>
+        <CastRoll castList={cast} />
       </Grid>
     </Grid>
   );

@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export interface MovieData {
   page: number;
   results: MovieResult[];
@@ -25,11 +27,17 @@ export interface MovieResult {
   homepage: string;
   genres: { name: string; id: number }[];
   spoken_languages: { english_name: string; name: string }[];
+  images: { backdrops: { file_path: string }[] };
+  credits: {
+    cast: Cast[];
+  };
   status: string;
   revenue: number;
   budget: number;
   imdb_id: string;
 }
+
+export type Cast = { character: string; name: string; profile_path: string };
 
 export enum MediaType {
   Movie = "movie",
