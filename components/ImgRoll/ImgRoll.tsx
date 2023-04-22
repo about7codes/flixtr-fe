@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from "next/image";
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { styles as classes } from './imgRoll.styles';
 import { formatImgSrc } from '../../utils/utils';
 

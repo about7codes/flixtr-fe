@@ -31,6 +31,9 @@ export interface MovieResult {
   credits: {
     cast: Cast[];
   };
+  videos: {
+    results: ClipResults[];
+  };
   status: string;
   revenue: number;
   budget: number;
@@ -38,6 +41,11 @@ export interface MovieResult {
 }
 
 export type Cast = { character: string; name: string; profile_path: string };
+export type ClipResults = {
+  key: string;
+  site: string;
+  name: string;
+};
 
 export enum MediaType {
   Movie = "movie",

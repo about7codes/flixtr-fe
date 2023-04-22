@@ -8,6 +8,7 @@ import Link from "next/link";
 import { formatImgSrc, formatMinutes, formatToUSD } from "../../../../utils/utils";
 import ImgRoll from "../../../../components/ImgRoll/ImgRoll";
 import CastRoll from "../../../../components/CastRoll/CastRoll";
+import ClipRoll from "../../../../components/ClipRoll/ClipRoll";
 
 type MovieInfoProps = {
   singleMovieData: MovieResult;
@@ -19,7 +20,7 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
     runtime, overview, homepage, genres, adult,
     status, release_date, revenue, budget, imdb_id,
     spoken_languages, images: { backdrops },
-    credits: { cast }
+    credits: { cast }, videos,
   } = singleMovieData;
 
   return (
@@ -144,8 +145,13 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
       </Grid>
 
       <Grid item>
+        <ClipRoll clipList={videos.results} />
+      </Grid>
+
+      <Grid item>
         <CastRoll castList={cast} />
       </Grid>
+
     </Grid>
   );
 
