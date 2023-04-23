@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { GetServerSidePropsContext } from "next";
 import { MovieResult } from "../../../../types/apiResponses";
@@ -24,10 +24,6 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
     spoken_languages, images: { backdrops },
     credits: { cast }, videos, recommendations, similar
   } = singleMovieData;
-
-  useEffect(() => {
-    return () => { };
-  }, []);
 
   return (
     <Grid>

@@ -1,5 +1,3 @@
-import { type } from "os";
-
 export interface MovieData {
   page: number;
   results: MovieResult[];
@@ -43,6 +41,7 @@ export interface MovieResult {
 }
 
 export type Cast = { character: string; name: string; profile_path: string };
+
 export type ClipResults = {
   key: string;
   site: string;
@@ -74,10 +73,26 @@ export interface SeriesResult {
   media_type: MediaType.Tv;
   genre_ids: number[];
   popularity: number;
-  first_air_date: Date;
+  first_air_date: string;
   vote_average: number;
   vote_count: number;
+  number_of_seasons: number;
+  number_of_episodes: number;
   origin_country: string[];
+  episode_run_time: number[];
+  homepage: string;
+  genres: { name: string; id: number }[];
+  status: string;
+  spoken_languages: { english_name: string; name: string }[];
+  images: { backdrops: { file_path: string }[] };
+  credits: {
+    cast: Cast[];
+  };
+  videos: {
+    results: ClipResults[];
+  };
+  recommendations: { results: SeriesResult[] };
+  similar: { results: SeriesResult[] };
 }
 
 export interface PeopleData {
