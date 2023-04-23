@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { GetServerSidePropsContext } from "next";
 import { MovieResult } from "../../../../types/apiResponses";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { styles as classes } from "../../../../styles/movieInfo.styles";
 import Link from "next/link";
-import { formatImgSrc, formatMinutes, formatToUSD } from "../../../../utils/utils";
+import { formatImgSrc, formatMinutes, formatToUSD, toUrlFriendly } from "../../../../utils/utils";
 import ImgRoll from "../../../../components/ImgRoll/ImgRoll";
 import CastRoll from "../../../../components/CastRoll/CastRoll";
 import ClipRoll from "../../../../components/ClipRoll/ClipRoll";
@@ -17,12 +17,17 @@ type MovieInfoProps = {
 
 function MovieInfo({ singleMovieData }: MovieInfoProps) {
   console.log('movieInfo: ', singleMovieData);
-  const { backdrop_path, poster_path, title,
+
+  const { id, backdrop_path, poster_path, title,
     runtime, overview, homepage, genres, adult,
     status, release_date, revenue, budget, imdb_id,
     spoken_languages, images: { backdrops },
     credits: { cast }, videos, recommendations, similar
   } = singleMovieData;
+
+  useEffect(() => {
+    return () => { };
+  }, []);
 
   return (
     <Grid>
@@ -52,9 +57,14 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
             </Grid>
           </Box>
           <Box sx={classes.mediaBtns}>
-            <Button variant="contained" color="secondary" sx={{ m: 1, marginLeft: 0 }}>
-              Watch now
-            </Button>
+            {new Date() > new Date(release_date) && (
+              <Link href={`/movie/${id}/${toUrlFriendly(title)}/watch`}>
+                <Button variant="contained" color="secondary" sx={{ m: 1, marginLeft: 0 }}>
+                  Watch now
+                </Button>
+              </Link>
+            )}
+
             {false ? (
               <Button variant="outlined" color="error">
                 Remove from watchlist
@@ -153,14 +163,12 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
         <CastRoll castList={cast} />
       </Grid>
 
-      <Grid item>
-        <Typography variant='h5'>Our recommendations</Typography>
-        <TileSlider movieData={recommendations.results} />
+      <Grid item sx={{ p: '20px 0' }}>
+        <TileSlider title='Our recommendations' movieData={recommendations.results} />
       </Grid>
 
-      <Grid item>
-        <Typography variant='h5'>Something similar</Typography>
-        <TileSlider movieData={similar.results} />
+      <Grid item sx={{ p: '20px 0' }}>
+        <TileSlider title='Something similar' movieData={similar.results} />
       </Grid>
 
     </Grid>

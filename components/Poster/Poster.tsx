@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { styles as classes } from "./poster.styles";
 import Link from "next/link";
 import { MovieResult } from "../../types/apiResponses";
+import { toUrlFriendly } from "../../utils/utils";
 
 type PosterProps = {
   singleMovieData: MovieResult
@@ -12,10 +13,7 @@ type PosterProps = {
 const Poster = ({ singleMovieData }: PosterProps) => {
   const { id, title, release_date } = singleMovieData;
 
-  const toUrlFriendly = (phrase: string) => {
-    const withOutSpecialChar = phrase.replace(/[&#,+()$~%'.":!*?<>{}]/g, "");
-    return withOutSpecialChar.replace(/\s+/g, "-").toLowerCase();
-  }
+
   const titleConverted = toUrlFriendly(title);
 
   return (

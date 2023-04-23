@@ -10,7 +10,7 @@ type CastRollProps = {
 }
 
 const CastRoll = ({ castList }: CastRollProps) => {
-  if (!castList.length) return null;
+  if (!castList?.length) return null;
 
   return (
     <Box>

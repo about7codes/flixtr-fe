@@ -1,3 +1,17 @@
+export const removeSpecialCharacters = (phrase: string) => {
+  return phrase.replace(/[&#,+()$~%'.":!*?<>{}]/g, "");
+};
+
+export const replaceSpacesWithDash = (phrase: string) => {
+  return phrase.replace(/\s+/g, "-");
+};
+
+export const toUrlFriendly = (phrase: string) => {
+  const withoutSpecialChar = removeSpecialCharacters(phrase);
+  const withDashes = replaceSpacesWithDash(withoutSpecialChar);
+  return withDashes.toLowerCase();
+};
+
 export const formatMinutes = (minutes?: number): string => {
   if (!minutes || isNaN(minutes)) {
     return "0 min";

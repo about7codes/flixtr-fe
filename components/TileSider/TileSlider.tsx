@@ -2,16 +2,19 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Box, Container } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Poster from "../Poster/Poster";
 import { MovieResult } from "../../types/apiResponses";
 import { styles as classes } from "./tileSlider.styles";
 
 type TileSliderProps = {
+  title?: string;
   movieData?: MovieResult[];
 };
 
-const TileSlider = ({ movieData }: TileSliderProps) => {
+const TileSlider = ({ title, movieData }: TileSliderProps) => {
+  if (!movieData?.length) return null;
+
   // console.log("TileSlider", movieData);
   const settings = {
     arrows: true,
@@ -28,9 +31,8 @@ const TileSlider = ({ movieData }: TileSliderProps) => {
 
   return (
     <Container>
-
+      {title && <Typography variant='h5' textAlign='center'>{title}</Typography>}
       <Box>
-
         <Slider {...settings}>
           {movieData?.map((singleMovieData, index) => (
             <div key={index}>
