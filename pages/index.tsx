@@ -3,8 +3,9 @@ import type { GetServerSidePropsContext, NextPage } from "next";
 import TileSlider from "../components/TileSider/TileSlider";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
-import { MovieData, MovieResult, PeopleData, PeopleResult, SeriesData, SeriesResult } from "../types/apiResponses";
+import { MovieResult, PeopleResult, SeriesResult } from "../types/apiResponses";
 import { Box, Typography } from "@mui/material";
+import TvTileSlider from "../components/TvTileSlider/TvTileSlider";
 
 type HomeProps = {
   movieData: MovieResult[];
@@ -13,8 +14,8 @@ type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = ({ movieData, seriesData, peopleData }) => {
-  // console.log("MovieDATA", movieData);
-  // console.log("seriesDATA", seriesData);
+  console.log("MovieDATA", movieData);
+  console.log("seriesDATA", seriesData);
   // console.log("peopleDATA", peopleData);
   return (
     <div className={styles.container}>
@@ -24,14 +25,26 @@ const Home: NextPage<HomeProps> = ({ movieData, seriesData, peopleData }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Hello Nexts</h1>
-      <Box sx={{ textAlign: "center" }}>
-        <Typography variant="h4">Trending Movies</Typography>
-        <Typography variant="body1">
-          Here are some of the most recent movies recommended by our community
-        </Typography>
+
+      <Box sx={{ m: '60px 0' }}>
+        <Box sx={{ textAlign: "center" }}>
+          <Typography variant="h4">Trending Movies</Typography>
+          <Typography variant="body1">
+            Here are some of the most recent movies recommended by our community
+          </Typography>
+        </Box>
+        <TileSlider movieData={movieData} />
       </Box>
-      <TileSlider movieData={movieData} />
+
+      <Box sx={{ m: '60px 0' }}>
+        <Box sx={{ textAlign: "center" }}>
+          <Typography variant="h4">Trending Shows</Typography>
+          <Typography variant="body1">
+            Here are some of the most recent shows recommended by our community
+          </Typography>
+        </Box>
+        <TvTileSlider seriesData={seriesData} />
+      </Box>
     </div>
   );
 };

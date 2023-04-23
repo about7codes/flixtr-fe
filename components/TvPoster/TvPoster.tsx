@@ -1,23 +1,23 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { Box, Typography } from "@mui/material";
-import { styles as classes } from "./poster.styles";
-import { MovieResult } from "../../types/apiResponses";
+import { styles as classes } from "./tvPoster.styles";
+import { SeriesResult } from "../../types/apiResponses";
 import { formatImgSrc, toUrlFriendly } from "../../utils/utils";
 
-type PosterProps = {
-  singleMovieData: MovieResult
+type TvPosterProps = {
+  singleShowData: SeriesResult;
 };
 
-const Poster = ({ singleMovieData }: PosterProps) => {
+const TvPoster = ({ singleShowData }: TvPosterProps) => {
 
-  const { id, title, release_date, poster_path } = singleMovieData;
-  const titleConverted = toUrlFriendly(title);
+  const { id, name, first_air_date, poster_path } = singleShowData;
+  const titleConverted = toUrlFriendly(name);
 
   return (
     <Box sx={classes.poster}>
-      <Link href={`/movie/${id}/${titleConverted}`}>
+      <Link href={`/tv/${id}/${titleConverted}`}>
         <Box sx={classes.posterUp}>
           <Image
             fill
@@ -31,12 +31,16 @@ const Poster = ({ singleMovieData }: PosterProps) => {
           />
         </Box>
         <Box sx={classes.posterDown}>
-          <Typography variant="subtitle2" sx={classes.posterTitle} title={title}>{title}</Typography>
-          <Typography variant="subtitle2">{new Date(release_date).getFullYear()}</Typography>
+          <Typography variant="subtitle2" sx={classes.posterTitle} title={name}>
+            {name}
+          </Typography>
+          <Typography variant="subtitle2">
+            {new Date(first_air_date).getFullYear()}
+          </Typography>
         </Box>
       </Link>
     </Box>
   );
 };
 
-export default Poster;
+export default TvPoster;
