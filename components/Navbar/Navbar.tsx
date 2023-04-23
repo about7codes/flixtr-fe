@@ -105,7 +105,7 @@ const Navbar = () => {
   return (
     <>
       <AppBar position="static">
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" sx={{ color: 'secondary.main' }}>
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
@@ -169,7 +169,7 @@ const Navbar = () => {
                         handleClickMenuLinks(e, title);
                       }
                     }}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, color: "secondary.main", display: "block" }}
                   >
                     {title}
                   </Button>

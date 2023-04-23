@@ -104,6 +104,22 @@ export interface ShowSeason {
   overview: string;
   poster_path: string;
   season_number: number;
+  episodes?: ShowEpisode[];
+}
+
+export interface ShowEpisode {
+  air_date: Date;
+  episode_number: number;
+  id: number;
+  name: string;
+  overview: string;
+  production_code: string;
+  runtime: number;
+  season_number: number;
+  show_id: number;
+  still_path: string;
+  vote_average: number;
+  vote_count: number;
 }
 
 export interface PeopleData {

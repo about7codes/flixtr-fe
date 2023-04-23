@@ -56,7 +56,7 @@ function TvShowInfo({ singleShowData }: TvShowInfoProps) {
           </Box>
           <Box sx={classes.mediaBtns}>
             {new Date() > new Date(first_air_date) && (
-              <Link href={`/movie/${id}/${toUrlFriendly(name)}/watch`}>
+              <Link href={`/tv/${id}/${toUrlFriendly(name)}/season/1`}>
                 <Button variant="contained" color="secondary" sx={{ m: 1, marginLeft: 0 }}>
                   Watch episode 1
                 </Button>

@@ -20,7 +20,7 @@ const SeasonRoll = ({ seasonList, showId, showName }: SeasonRollProps) => {
       <Typography variant='h5'>Seasons</Typography>
       <Grid container sx={classes.seasonRoll}>
 
-        {seasonList.map((season, index) => (
+        {seasonList.map((season, index) => season.season_number !== 0 && (
           <Grid item sx={classes.seasonItem} key={index}>
             <Link href={`/tv/${showId}/${toUrlFriendly(showName)}/season/${season.season_number}`}>
               <Grid sx={classes.seasonImg}>

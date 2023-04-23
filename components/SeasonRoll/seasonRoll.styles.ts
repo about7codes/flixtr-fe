@@ -14,6 +14,11 @@ export const styles = {
     overflow: "hidden",
     width: "138px",
     flex: "none",
+    transition: "transform .4s ease",
+    "&:hover": {
+      transform: "scale(.9)",
+      transition: "transform .4s ease",
+    },
   },
   seasonImg: {
     position: "relative",
