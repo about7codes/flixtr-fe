@@ -1,12 +1,11 @@
 import React from "react";
-import Image from "next/image";
-import { Box, Container, Typography } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { styles as classes } from "./tileSlider.styles";
+import { Box, Container } from "@mui/material";
 import Poster from "../Poster/Poster";
-import { MovieData, MovieResult } from "../../types/apiResponses";
+import { MovieResult } from "../../types/apiResponses";
+import { styles as classes } from "./tileSlider.styles";
 
 type TileSliderProps = {
   movieData?: MovieResult[];
@@ -29,12 +28,7 @@ const TileSlider = ({ movieData }: TileSliderProps) => {
 
   return (
     <Container>
-      <Box sx={{ textAlign: "center" }}>
-        <Typography variant="h4">Trending Movies</Typography>
-        <Typography variant="body1">
-          Here are some of the most recent movies recommended by our community
-        </Typography>
-      </Box>
+
       <Box>
 
         <Slider {...settings}>

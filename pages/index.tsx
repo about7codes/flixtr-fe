@@ -4,6 +4,7 @@ import TileSlider from "../components/TileSider/TileSlider";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 import { MovieData, MovieResult, PeopleData, PeopleResult, SeriesData, SeriesResult } from "../types/apiResponses";
+import { Box, Typography } from "@mui/material";
 
 type HomeProps = {
   movieData: MovieResult[];
@@ -24,6 +25,12 @@ const Home: NextPage<HomeProps> = ({ movieData, seriesData, peopleData }) => {
       </Head>
 
       <h1>Hello Nexts</h1>
+      <Box sx={{ textAlign: "center" }}>
+        <Typography variant="h4">Trending Movies</Typography>
+        <Typography variant="body1">
+          Here are some of the most recent movies recommended by our community
+        </Typography>
+      </Box>
       <TileSlider movieData={movieData} />
     </div>
   );

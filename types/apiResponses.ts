@@ -34,6 +34,8 @@ export interface MovieResult {
   videos: {
     results: ClipResults[];
   };
+  recommendations: { results: MovieResult[] };
+  similar: { results: MovieResult[] };
   status: string;
   revenue: number;
   budget: number;

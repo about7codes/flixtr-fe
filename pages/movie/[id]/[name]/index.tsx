@@ -9,6 +9,7 @@ import { formatImgSrc, formatMinutes, formatToUSD } from "../../../../utils/util
 import ImgRoll from "../../../../components/ImgRoll/ImgRoll";
 import CastRoll from "../../../../components/CastRoll/CastRoll";
 import ClipRoll from "../../../../components/ClipRoll/ClipRoll";
+import TileSlider from "../../../../components/TileSider/TileSlider";
 
 type MovieInfoProps = {
   singleMovieData: MovieResult;
@@ -20,7 +21,7 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
     runtime, overview, homepage, genres, adult,
     status, release_date, revenue, budget, imdb_id,
     spoken_languages, images: { backdrops },
-    credits: { cast }, videos,
+    credits: { cast }, videos, recommendations, similar
   } = singleMovieData;
 
   return (
@@ -150,6 +151,16 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
 
       <Grid item>
         <CastRoll castList={cast} />
+      </Grid>
+
+      <Grid item>
+        <Typography variant='h5'>Our recommendations</Typography>
+        <TileSlider movieData={recommendations.results} />
+      </Grid>
+
+      <Grid item>
+        <Typography variant='h5'>Something similar</Typography>
+        <TileSlider movieData={similar.results} />
       </Grid>
 
     </Grid>

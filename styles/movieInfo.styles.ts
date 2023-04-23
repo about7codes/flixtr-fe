@@ -7,7 +7,7 @@ export const styles = {
     justifyContent: "center",
   },
   imageBox: {
-    padding: "40px 0px",
+    margin: "40px 0px",
     // maxWidth: "300px",
     height: "450px",
     flex: "0 1 300px",
