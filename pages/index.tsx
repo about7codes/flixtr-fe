@@ -14,7 +14,7 @@ type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = ({ movieData, seriesData, peopleData }) => {
-  console.log("MovieDATA", movieData);
+  // console.log("MovieDATA", movieData);
   console.log("seriesDATA", seriesData);
   // console.log("peopleDATA", peopleData);
   return (

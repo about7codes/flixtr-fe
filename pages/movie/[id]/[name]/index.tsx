@@ -16,7 +16,7 @@ type MovieInfoProps = {
 };
 
 function MovieInfo({ singleMovieData }: MovieInfoProps) {
-  console.log('movieInfo: ', singleMovieData);
+  // console.log('movieInfo: ', singleMovieData);
 
   const { id, backdrop_path, poster_path, title,
     runtime, overview, homepage, genres, adult,

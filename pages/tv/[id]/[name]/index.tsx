@@ -1,15 +1,16 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from "next/image";
-import { Grid, Box, Typography, Button } from '@mui/material';
 import { GetServerSidePropsContext } from 'next';
+import { Grid, Box, Typography, Button } from '@mui/material';
 import { SeriesResult } from '../../../../types/apiResponses';
 import { styles as classes } from '../../../../styles/tvShowInfo.styles';
-import { formatImgSrc, formatMinutes, toUrlFriendly, formatToUSD } from '../../../../utils/utils';
 import ImgRoll from '../../../../components/ImgRoll/ImgRoll';
 import ClipRoll from '../../../../components/ClipRoll/ClipRoll';
 import CastRoll from '../../../../components/CastRoll/CastRoll';
 import TvTileSlider from '../../../../components/TvTileSlider/TvTileSlider';
+import { formatImgSrc, formatMinutes, toUrlFriendly } from '../../../../utils/utils';
+import SeasonRoll from '../../../../components/SeasonRoll/SeasonRoll';
 
 
 type TvShowInfoProps = {
@@ -22,7 +23,7 @@ function TvShowInfo({ singleShowData }: TvShowInfoProps) {
   const { id, backdrop_path, poster_path, name,
     episode_run_time, overview, homepage, genres, adult,
     status, first_air_date, number_of_episodes, number_of_seasons,
-    spoken_languages, images: { backdrops },
+    spoken_languages, images: { backdrops }, seasons,
     credits: { cast }, videos, recommendations, similar
   } = singleShowData;
 
@@ -136,6 +137,10 @@ function TvShowInfo({ singleShowData }: TvShowInfoProps) {
             </Grid>
           </Grid>
         </Box>
+      </Grid>
+
+      <Grid item>
+        <SeasonRoll seasonList={seasons} showId={id} showName={name} />
       </Grid>
 
       <Grid item>
