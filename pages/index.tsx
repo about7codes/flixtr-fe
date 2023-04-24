@@ -26,7 +26,7 @@ const Home: NextPage<HomeProps> = ({ movieData, seriesData, peopleData }) => {
       </Head>
 
 
-      <Box sx={{ m: '60px 0' }}>
+      <Box sx={classes.sliderContainer}>
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h4" sx={classes.headTxt}>Trending Movies</Typography>
           <Typography variant="body1" sx={classes.subTxt}>
@@ -36,7 +36,7 @@ const Home: NextPage<HomeProps> = ({ movieData, seriesData, peopleData }) => {
         <TileSlider movieData={movieData} />
       </Box>
 
-      <Box sx={{ m: '60px 0' }}>
+      <Box sx={classes.sliderContainer}>
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h4" sx={classes.headTxt}>Trending Shows</Typography>
           <Typography variant="body1" sx={classes.subTxt}>

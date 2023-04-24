@@ -19,12 +19,16 @@ export const styles = {
       transform: "scale(.9)",
       transition: "transform .4s ease",
     },
+    "@media (max-width: 900px)": {
+      width: "110px",
+    },
   },
   seasonImg: {
     position: "relative",
     height: "175px",
-    // overflow: "hidden",
-    // borderRadius: "10px",
+    "@media (max-width: 900px)": {
+      height: "140px",
+    },
   },
   seasonBadge: {
     position: "absolute",
@@ -41,12 +45,21 @@ export const styles = {
   },
   seasonNames: {
     padding: "10px",
+    "@media (max-width: 900px)": {
+      padding: "7px",
+    },
   },
   seasonName: {
     fontWeight: "bold",
     fontSize: "16px",
+    "@media (max-width: 900px)": {
+      fontSize: "14px",
+    },
   },
   sub: {
     fontSize: "14px",
+    "@media (max-width: 900px)": {
+      fontSize: "12px",
+    },
   },
 };

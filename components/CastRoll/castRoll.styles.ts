@@ -26,8 +26,6 @@ export const styles = {
   castImg: {
     position: "relative",
     height: "175px",
-    // overflow: "hidden",
-    // borderRadius: "10px",
     "@media (max-width: 900px)": {
       height: "140px",
     },
