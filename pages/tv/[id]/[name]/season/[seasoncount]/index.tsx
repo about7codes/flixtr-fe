@@ -25,10 +25,10 @@ function SeasonCount({ tvShowData, tvShowSeasonData }: SeasonCountProps) {
     <Grid container>
       <Grid item sx={classes.watchHead}>
         <Link href={`/tv/${id}/${name}`} className='backToInfo'>
-          <ArrowBackIosNewIcon sx={classes.backIco} />
-          <Typography>Back to TV show details</Typography>
+          <Button variant="outlined" color='secondary' startIcon={<ArrowBackIosNewIcon sx={classes.backIco} />} size='small'>
+            Back to show details
+          </Button>
         </Link>
-
         <Typography sx={{ textTransform: 'capitalize', paddingLeft: "10px", }}>Watching season {seasoncount} episode {ep} of {typeof name === 'string' && name?.replaceAll('-', ' ')}</Typography>
       </Grid>
 

@@ -16,7 +16,6 @@ export const styles = {
     marginRight: "5px",
     fontSize: "14px",
   },
-  backTxt: {},
   moviePlayer: {
     width: "100%",
     "& iframe": {

@@ -189,7 +189,7 @@ const Navbar = () => {
                         key={childPath}
                         sx={{
                           "&:hover": {
-                            background: '#96bdd9',
+                            backgroundColor: 'secondary.main',
                             color: '#303030',
                           },
                         }}

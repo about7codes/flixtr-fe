@@ -1,10 +1,14 @@
 export const styles = {
   poster: {
+    color: "secondary.main",
     maxWidth: "150px",
     width: "100%",
     margin: "10px",
     "& .poster-img": {
       borderRadius: "8px",
+    },
+    "&:hover": {
+      color: "#fff",
     },
   },
   posterUp: {
@@ -12,7 +16,9 @@ export const styles = {
     width: "150px",
     height: "225px",
   },
-  posterDown: {},
+  posterDown: {
+    paddingTop: "10px",
+  },
   posterTitle: {
     fontSize: "0.85rem",
     display: "-webkit-box",

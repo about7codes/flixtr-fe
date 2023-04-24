@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { styles as classes } from "../../../../styles/watchMovie.styles";
 
@@ -13,8 +13,9 @@ function Watch() {
     <Grid container>
       <Grid item sx={classes.watchHead}>
         <Link href={`/movie/${id}/${name}`} className='backToInfo'>
-          <ArrowBackIosNewIcon sx={classes.backIco} />
-          <Typography sx={classes.backTxt}>Back to movie details</Typography>
+          <Button variant="outlined" color='secondary' startIcon={<ArrowBackIosNewIcon sx={classes.backIco} />} size='small'>
+            Back to movie details
+          </Button>
         </Link>
 
         <Typography sx={{ textTransform: 'capitalize', paddingLeft: "10px", }}>Watching {typeof name === 'string' && name?.replaceAll('-', ' ')}</Typography>

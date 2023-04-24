@@ -9,7 +9,7 @@ export const styles = {
   },
   footerXD: {
     paddingTop: "70px",
-    backgroundColor: "#96bdd9",
+    backgroundColor: "secondary.main",
     opacity: 1,
     // backgroundImage:
     //   "repeating-radial-gradient( circle at 0 0, transparent 0, #ff0000 10px ), repeating-linear-gradient( #ff434355, #ff4343 )",
@@ -60,7 +60,7 @@ export const styles = {
   },
   footerTopHead: {
     textTransform: "uppercase",
-    color: "#96bdd9",
+    color: "secondary.main",
     fontWeight: "bold",
     fontSize: "2rem",
     "@media (max-width: 768px)": {
