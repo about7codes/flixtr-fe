@@ -42,7 +42,7 @@ function SeasonCount({ tvShowData, tvShowSeasonData }: SeasonCountProps) {
 
       <Grid item sx={classes.episodeBtns}>
         {tvShowSeasonData?.episodes?.map(({ episode_number }) => (
-          <Box sx={classes.episodeBtnBox}>
+          <Box sx={classes.episodeBtnBox} key={episode_number}>
             <Button
               variant='contained'
               sx={classes.episodeBtn}
