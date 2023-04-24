@@ -55,24 +55,24 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
           <Box sx={classes.mediaBtns}>
             {new Date() > new Date(release_date) && (
               <Link href={`/movie/${id}/${toUrlFriendly(title)}/watch`}>
-                <Button variant="contained" color="secondary" sx={{ m: 1, marginLeft: 0 }}>
+                <Button variant="contained" color="secondary" sx={classes.watchBtn}>
                   Watch now
                 </Button>
               </Link>
             )}
 
             {false ? (
-              <Button variant="outlined" color="error">
+              <Button variant="outlined" color="error" sx={classes.watchlistBtn}>
                 Remove from watchlist
               </Button>
             ) : (
-              <Button variant="outlined" color="secondary">
+              <Button variant="outlined" color="secondary" sx={classes.watchlistBtn}>
                 Add to watchlist
               </Button>
             )}
           </Box>
           <Box>
-            <Typography variant="body1">{overview}</Typography>
+            <Typography variant="body1" sx={classes.overview}>{overview}</Typography>
           </Box>
         </Box>
 
@@ -159,13 +159,14 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
         <CastRoll castList={cast} />
       </Grid>
 
-      <Grid item sx={{ p: '20px 0' }}>
-        <TileSlider title='Our recommendations' movieData={recommendations.results} />
-      </Grid>
-
-      <Grid item sx={{ p: '20px 0' }}>
-        <TileSlider title='Something similar' movieData={similar.results} />
-      </Grid>
+      {[
+        { movieData: recommendations?.results, title: "Our recommendations" },
+        { movieData: similar?.results, title: "Something similar" },
+      ].map(({ movieData, title }) => (
+        <Grid item sx={{ p: "20px 0" }} key={title}>
+          <TileSlider title={title} movieData={movieData} />
+        </Grid>
+      ))}
 
     </Grid>
   );

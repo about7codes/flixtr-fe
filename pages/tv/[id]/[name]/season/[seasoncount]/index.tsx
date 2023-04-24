@@ -6,6 +6,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { SeriesResult, ShowSeason } from '../../../../../../types/apiResponses';
 import { styles as classes } from '../../../../../../styles/SeasonCount.styles';
 import { useRouter } from 'next/router';
+import TvTileSlider from '../../../../../../components/TvTileSlider/TvTileSlider';
 
 type SeasonCountProps = {
   tvShowData: SeriesResult;
@@ -15,11 +16,12 @@ type SeasonCountProps = {
 function SeasonCount({ tvShowData, tvShowSeasonData }: SeasonCountProps) {
   const router = useRouter();
   const { id, name, seasoncount } = router.query;
+  const { recommendations, similar } = tvShowData;
 
   const [ep, setEp] = useState(1);
 
-  // console.log('tvShowData', tvShowData)
-  console.log('tvShowSeasonData', tvShowSeasonData)
+  console.log('tvShowData', tvShowData)
+  // console.log('tvShowSeasonData', tvShowSeasonData)
 
   return (
     <Grid container>
@@ -55,6 +57,15 @@ function SeasonCount({ tvShowData, tvShowSeasonData }: SeasonCountProps) {
           </Box>
         ))}
       </Grid>
+
+      {[
+        { movieData: recommendations?.results, title: "Recommended for you" },
+        { movieData: similar?.results, title: "Related shows" },
+      ].map(({ movieData, title }) => (
+        <Grid item sx={{ p: '20px 0', width: '100%' }} key={title}>
+          <TvTileSlider title={title} seriesData={movieData} />
+        </Grid>
+      ))}
 
     </Grid>
   )

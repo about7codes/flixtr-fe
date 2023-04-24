@@ -57,24 +57,24 @@ function TvShowInfo({ singleShowData }: TvShowInfoProps) {
           <Box sx={classes.mediaBtns}>
             {new Date() > new Date(first_air_date) && (
               <Link href={`/tv/${id}/${toUrlFriendly(name)}/season/1`}>
-                <Button variant="contained" color="secondary" sx={{ m: 1, marginLeft: 0 }}>
+                <Button variant="contained" color="secondary" sx={classes.watchBtn}>
                   Watch episode 1
                 </Button>
               </Link>
             )}
 
             {false ? (
-              <Button variant="outlined" color="error">
+              <Button variant="outlined" color="error" sx={classes.watchlistBtn}>
                 Remove from watchlist
               </Button>
             ) : (
-              <Button variant="outlined" color="secondary">
+              <Button variant="outlined" color="secondary" sx={classes.watchlistBtn}>
                 Add to watchlist
               </Button>
             )}
           </Box>
           <Box>
-            <Typography variant="body1">{overview}</Typography>
+            <Typography variant="body1" sx={classes.overview}>{overview}</Typography>
           </Box>
         </Box>
 
@@ -155,13 +155,14 @@ function TvShowInfo({ singleShowData }: TvShowInfoProps) {
         <CastRoll castList={cast} />
       </Grid>
 
-      <Grid item sx={{ p: '20px 0' }}>
-        <TvTileSlider title='Must watch shows' seriesData={recommendations.results} />
-      </Grid>
-
-      <Grid item sx={{ p: '20px 0' }}>
-        <TvTileSlider title='Shows you may like' seriesData={similar.results} />
-      </Grid>
+      {[
+        { movieData: recommendations?.results, title: "Must watch shows" },
+        { movieData: similar?.results, title: "Shows you may like" },
+      ].map(({ movieData, title }) => (
+        <Grid item sx={{ p: '20px 0' }} key={title}>
+          <TvTileSlider title={title} seriesData={movieData} />
+        </Grid>
+      ))}
 
     </Grid>
   )

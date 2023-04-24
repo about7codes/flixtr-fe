@@ -5,6 +5,9 @@ export const styles = {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
+    "@media (max-width: 900px)": {
+      padding: "0",
+    },
   },
   imageBox: {
     margin: "40px 0px",
@@ -15,15 +18,27 @@ export const styles = {
     "@media (max-width: 1000px)": {
       height: "330px",
       flex: "0 1 220px",
+      margin: "25px 0px",
     },
   },
   detailMid: {
     flex: "1 1 320px",
     padding: "40px 30px",
+    "@media (max-width: 587px)": {
+      padding: "0 0 10px 0",
+    },
   },
   mediaTitle: {
     fontWeight: "bold",
     marginBottom: "10px",
+    "@media (max-width: 900px)": {
+      fontSize: "20px",
+    },
+  },
+  overview: {
+    "@media (max-width: 900px)": {
+      fontSize: "12px",
+    },
   },
   belowTitle: {
     display: "grid",
@@ -33,6 +48,24 @@ export const styles = {
   },
   mediaBtns: {
     margin: "10px 0",
+    "@media (max-width: 900px)": {
+      display: "flex",
+      flexDirection: "column",
+    },
+  },
+  watchBtn: {
+    m: 1,
+    marginLeft: 0,
+    whiteSpace: "nowrap",
+    "@media (max-width: 900px)": {
+      width: "100%",
+    },
+  },
+  watchlistBtn: {
+    whiteSpace: "nowrap",
+    "@media (max-width: 900px)": {
+      width: "100%",
+    },
   },
   detailLast: {
     flex: "0 1 150px",
