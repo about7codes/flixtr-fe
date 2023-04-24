@@ -14,7 +14,7 @@ const ClipRoll = ({ clipList }: ClipRollProps) => {
 
   return (
     <Box>
-      <Typography variant='h5'>Clips & Trailers</Typography>
+      <Typography variant='h5' sx={classes.headTxt}>Clips & Trailers</Typography>
 
       <Grid container sx={classes.clipRoll}>
         {clipList.map(clip => (

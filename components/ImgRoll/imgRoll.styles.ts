@@ -14,5 +14,9 @@ export const styles = {
     flex: "none",
     marginRight: "18px",
     borderRadius: "10px",
+    "@media (max-width: 900px)": {
+      width: "256px",
+      height: "144px",
+    },
   },
 };

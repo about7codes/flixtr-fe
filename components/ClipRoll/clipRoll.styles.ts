@@ -6,6 +6,11 @@ export const styles = {
     overflowX: "auto",
     margin: "10px 0",
   },
+  headTxt: {
+    "@media (max-width: 900px)": {
+      fontSize: "18px",
+    },
+  },
   clipItem: {
     position: "relative",
     width: "320px",
@@ -17,6 +22,10 @@ export const styles = {
     "& .clipLink": {
       width: "inherit",
       height: "inherit",
+    },
+    "@media (max-width: 900px)": {
+      width: "256px",
+      height: "144px",
     },
   },
   clipThumb: {

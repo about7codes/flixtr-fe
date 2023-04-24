@@ -14,7 +14,7 @@ const CastRoll = ({ castList }: CastRollProps) => {
 
   return (
     <Box>
-      <Typography variant='h5'>Casts</Typography>
+      <Typography variant='h5' sx={classes.headTxt}>Casts</Typography>
       <Grid container sx={classes.castRoll}>
 
         {castList.map((cast, index) => (
