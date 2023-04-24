@@ -15,7 +15,9 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { appRoutes } from "../Navbar/Navbar";
 import { useCustomRedirect } from "../../hooks/app.hooks";
-import { ExpandLess, ExpandMore, StarBorder } from "@mui/icons-material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import StarBorder from "@mui/icons-material/StarBorder";
 
 type SidebarProps = {
   sidebarOpen: boolean;
