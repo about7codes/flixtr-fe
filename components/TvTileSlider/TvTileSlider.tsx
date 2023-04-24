@@ -3,9 +3,9 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Container, Typography, Box } from '@mui/material';
-import { MovieResult, SeriesResult } from '../../types/apiResponses';
-import Poster from '../Poster/Poster';
+import { SeriesResult } from '../../types/apiResponses';
 import TvPoster from '../TvPoster/TvPoster';
+import { styles as classes } from './tvTileSlider.styles';
 
 type TvTileSliderProps = {
   title?: string;
@@ -31,7 +31,7 @@ const TvTileSlider = ({ title, seriesData }: TvTileSliderProps) => {
 
   return (
     <Container>
-      {title && <Typography variant='h5' textAlign='center'>{title}</Typography>}
+      {title && <Typography variant='h5' textAlign='center' sx={classes.headTxt}>{title}</Typography>}
       <Box>
         <Slider {...settings}>
           {seriesData?.map((singleShowData, index) => (

@@ -1,11 +1,11 @@
 import Head from "next/head";
 import type { GetServerSidePropsContext, NextPage } from "next";
-import TileSlider from "../components/TileSider/TileSlider";
-import styles from "../styles/Home.module.css";
-import axios from "axios";
-import { MovieResult, PeopleResult, SeriesResult } from "../types/apiResponses";
 import { Box, Typography } from "@mui/material";
+import TileSlider from "../components/TileSider/TileSlider";
 import TvTileSlider from "../components/TvTileSlider/TvTileSlider";
+import { MovieResult, PeopleResult, SeriesResult } from "../types/apiResponses";
+import styles from "../styles/Home.module.css";
+import { styles as classes } from '../styles/Home.styles';
 
 type HomeProps = {
   movieData: MovieResult[];
@@ -28,8 +28,8 @@ const Home: NextPage<HomeProps> = ({ movieData, seriesData, peopleData }) => {
 
       <Box sx={{ m: '60px 0' }}>
         <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h4">Trending Movies</Typography>
-          <Typography variant="body1">
+          <Typography variant="h4" sx={classes.headTxt}>Trending Movies</Typography>
+          <Typography variant="body1" sx={classes.subTxt}>
             Here are some of the most recent movies recommended by our community
           </Typography>
         </Box>
@@ -38,8 +38,8 @@ const Home: NextPage<HomeProps> = ({ movieData, seriesData, peopleData }) => {
 
       <Box sx={{ m: '60px 0' }}>
         <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h4">Trending Shows</Typography>
-          <Typography variant="body1">
+          <Typography variant="h4" sx={classes.headTxt}>Trending Shows</Typography>
+          <Typography variant="body1" sx={classes.subTxt}>
             Here are some of the most recent shows recommended by our community
           </Typography>
         </Box>

@@ -23,7 +23,7 @@ const TileSlider = ({ title, movieData }: TileSliderProps) => {
     speed: 500,
     // slidesToShow: 2,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 1800,
     slidesToScroll: 1,
     variableWidth: true,
     // centerPadding: "20px",
@@ -31,7 +31,7 @@ const TileSlider = ({ title, movieData }: TileSliderProps) => {
 
   return (
     <Container>
-      {title && <Typography variant='h5' textAlign='center'>{title}</Typography>}
+      {title && <Typography variant='h5' textAlign='center' sx={classes.headTxt}>{title}</Typography>}
       <Box>
         <Slider {...settings}>
           {movieData?.map((singleMovieData, index) => (
