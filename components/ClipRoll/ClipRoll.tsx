@@ -19,7 +19,7 @@ const ClipRoll = ({ clipList }: ClipRollProps) => {
       <Grid container sx={classes.clipRoll}>
         {clipList.map(clip => (
           <Box key={clip.key} sx={classes.clipItem}>
-            <a href={"https://www.youtube.com/watch?v=" + clip.key} target="_blank" className='clipLink'>
+            <a href={"https://www.youtube.com/watch?v=" + clip.key} target="_blank" rel="noreferrer" className='clipLink'>
               <Box sx={classes.clipThumb}>
                 <Image
                   fill

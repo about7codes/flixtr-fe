@@ -22,7 +22,7 @@ const Footer = () => {
               <MuiLink
                 href="https://www.facebook.com/"
                 target="_blank"
-                rel="noopener"
+                rel="noreferrer"
                 // sx={classes.sociallink}
               >
                 <img
@@ -36,7 +36,7 @@ const Footer = () => {
               <MuiLink
                 href="https://twitter.com/"
                 target="_blank"
-                rel="noopener"
+                rel="noreferrer"
                 // sx={classes.sociallink}
               >
                 <img
@@ -50,7 +50,7 @@ const Footer = () => {
               <MuiLink
                 href="https://www.instagram.com/"
                 target="_blank"
-                rel="noopener"
+                rel="noreferrer"
                 // sx={classes.sociallink}
               >
                 <img
@@ -64,7 +64,7 @@ const Footer = () => {
               <MuiLink
                 href="https://www.youtube.com/"
                 target="_blank"
-                rel="noopener"
+                rel="noreferrer"
                 // sx={classes.sociallink}
               >
                 <img
@@ -81,7 +81,7 @@ const Footer = () => {
             <MuiLink
               href="/"
               target="_blank"
-              rel="noopener"
+              rel="noreferrer"
               sx={classes.altlink}
               underline="hover"
             >
@@ -92,7 +92,7 @@ const Footer = () => {
             <MuiLink
               href="/"
               target="_blank"
-              rel="noopener"
+              rel="noreferrer"
               sx={classes.altlink}
               underline="hover"
             >
@@ -103,7 +103,7 @@ const Footer = () => {
             <MuiLink
               href="/"
               target="_blank"
-              rel="noopener"
+              rel="noreferrer"
               sx={classes.altlink}
               underline="hover"
             >
@@ -159,7 +159,7 @@ const Footer = () => {
               <MuiLink
                 href="https://play.google.com/store"
                 target="_blank"
-                rel="noopener"
+                rel="noreferrer"
                 // sx={classes.sociallink}
               >
                 <img
@@ -173,7 +173,7 @@ const Footer = () => {
               <MuiLink
                 href="https://apps.apple.com/ae/"
                 target="_blank"
-                rel="noopener"
+                rel="noreferrer"
                 // sx={classes.sociallink}
               >
                 <img
