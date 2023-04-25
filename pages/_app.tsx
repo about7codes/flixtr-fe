@@ -10,7 +10,6 @@ import * as gtag from '../analytics';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  console.log('gtaId:', process.env.NEXT_PUBLIC_GA_TRACKING_ID)
 
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
