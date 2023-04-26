@@ -17,7 +17,7 @@ const Poster = ({ singleMovieData }: PosterProps) => {
 
   return (
     <Box sx={classes.poster}>
-      <Link href={`/movie/${id}/${titleConverted}`}>
+      <Link href={`/movie/${id}/${titleConverted}`} shallow>
         <Box sx={classes.posterUp}>
           <Image
             fill

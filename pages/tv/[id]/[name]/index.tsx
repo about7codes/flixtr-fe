@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link';
 import Image from "next/image";
 import { GetServerSidePropsContext } from 'next';
-import { Grid, Box, Typography, Button } from '@mui/material';
+import { Grid, Box, Typography, Button, LinearProgress } from '@mui/material';
 import { SeriesResult } from '../../../../types/apiResponses';
 import { styles as classes } from '../../../../styles/tvShowInfo.styles';
 import ImgRoll from '../../../../components/ImgRoll/ImgRoll';
@@ -11,21 +11,25 @@ import CastRoll from '../../../../components/CastRoll/CastRoll';
 import TvTileSlider from '../../../../components/TvTileSlider/TvTileSlider';
 import { formatImgSrc, formatMinutes, toUrlFriendly } from '../../../../utils/utils';
 import SeasonRoll from '../../../../components/SeasonRoll/SeasonRoll';
+import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
 
-type TvShowInfoProps = {
-  singleShowData: SeriesResult;
-}
+type TvShowInfoProps = {}
 
-function TvShowInfo({ singleShowData }: TvShowInfoProps) {
-  console.log('tvInfo: ', singleShowData);
+function TvShowInfo() {
+  const router = useRouter();
+  const { data: singleShowData, isLoading } = useSeriesById(router.query.id);
+  // console.log('tvInfo: ', singleShowData);
+
+  if (isLoading) return (<LinearProgress />);
 
   const { id, backdrop_path, poster_path, name,
     episode_run_time, overview, homepage, genres, adult,
     status, first_air_date, number_of_episodes, number_of_seasons,
     spoken_languages, images: { backdrops }, seasons,
     credits: { cast }, videos, recommendations, similar
-  } = singleShowData;
+  } = singleShowData as SeriesResult;
 
   return (
     <Grid>
@@ -168,22 +172,39 @@ function TvShowInfo({ singleShowData }: TvShowInfoProps) {
   )
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+export const getSeriesById = async (seriesId?: string | string[]): Promise<SeriesResult> => {
   try {
-    // fetching single movie details
-    const res = await fetch(`https://api.themoviedb.org/3/tv/${ctx.query.id}?api_key=${process.env.TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`);
-    const data = await res.json();
+    const showRes = await fetch(
+      `https://api.themoviedb.org/3/tv/${seriesId}?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`
+    );
+    const showData: SeriesResult = await showRes.json();
 
     // failure if 'success' property exists
-    if (data.hasOwnProperty('success')) {
-      return {
-        notFound: true
-      };
-    }
+    if (showData.hasOwnProperty('success')) throw new Error('Api call failed');
+
+    return showData;
+
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed");
+  }
+}
+
+export const useSeriesById = (seriesId?: string | string[]) => {
+  return useQuery(['singleShowData', seriesId], () => getSeriesById(seriesId));
+}
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const queryClient = new QueryClient();
+  const { id } = ctx.query;
+
+  try {
+    // fetching single movie details
+    await queryClient.fetchQuery(['singleShowData', id], () => getSeriesById(id));
 
     return {
       props: {
-        singleShowData: data
+        dehydratedState: dehydrate(queryClient)
       }
     };
 

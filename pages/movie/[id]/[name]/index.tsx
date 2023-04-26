@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { GetServerSidePropsContext } from "next";
 import { MovieResult } from "../../../../types/apiResponses";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
 import { styles as classes } from "../../../../styles/movieInfo.styles";
 import Link from "next/link";
 import { formatImgSrc, formatMinutes, formatToUSD, toUrlFriendly } from "../../../../utils/utils";
@@ -10,20 +10,24 @@ import ImgRoll from "../../../../components/ImgRoll/ImgRoll";
 import CastRoll from "../../../../components/CastRoll/CastRoll";
 import ClipRoll from "../../../../components/ClipRoll/ClipRoll";
 import TileSlider from "../../../../components/TileSider/TileSlider";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
-type MovieInfoProps = {
-  singleMovieData: MovieResult;
-};
+type MovieInfoProps = {};
 
-function MovieInfo({ singleMovieData }: MovieInfoProps) {
+function MovieInfo() {
+  const router = useRouter();
+  const { data: singleMovieData, isLoading } = useMovieById(router.query.id);
   // console.log('movieInfo: ', singleMovieData);
+
+  if (isLoading) return (<LinearProgress />);
 
   const { id, backdrop_path, poster_path, title,
     runtime, overview, homepage, genres, adult,
     status, release_date, revenue, budget, imdb_id,
     spoken_languages, images: { backdrops },
     credits: { cast }, videos, recommendations, similar
-  } = singleMovieData;
+  } = singleMovieData as MovieResult;
 
   return (
     <Grid>
@@ -173,23 +177,39 @@ function MovieInfo({ singleMovieData }: MovieInfoProps) {
 
 }
 
+export const getMovieById = async (movieId?: string | string[]): Promise<MovieResult> => {
+  try {
+    const movieRes = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`
+    );
+    const movieData: MovieResult = await movieRes.json();
+
+    // failure if 'success' property exists
+    if (movieData.hasOwnProperty('success')) throw new Error('Api call failed');
+
+    return movieData;
+
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed");
+  }
+}
+
+export const useMovieById = (movieId?: string | string[]) => {
+  return useQuery(['singleMovieData', movieId], () => getMovieById(movieId));
+}
+
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const queryClient = new QueryClient();
+  const { id } = ctx.query;
 
   try {
     // fetching single movie details
-    const res = await fetch(`https://api.themoviedb.org/3/movie/${ctx.query.id}?api_key=${process.env.TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`);
-    const data = await res.json();
-
-    // failure if 'success' property exists
-    if (data.hasOwnProperty('success')) {
-      return {
-        notFound: true
-      };
-    }
+    await queryClient.fetchQuery(['singleMovieData', id], () => getMovieById(id));
 
     return {
       props: {
-        singleMovieData: data
+        dehydratedState: dehydrate(queryClient)
       }
     };
 

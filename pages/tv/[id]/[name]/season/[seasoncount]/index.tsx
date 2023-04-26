@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { GetServerSidePropsContext } from 'next';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, LinearProgress, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { SeriesResult, ShowSeason } from '../../../../../../types/apiResponses';
 import { styles as classes } from '../../../../../../styles/SeasonCount.styles';
 import { useRouter } from 'next/router';
 import TvTileSlider from '../../../../../../components/TvTileSlider/TvTileSlider';
+import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
+import { getSeriesById, useSeriesById } from '../..';
 
-type SeasonCountProps = {
-  tvShowData: SeriesResult;
-  tvShowSeasonData: ShowSeason;
-}
+type SeasonCountProps = {}
 
-function SeasonCount({ tvShowData, tvShowSeasonData }: SeasonCountProps) {
+function SeasonCount() {
   const router = useRouter();
   const { id, name, seasoncount } = router.query;
-  const { recommendations, similar } = tvShowData;
-
   const [ep, setEp] = useState(1);
+
+  const { data: tvShowSeasonData, isLoading: isSeasonLoading } = useSeriesSeasonById(id, seasoncount);
+  const { data: tvShowData, isLoading: isShowLoading } = useSeriesById(id);
+
+  if (isSeasonLoading || isShowLoading) return (<LinearProgress />);
+
+  const { recommendations, similar } = tvShowData as SeriesResult;
 
   console.log('tvShowData', tvShowData)
   // console.log('tvShowSeasonData', tvShowSeasonData)
@@ -71,24 +75,39 @@ function SeasonCount({ tvShowData, tvShowSeasonData }: SeasonCountProps) {
   )
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+export const getSeriesSeasonById = async (seriesId: string | string[] | undefined, seasonCount: string | string[] | undefined): Promise<ShowSeason> => {
   try {
-    const tvShowRes = await fetch(`https://api.themoviedb.org/3/tv/${ctx.query.id}?api_key=${process.env.TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`);
-    const tvShowData = await tvShowRes.json();
+    const showSeasonRes = await fetch(
+      `https://api.themoviedb.org/3/tv/${seriesId}/season/${seasonCount}?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`
+    );
+    const showSeasonData: ShowSeason = await showSeasonRes.json();
 
-    const tvShowSeasonRes = await fetch(`https://api.themoviedb.org/3/tv/${ctx.query.id}/season/${ctx.query.seasoncount}?api_key=${process.env.TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`)
-    const tvShowSeasonData = await tvShowSeasonRes.json();
+    // failure if 'success' property exists
+    if (showSeasonData.hasOwnProperty('success')) throw new Error('Api call failed');
 
-    if (tvShowData.hasOwnProperty('success') && tvShowSeasonData.hasOwnProperty('success')) {
-      return {
-        notFound: true
-      };
-    }
+    return showSeasonData;
+
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed");
+  }
+}
+
+export const useSeriesSeasonById = (seriesId: string | string[] | undefined, seasonCount: string | string[] | undefined) => {
+  return useQuery(['tvShowSeasonData', seriesId], () => getSeriesSeasonById(seriesId, seasonCount));
+}
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const queryClient = new QueryClient();
+  const { id, seasoncount } = ctx.query;
+
+  try {
+    await queryClient.fetchQuery(['singleShowData', id], () => getSeriesById(id));
+    await queryClient.fetchQuery(['tvShowSeasonData', id], () => getSeriesSeasonById(id, seasoncount));
 
     return {
       props: {
-        tvShowData,
-        tvShowSeasonData
+        dehydratedState: dehydrate(queryClient)
       }
     }
 

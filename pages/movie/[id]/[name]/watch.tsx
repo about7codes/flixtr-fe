@@ -1,21 +1,25 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, LinearProgress, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { styles as classes } from "../../../../styles/watchMovie.styles";
 import TileSlider from "../../../../components/TileSider/TileSlider";
 import { GetServerSidePropsContext } from "next";
 import { MovieResult } from "../../../../types/apiResponses";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { getMovieById, useMovieById } from ".";
 
-type WatchProps = {
-  singleMovieData: MovieResult;
-};
+type WatchProps = {};
 
-function Watch({ singleMovieData }: WatchProps) {
+function Watch() {
   const router = useRouter();
   const { id, name } = router.query;
-  const { recommendations, similar } = singleMovieData;
+  const { data: singleMovieData, isLoading } = useMovieById(id);
+
+  if (isLoading) return (<LinearProgress />);
+
+  const { recommendations, similar } = singleMovieData as MovieResult;
 
   return (
     <Grid container>
@@ -58,25 +62,19 @@ function Watch({ singleMovieData }: WatchProps) {
 }
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const queryClient = new QueryClient();
+  const { id } = ctx.query;
+
   try {
     // fetching single movie details
-    const res = await fetch(
-      `https://api.themoviedb.org/3/movie/${ctx.query.id}?api_key=${process.env.TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`
-    );
-    const data = await res.json();
-
-    // failure if 'success' property exists
-    if (data.hasOwnProperty("success")) {
-      return {
-        notFound: true,
-      };
-    }
+    await queryClient.fetchQuery(['singleMovieData', id], () => getMovieById(id));
 
     return {
       props: {
-        singleMovieData: data,
+        dehydratedState: dehydrate(queryClient)
       },
     };
+
   } catch (error) {
     console.log(error);
     return {
