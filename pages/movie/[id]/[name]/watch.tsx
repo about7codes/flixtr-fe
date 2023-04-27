@@ -1,14 +1,15 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { Button, Grid, LinearProgress, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { styles as classes } from "../../../../styles/watchMovie.styles";
 import TileSlider from "../../../../components/TileSider/TileSlider";
 import { GetServerSidePropsContext } from "next";
 import { MovieResult } from "../../../../types/apiResponses";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { getMovieById, useMovieById } from ".";
+import { getMovieById } from "../../../../api/movies.api";
+import { useMovieById } from "../../../../hooks/movies.hooks";
 
 type WatchProps = {};
 

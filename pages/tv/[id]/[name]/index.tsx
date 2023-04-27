@@ -1,18 +1,21 @@
 import React from 'react'
+import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import Image from "next/image";
-import { GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { Grid, Box, Typography, Button, LinearProgress } from '@mui/material';
+
 import { SeriesResult } from '../../../../types/apiResponses';
 import { styles as classes } from '../../../../styles/tvShowInfo.styles';
 import ImgRoll from '../../../../components/ImgRoll/ImgRoll';
 import ClipRoll from '../../../../components/ClipRoll/ClipRoll';
 import CastRoll from '../../../../components/CastRoll/CastRoll';
 import TvTileSlider from '../../../../components/TvTileSlider/TvTileSlider';
-import { formatImgSrc, formatMinutes, toUrlFriendly } from '../../../../utils/utils';
 import SeasonRoll from '../../../../components/SeasonRoll/SeasonRoll';
-import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
+import { getSeriesById } from '../../../../api/series.api';
+import { useSeriesById } from '../../../../hooks/series.hooks';
+import { formatImgSrc, formatMinutes, toUrlFriendly } from '../../../../utils/utils';
 
 
 type TvShowInfoProps = {}
@@ -170,28 +173,6 @@ function TvShowInfo() {
 
     </Grid>
   )
-}
-
-export const getSeriesById = async (seriesId?: string | string[]): Promise<SeriesResult> => {
-  try {
-    const showRes = await fetch(
-      `https://api.themoviedb.org/3/tv/${seriesId}?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`
-    );
-    const showData: SeriesResult = await showRes.json();
-
-    // failure if 'success' property exists
-    if (showData.hasOwnProperty('success')) throw new Error('Api call failed');
-
-    return showData;
-
-  } catch (error) {
-    console.log(error);
-    throw new Error("Api call failed");
-  }
-}
-
-export const useSeriesById = (seriesId?: string | string[]) => {
-  return useQuery(['singleShowData', seriesId], () => getSeriesById(seriesId));
 }
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {

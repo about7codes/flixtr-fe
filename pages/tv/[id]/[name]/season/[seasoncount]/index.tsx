@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { GetServerSidePropsContext } from 'next';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { Box, Button, Grid, LinearProgress, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { SeriesResult, ShowSeason } from '../../../../../../types/apiResponses';
+
+import { SeriesResult } from '../../../../../../types/apiResponses';
 import { styles as classes } from '../../../../../../styles/SeasonCount.styles';
-import { useRouter } from 'next/router';
 import TvTileSlider from '../../../../../../components/TvTileSlider/TvTileSlider';
-import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
-import { getSeriesById, useSeriesById } from '../..';
+import { getSeriesById, getSeriesSeasonById } from '../../../../../../api/series.api';
+import { useSeriesById, useSeriesSeasonById } from '../../../../../../hooks/series.hooks';
 
 type SeasonCountProps = {}
 
@@ -75,27 +77,6 @@ function SeasonCount() {
   )
 }
 
-export const getSeriesSeasonById = async (seriesId: string | string[] | undefined, seasonCount: string | string[] | undefined): Promise<ShowSeason> => {
-  try {
-    const showSeasonRes = await fetch(
-      `https://api.themoviedb.org/3/tv/${seriesId}/season/${seasonCount}?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`
-    );
-    const showSeasonData: ShowSeason = await showSeasonRes.json();
-
-    // failure if 'success' property exists
-    if (showSeasonData.hasOwnProperty('success')) throw new Error('Api call failed');
-
-    return showSeasonData;
-
-  } catch (error) {
-    console.log(error);
-    throw new Error("Api call failed");
-  }
-}
-
-export const useSeriesSeasonById = (seriesId: string | string[] | undefined, seasonCount: string | string[] | undefined) => {
-  return useQuery(['tvShowSeasonData', seriesId], () => getSeriesSeasonById(seriesId, seasonCount));
-}
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const queryClient = new QueryClient();

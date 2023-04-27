@@ -10,8 +10,10 @@ import ImgRoll from "../../../../components/ImgRoll/ImgRoll";
 import CastRoll from "../../../../components/CastRoll/CastRoll";
 import ClipRoll from "../../../../components/ClipRoll/ClipRoll";
 import TileSlider from "../../../../components/TileSider/TileSlider";
-import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { getMovieById } from "../../../../api/movies.api";
+import { useMovieById } from "../../../../hooks/movies.hooks";
 
 type MovieInfoProps = {};
 
@@ -175,28 +177,6 @@ function MovieInfo() {
     </Grid>
   );
 
-}
-
-export const getMovieById = async (movieId?: string | string[]): Promise<MovieResult> => {
-  try {
-    const movieRes = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&append_to_response=images,videos,credits,recommendations,similar`
-    );
-    const movieData: MovieResult = await movieRes.json();
-
-    // failure if 'success' property exists
-    if (movieData.hasOwnProperty('success')) throw new Error('Api call failed');
-
-    return movieData;
-
-  } catch (error) {
-    console.log(error);
-    throw new Error("Api call failed");
-  }
-}
-
-export const useMovieById = (movieId?: string | string[]) => {
-  return useQuery(['singleMovieData', movieId], () => getMovieById(movieId));
 }
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {

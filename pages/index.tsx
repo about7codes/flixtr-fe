@@ -3,12 +3,14 @@ import type { GetServerSidePropsContext, NextPage } from "next";
 import { Box, LinearProgress, Typography } from "@mui/material";
 import TileSlider from "../components/TileSider/TileSlider";
 import TvTileSlider from "../components/TvTileSlider/TvTileSlider";
-import { MovieResult, PeopleData, PeopleResult, SeriesResult } from "../types/apiResponses";
+import { PeopleData, PeopleResult } from "../types/apiResponses";
 import styles from "../styles/Home.module.css";
 import { styles as classes } from '../styles/Home.styles';
 import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
-import { MovieData } from "../types/apiResponses";
-import { SeriesData } from "../types/apiResponses";
+import { getMovies } from "../api/movies.api";
+import { useMovies } from "../hooks/movies.hooks";
+import { getSeries } from "../api/series.api";
+import { useSeries } from "../hooks/series.hooks";
 
 type HomeProps = {};
 
@@ -55,40 +57,6 @@ const Home: NextPage<HomeProps> = () => {
   );
 };
 
-export const getMovies = async (): Promise<MovieResult[]> => {
-  try {
-    const movieRes = await fetch(
-      `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}`
-    );
-    const movieData: MovieData = await movieRes.json();
-
-    if (movieData.hasOwnProperty('success')) throw new Error('Api call failed, check console.');
-
-    return movieData.results;
-
-  } catch (error) {
-    console.log(error);
-    throw new Error("Api call failed, check console.");
-  }
-}
-
-export const getSeries = async (): Promise<SeriesResult[]> => {
-  try {
-    const seriesRes = await fetch(
-      `https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}`
-    );
-    const seriesData: SeriesData = await seriesRes.json();
-
-    if (seriesData.hasOwnProperty('success')) throw new Error('Api call failed, check console.');
-
-    return seriesData.results;
-
-  } catch (error) {
-    console.log(error);
-    throw new Error("Api call failed, check console.");
-  }
-}
-
 export const getPeople = async (): Promise<PeopleResult[]> => {
   try {
     const peopleRes = await fetch(
@@ -105,14 +73,6 @@ export const getPeople = async (): Promise<PeopleResult[]> => {
     throw new Error("Api call failed");
   }
 }
-
-export const useMovies = () => {
-  return useQuery(['movieData'], getMovies);
-};
-
-export const useSeries = () => {
-  return useQuery(['seriesData'], getSeries);
-};
 
 export const usePeople = () => {
   return useQuery(['peopleData'], getPeople);
