@@ -15,7 +15,7 @@ function Popular() {
   console.log('isPreviousData: ', isPreviousData)
 
   if (isLoading) return (<LinearProgress sx={{
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     left: 0,
     width: '100%'
