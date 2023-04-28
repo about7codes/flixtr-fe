@@ -1,5 +1,5 @@
 import React from "react";
-import { GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext, NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { QueryClient, dehydrate, useInfiniteQuery } from "@tanstack/react-query";
 import { MovieData } from "../../types/apiResponses";
 import { Box, Button, Grid, LinearProgress } from "@mui/material";
@@ -9,7 +9,7 @@ type PopularProps = {};
 
 function Popular() {
   const { data: popularMovies, isLoading, fetchNextPage } = usePopularMovies();
-  console.log('popularMovies: ', popularMovies)
+  // console.log('popularMovies: ', popularMovies)
 
   if (isLoading) return (<LinearProgress sx={{
     position: 'fixed',
@@ -65,8 +65,8 @@ const usePopularMovies = () => {
     ['popularMovies'],
     ({ pageParam = 1 }) => getPopularMovies(pageParam),
     {
-      getNextPageParam: lastPage => {
-        return lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined
+      getNextPageParam: ({ page, total_pages }) => {
+        return page < total_pages ? page + 1 : undefined
       },
       select: (data) => {
         return data
@@ -76,7 +76,22 @@ const usePopularMovies = () => {
 
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+// Bypass serverside call to api if page route change is by nextjs
+export const withCSR = (next: NextApiHandler) => async (ctx: GetServerSidePropsContext) => {
+  // check is it a client side navigation
+  const isCSR = ctx.req.url?.startsWith('/_next');
+
+  if (isCSR) {
+    return {
+      props: {},
+    };
+  }
+
+  return next?.(ctx.req as NextApiRequest, ctx.res as NextApiResponse);
+}
+
+export const getServerSideProps = withCSR(async () => {
+  console.log('CALLING serverside')
   const queryClient = new QueryClient();
 
   try {
@@ -104,6 +119,6 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       notFound: true,
     }
   }
-}
+})
 
 export default Popular;
