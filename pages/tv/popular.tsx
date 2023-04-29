@@ -8,7 +8,7 @@ import Loader from "../../components/Loader/Loader";
 import TvPoster from "../../components/TvPoster/TvPoster";
 import { styles as classes } from "../../styles/styles";
 import { getPopularSeries } from "../../api/series.api";
-import { usePopularSeries } from "../../hooks/series.hooks";
+import { SeriesQueryKey, usePopularSeries } from "../../hooks/series.hooks";
 
 type PopularProps = {};
 
@@ -60,7 +60,7 @@ export const getServerSideProps = withCSR(async () => {
   try {
     // fetching popular series detail
     await queryClient.prefetchInfiniteQuery(
-      ["popularSeries"],
+      [SeriesQueryKey.PopularSeries],
       ({ pageParam = 1 }) => getPopularSeries(pageParam),
       {
         getNextPageParam: (lastPage) => {

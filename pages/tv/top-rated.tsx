@@ -8,7 +8,7 @@ import Loader from "../../components/Loader/Loader";
 import TvPoster from "../../components/TvPoster/TvPoster";
 import { styles as classes } from "../../styles/styles";
 import { getTopSeries } from "../../api/series.api";
-import { useTopSeries } from "../../hooks/series.hooks";
+import { SeriesQueryKey, useTopSeries } from "../../hooks/series.hooks";
 
 type TopRatedProps = {};
 
@@ -60,7 +60,7 @@ export const getServerSideProps = withCSR(async () => {
   try {
     // fetching top rated series detail
     await queryClient.prefetchInfiniteQuery(
-      ["topSeries"],
+      [SeriesQueryKey.TopSeries],
       ({ pageParam = 1 }) => getTopSeries(pageParam),
       {
         getNextPageParam: (lastPage) => {

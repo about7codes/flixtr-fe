@@ -8,7 +8,7 @@ import Poster from "../../components/Poster/Poster";
 import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
 import { getRecentMovies } from "../../api/movies.api";
-import { useRecentMovies } from "../../hooks/movies.hooks";
+import { MovieQueryKey, useRecentMovies } from "../../hooks/movies.hooks";
 
 type RecentProps = {};
 
@@ -60,7 +60,7 @@ export const getServerSideProps = withCSR(async () => {
   try {
     // fetching recent movies detail
     await queryClient.prefetchInfiniteQuery(
-      ["recentMovies"],
+      [MovieQueryKey.RecentMovies],
       ({ pageParam = 1 }) => getRecentMovies(pageParam),
       {
         getNextPageParam: (lastPage) => {

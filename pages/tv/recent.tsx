@@ -8,7 +8,7 @@ import Loader from "../../components/Loader/Loader";
 import TvPoster from "../../components/TvPoster/TvPoster";
 import { styles as classes } from "../../styles/styles";
 import { getRecentSeries } from "../../api/series.api";
-import { useRecentSeries } from "../../hooks/series.hooks";
+import { SeriesQueryKey, useRecentSeries } from "../../hooks/series.hooks";
 
 type RecentProps = {};
 
@@ -60,7 +60,7 @@ export const getServerSideProps = withCSR(async () => {
   try {
     // fetching recent series detail
     await queryClient.prefetchInfiniteQuery(
-      ["recentSeries"],
+      [SeriesQueryKey.RecentSeries],
       ({ pageParam = 1 }) => getRecentSeries(pageParam),
       {
         getNextPageParam: (lastPage) => {

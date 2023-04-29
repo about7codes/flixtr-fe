@@ -7,17 +7,27 @@ import {
   getTopMovies,
 } from "../api/movies.api";
 
+export enum MovieQueryKey {
+  MovieData = "MovieData",
+  SingleMovieData = "SingleMovieData",
+  PopularMovies = "PopularMovies",
+  RecentMovies = "RecentMovies",
+  TopMovies = "TopMovies",
+}
+
 export const useMovies = () => {
-  return useQuery(["movieData"], getMovies);
+  return useQuery([MovieQueryKey.MovieData], getMovies);
 };
 
 export const useMovieById = (movieId?: string | string[]) => {
-  return useQuery(["singleMovieData", movieId], () => getMovieById(movieId));
+  return useQuery([MovieQueryKey.SingleMovieData, movieId], () =>
+    getMovieById(movieId)
+  );
 };
 
 export const usePopularMovies = () => {
   return useInfiniteQuery(
-    ["popularMovies"],
+    [MovieQueryKey.PopularMovies],
     ({ pageParam = 1 }) => getPopularMovies(pageParam),
     {
       getNextPageParam: ({ page, total_pages }) => {
@@ -32,7 +42,7 @@ export const usePopularMovies = () => {
 
 export const useRecentMovies = () => {
   return useInfiniteQuery(
-    ["recentMovies"],
+    [MovieQueryKey.RecentMovies],
     ({ pageParam = 1 }) => getRecentMovies(pageParam),
     {
       getNextPageParam: ({ page, total_pages }) => {
@@ -47,7 +57,7 @@ export const useRecentMovies = () => {
 
 export const useTopMovies = () => {
   return useInfiniteQuery(
-    ["topMovies"],
+    [MovieQueryKey.TopMovies],
     ({ pageParam = 1 }) => getTopMovies(pageParam),
     {
       getNextPageParam: ({ page, total_pages }) => {

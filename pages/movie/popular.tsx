@@ -8,7 +8,7 @@ import Poster from "../../components/Poster/Poster";
 import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
 import { getPopularMovies } from "../../api/movies.api";
-import { usePopularMovies } from "../../hooks/movies.hooks";
+import { MovieQueryKey, usePopularMovies } from "../../hooks/movies.hooks";
 
 type PopularProps = {};
 
@@ -60,7 +60,7 @@ export const getServerSideProps = withCSR(async () => {
   try {
     // fetching popular movies detail
     await queryClient.prefetchInfiniteQuery(
-      ["popularMovies"],
+      [MovieQueryKey.PopularMovies],
       ({ pageParam = 1 }) => getPopularMovies(pageParam),
       {
         getNextPageParam: (lastPage) => {

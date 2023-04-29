@@ -9,9 +9,9 @@ import { PeopleData, PeopleResult } from "../types/apiResponses";
 import styles from "../styles/Home.module.css";
 import { styles as classes } from '../styles/Home.styles';
 import { getMovies } from "../api/movies.api";
-import { useMovies } from "../hooks/movies.hooks";
+import { MovieQueryKey, useMovies } from "../hooks/movies.hooks";
 import { getSeries } from "../api/series.api";
-import { useSeries } from "../hooks/series.hooks";
+import { SeriesQueryKey, useSeries } from "../hooks/series.hooks";
 
 type HomeProps = {};
 
@@ -83,8 +83,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
 
   try {
-    await queryClient.fetchQuery(['movieData'], getMovies);
-    await queryClient.fetchQuery(['seriesData'], getSeries);
+    await queryClient.fetchQuery([MovieQueryKey.MovieData], getMovies);
+    await queryClient.fetchQuery([SeriesQueryKey.SeriesData], getSeries);
     await queryClient.fetchQuery(['peopleData'], getPeople);
 
     return {

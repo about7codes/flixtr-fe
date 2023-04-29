@@ -8,26 +8,37 @@ import {
   getTopSeries,
 } from "../api/series.api";
 
+export enum SeriesQueryKey {
+  SeriesData = "SeriesData",
+  SingleShowData = "SingleShowData",
+  TvShowSeasonData = "TvShowSeasonData",
+  PopularSeries = "PopularSeries",
+  RecentSeries = "RecentSeries",
+  TopSeries = "TopSeries",
+}
+
 export const useSeries = () => {
-  return useQuery(["seriesData"], getSeries);
+  return useQuery([SeriesQueryKey.SeriesData], getSeries);
 };
 
 export const useSeriesById = (seriesId?: string | string[]) => {
-  return useQuery(["singleShowData", seriesId], () => getSeriesById(seriesId));
+  return useQuery([SeriesQueryKey.SingleShowData, seriesId], () =>
+    getSeriesById(seriesId)
+  );
 };
 
 export const useSeriesSeasonById = (
   seriesId: string | string[] | undefined,
   seasonCount: string | string[] | undefined
 ) => {
-  return useQuery(["tvShowSeasonData", seriesId], () =>
+  return useQuery([SeriesQueryKey.TvShowSeasonData, seriesId], () =>
     getSeriesSeasonById(seriesId, seasonCount)
   );
 };
 
 export const usePopularSeries = () => {
   return useInfiniteQuery(
-    ["popularSeries"],
+    [SeriesQueryKey.PopularSeries],
     ({ pageParam = 1 }) => getPopularSeries(pageParam),
     {
       getNextPageParam: ({ page, total_pages }) => {
@@ -42,7 +53,7 @@ export const usePopularSeries = () => {
 
 export const useRecentSeries = () => {
   return useInfiniteQuery(
-    ["recentSeries"],
+    [SeriesQueryKey.RecentSeries],
     ({ pageParam = 1 }) => getRecentSeries(pageParam),
     {
       getNextPageParam: ({ page, total_pages }) => {
@@ -57,7 +68,7 @@ export const useRecentSeries = () => {
 
 export const useTopSeries = () => {
   return useInfiniteQuery(
-    ["topSeries"],
+    [SeriesQueryKey.TopSeries],
     ({ pageParam = 1 }) => getTopSeries(pageParam),
     {
       getNextPageParam: ({ page, total_pages }) => {

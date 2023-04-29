@@ -10,7 +10,7 @@ import { SeriesResult } from '../../../../../../types/apiResponses';
 import { styles as classes } from '../../../../../../styles/SeasonCount.styles';
 import TvTileSlider from '../../../../../../components/TvTileSlider/TvTileSlider';
 import { getSeriesById, getSeriesSeasonById } from '../../../../../../api/series.api';
-import { useSeriesById, useSeriesSeasonById } from '../../../../../../hooks/series.hooks';
+import { SeriesQueryKey, useSeriesById, useSeriesSeasonById } from '../../../../../../hooks/series.hooks';
 
 type SeasonCountProps = {}
 
@@ -83,8 +83,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const { id, seasoncount } = ctx.query;
 
   try {
-    await queryClient.fetchQuery(['singleShowData', id], () => getSeriesById(id));
-    await queryClient.fetchQuery(['tvShowSeasonData', id], () => getSeriesSeasonById(id, seasoncount));
+    await queryClient.fetchQuery([SeriesQueryKey.SingleShowData, id], () => getSeriesById(id));
+    await queryClient.fetchQuery([SeriesQueryKey.TvShowSeasonData, id], () => getSeriesSeasonById(id, seasoncount));
 
     return {
       props: {

@@ -13,7 +13,7 @@ import TileSlider from "../../../../components/TileSider/TileSlider";
 import { styles as classes } from "../../../../styles/movieInfo.styles";
 import { MovieResult } from "../../../../types/apiResponses";
 import { getMovieById } from "../../../../api/movies.api";
-import { useMovieById } from "../../../../hooks/movies.hooks";
+import { MovieQueryKey, useMovieById } from "../../../../hooks/movies.hooks";
 import { formatImgSrc, formatMinutes, formatToUSD, toUrlFriendly } from "../../../../utils/utils";
 
 type MovieInfoProps = {};
@@ -186,7 +186,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   try {
     // fetching single movie details
-    await queryClient.fetchQuery(['singleMovieData', id], () => getMovieById(id));
+    await queryClient.fetchQuery([MovieQueryKey.SingleMovieData, id], () => getMovieById(id));
 
     return {
       props: {

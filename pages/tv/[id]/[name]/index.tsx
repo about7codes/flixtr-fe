@@ -14,7 +14,7 @@ import CastRoll from '../../../../components/CastRoll/CastRoll';
 import TvTileSlider from '../../../../components/TvTileSlider/TvTileSlider';
 import SeasonRoll from '../../../../components/SeasonRoll/SeasonRoll';
 import { getSeriesById } from '../../../../api/series.api';
-import { useSeriesById } from '../../../../hooks/series.hooks';
+import { SeriesQueryKey, useSeriesById } from '../../../../hooks/series.hooks';
 import { formatImgSrc, formatMinutes, toUrlFriendly } from '../../../../utils/utils';
 
 
@@ -181,7 +181,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   try {
     // fetching single movie details
-    await queryClient.fetchQuery(['singleShowData', id], () => getSeriesById(id));
+    await queryClient.fetchQuery([SeriesQueryKey.SingleShowData, id], () => getSeriesById(id));
 
     return {
       props: {

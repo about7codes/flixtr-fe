@@ -8,7 +8,7 @@ import { styles as classes } from "../../styles/styles";
 import Poster from "../../components/Poster/Poster";
 import Loader from "../../components/Loader/Loader";
 import { getTopMovies } from "../../api/movies.api";
-import { useTopMovies } from "../../hooks/movies.hooks";
+import { MovieQueryKey, useTopMovies } from "../../hooks/movies.hooks";
 
 type TopRatedProps = {};
 
@@ -60,7 +60,7 @@ export const getServerSideProps = withCSR(async () => {
   try {
     // fetching top rated movies detail
     await queryClient.prefetchInfiniteQuery(
-      ["topMovies"],
+      [MovieQueryKey.TopMovies],
       ({ pageParam = 1 }) => getTopMovies(pageParam),
       {
         getNextPageParam: (lastPage) => {
