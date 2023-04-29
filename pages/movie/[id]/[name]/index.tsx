@@ -1,19 +1,20 @@
 import React from "react";
-import Image from "next/image";
-import { GetServerSidePropsContext } from "next";
-import { MovieResult } from "../../../../types/apiResponses";
-import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
-import { styles as classes } from "../../../../styles/movieInfo.styles";
 import Link from "next/link";
-import { formatImgSrc, formatMinutes, formatToUSD, toUrlFriendly } from "../../../../utils/utils";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { GetServerSidePropsContext } from "next";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
+
 import ImgRoll from "../../../../components/ImgRoll/ImgRoll";
 import CastRoll from "../../../../components/CastRoll/CastRoll";
 import ClipRoll from "../../../../components/ClipRoll/ClipRoll";
 import TileSlider from "../../../../components/TileSider/TileSlider";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { useRouter } from "next/router";
+import { styles as classes } from "../../../../styles/movieInfo.styles";
+import { MovieResult } from "../../../../types/apiResponses";
 import { getMovieById } from "../../../../api/movies.api";
 import { useMovieById } from "../../../../hooks/movies.hooks";
+import { formatImgSrc, formatMinutes, formatToUSD, toUrlFriendly } from "../../../../utils/utils";
 
 type MovieInfoProps = {};
 

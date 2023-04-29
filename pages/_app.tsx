@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import {
@@ -9,6 +8,7 @@ import {
 } from "@tanstack/react-query";
 import { ThemeProvider } from "@mui/material";
 
+import "../styles/globals.css";
 import theme from "../theme";
 import Layout from "../components/Layout/Layout";
 import * as gtag from "../analytics";

@@ -1,12 +1,13 @@
 import Head from "next/head";
 import type { GetServerSidePropsContext, NextPage } from "next";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { Box, LinearProgress, Typography } from "@mui/material";
+
 import TileSlider from "../components/TileSider/TileSlider";
 import TvTileSlider from "../components/TvTileSlider/TvTileSlider";
 import { PeopleData, PeopleResult } from "../types/apiResponses";
 import styles from "../styles/Home.module.css";
 import { styles as classes } from '../styles/Home.styles';
-import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { getMovies } from "../api/movies.api";
 import { useMovies } from "../hooks/movies.hooks";
 import { getSeries } from "../api/series.api";
