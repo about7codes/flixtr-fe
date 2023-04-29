@@ -4,8 +4,8 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { Box, Typography, Grid } from "@mui/material";
 
 import { withCSR } from "../../HOC/withCSR";
-import Poster from "../../components/Poster/Poster";
 import { styles as classes } from "../../styles/styles";
+import Poster from "../../components/Poster/Poster";
 import Loader from "../../components/Loader/Loader";
 import { getTopMovies } from "../../api/movies.api";
 import { useTopMovies } from "../../hooks/movies.hooks";

@@ -1,13 +1,14 @@
 import React from "react";
-import { QueryClient, dehydrate, useInfiniteQuery } from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { LoadingButton } from "@mui/lab";
 import { Box, Typography, Grid } from "@mui/material";
 
 import { withCSR } from "../../HOC/withCSR";
-import { SeriesData } from "../../types/apiResponses";
 import Loader from "../../components/Loader/Loader";
 import TvPoster from "../../components/TvPoster/TvPoster";
 import { styles as classes } from "../../styles/styles";
+import { getPopularSeries } from "../../api/series.api";
+import { usePopularSeries } from "../../hooks/series.hooks";
 
 type PopularProps = {};
 
@@ -52,38 +53,6 @@ function Popular() {
     </Box>
   );
 }
-
-export const getPopularSeries = async (pageNum: number): Promise<SeriesData> => {
-  try {
-    const seriesRes = await fetch(
-      `https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
-    );
-    const seriesData: SeriesData = await seriesRes.json();
-
-    if (seriesData.hasOwnProperty("success"))
-      throw new Error("Api call failed, check console.");
-
-    return seriesData;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Api call failed, check console.");
-  }
-};
-
-export const usePopularSeries = () => {
-  return useInfiniteQuery(
-    ["popularSeries"],
-    ({ pageParam = 1 }) => getPopularSeries(pageParam),
-    {
-      getNextPageParam: ({ page, total_pages }) => {
-        return page < total_pages ? page + 1 : undefined;
-      },
-      select: (data) => {
-        return data;
-      },
-    }
-  );
-};
 
 export const getServerSideProps = withCSR(async () => {
   const queryClient = new QueryClient();

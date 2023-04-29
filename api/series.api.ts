@@ -56,3 +56,56 @@ export const getSeriesSeasonById = async (
     throw new Error("Api call failed");
   }
 };
+
+export const getPopularSeries = async (
+  pageNum: number
+): Promise<SeriesData> => {
+  try {
+    const seriesRes = await fetch(
+      `https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+    );
+    const seriesData: SeriesData = await seriesRes.json();
+
+    if (seriesData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
+    return seriesData;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed, check console.");
+  }
+};
+
+export const getRecentSeries = async (pageNum: number): Promise<SeriesData> => {
+  try {
+    const seriesRes = await fetch(
+      `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+    );
+    const seriesData: SeriesData = await seriesRes.json();
+
+    if (seriesData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
+    return seriesData;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed, check console.");
+  }
+};
+
+export const getTopSeries = async (pageNum: number): Promise<SeriesData> => {
+  try {
+    const seriesRes = await fetch(
+      `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+    );
+    const seriesData: SeriesData = await seriesRes.json();
+
+    if (seriesData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
+    return seriesData;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed, check console.");
+  }
+};

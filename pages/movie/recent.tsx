@@ -30,8 +30,8 @@ function Recent() {
       </Typography>
       <Grid container sx={classes.moviesContainer}>
         {recentMovies?.pages.map((page) =>
-          page.results.map((movie, index) => (
-            <Grid item key={index}>
+          page.results.map((movie) => (
+            <Grid item key={movie.id}>
               <Poster singleMovieData={movie} />
             </Grid>
           ))

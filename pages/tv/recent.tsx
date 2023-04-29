@@ -1,13 +1,14 @@
 import React from "react";
-import { useInfiniteQuery, QueryClient, dehydrate } from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { LoadingButton } from "@mui/lab";
 import { Box, Typography, Grid } from "@mui/material";
 
 import { withCSR } from "../../HOC/withCSR";
-import { SeriesData } from "../../types/apiResponses";
 import Loader from "../../components/Loader/Loader";
 import TvPoster from "../../components/TvPoster/TvPoster";
 import { styles as classes } from "../../styles/styles";
+import { getRecentSeries } from "../../api/series.api";
+import { useRecentSeries } from "../../hooks/series.hooks";
 
 type RecentProps = {};
 
@@ -29,7 +30,7 @@ function Recent() {
       </Typography>
       <Grid container sx={classes.moviesContainer}>
         {recentSeries?.pages.map((page) =>
-          page.results.map(show => (
+          page.results.map((show) => (
             <Grid item key={show.id}>
               <TvPoster singleShowData={show} />
             </Grid>
@@ -52,38 +53,6 @@ function Recent() {
     </Box>
   );
 }
-
-export const getRecentSeries = async (pageNum: number): Promise<SeriesData> => {
-  try {
-    const seriesRes = await fetch(
-      `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
-    );
-    const seriesData: SeriesData = await seriesRes.json();
-
-    if (seriesData.hasOwnProperty("success"))
-      throw new Error("Api call failed, check console.");
-
-    return seriesData;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Api call failed, check console.");
-  }
-};
-
-export const useRecentSeries = () => {
-  return useInfiniteQuery(
-    ["recentSeries"],
-    ({ pageParam = 1 }) => getRecentSeries(pageParam),
-    {
-      getNextPageParam: ({ page, total_pages }) => {
-        return page < total_pages ? page + 1 : undefined;
-      },
-      select: (data) => {
-        return data;
-      },
-    }
-  );
-};
 
 export const getServerSideProps = withCSR(async () => {
   const queryClient = new QueryClient();
