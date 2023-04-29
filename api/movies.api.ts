@@ -35,3 +35,54 @@ export const getMovieById = async (
     throw new Error("Api call failed");
   }
 };
+
+export const getPopularMovies = async (pageNum: number): Promise<MovieData> => {
+  try {
+    const movieRes = await fetch(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+    );
+    const movieData: MovieData = await movieRes.json();
+
+    if (movieData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
+    return movieData;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed, check console.");
+  }
+};
+
+export const getRecentMovies = async (pageNum: number): Promise<MovieData> => {
+  try {
+    const movieRes = await fetch(
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+    );
+    const movieData: MovieData = await movieRes.json();
+
+    if (movieData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
+    return movieData;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed, check console.");
+  }
+};
+
+export const getTopMovies = async (pageNum: number): Promise<MovieData> => {
+  try {
+    const movieRes = await fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+    );
+    const movieData: MovieData = await movieRes.json();
+
+    if (movieData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
+    return movieData;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed, check console.");
+  }
+};

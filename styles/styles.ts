@@ -1,10 +1,11 @@
 export const styles = {
   pageContainer: {
-    paddingBottom: "20px",
+    padding: "20px 0",
   },
+  headTxt: { fontSize: 26, mb: 1 },
   moviesContainer: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr) )",
+    gridTemplateColumns: "repeat(auto-fill, minmax(155px, 1fr) )",
     justifyItems: "center",
   },
   loadBtn: { width: "100%" },
