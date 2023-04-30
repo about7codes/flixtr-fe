@@ -9,6 +9,7 @@ import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
 import { getPopularMovies } from "../../api/movies.api";
 import { MovieQueryKey, usePopularMovies } from "../../hooks/movies.hooks";
+import CustomHead from "../../components/CustomHead/CustomHead";
 
 type PopularProps = {};
 
@@ -24,33 +25,37 @@ function Popular() {
   if (isLoading) return <Loader />;
 
   return (
-    <Box sx={classes.pageContainer}>
-      <Typography variant="h4" sx={classes.headTxt}>
-        Popular movies
-      </Typography>
-      <Grid container sx={classes.moviesContainer}>
-        {popularMovies?.pages.map((page) =>
-          page.results.map((movie) => (
-            <Grid item key={movie.id}>
-              <Poster singleMovieData={movie} />
-            </Grid>
-          ))
-        )}
-      </Grid>
-      <Grid container justifyContent="center">
-        <LoadingButton
-          onClick={() => fetchNextPage()}
-          loading={isFetching || isLoading}
-          loadingIndicator="Loading…"
-          color="secondary"
-          variant="contained"
-          size="large"
-          sx={classes.loadBtn}
-        >
-          show more
-        </LoadingButton>
-      </Grid>
-    </Box>
+    <>
+      <CustomHead title="Popular movies to watch." media_type={"movie"} />
+
+      <Box sx={classes.pageContainer}>
+        <Typography variant="h4" sx={classes.headTxt}>
+          Popular movies
+        </Typography>
+        <Grid container sx={classes.moviesContainer}>
+          {popularMovies?.pages.map((page) =>
+            page.results.map((movie) => (
+              <Grid item key={movie.id}>
+                <Poster singleMovieData={movie} />
+              </Grid>
+            ))
+          )}
+        </Grid>
+        <Grid container justifyContent="center">
+          <LoadingButton
+            onClick={() => fetchNextPage()}
+            loading={isFetching || isLoading}
+            loadingIndicator="Loading…"
+            color="secondary"
+            variant="contained"
+            size="large"
+            sx={classes.loadBtn}
+          >
+            show more
+          </LoadingButton>
+        </Grid>
+      </Box>
+    </>
   );
 }
 

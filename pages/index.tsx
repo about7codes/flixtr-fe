@@ -12,6 +12,7 @@ import { getMovies } from "../api/movies.api";
 import { MovieQueryKey, useMovies } from "../hooks/movies.hooks";
 import { getSeries } from "../api/series.api";
 import { SeriesQueryKey, useSeries } from "../hooks/series.hooks";
+import CustomHead from "../components/CustomHead/CustomHead";
 
 type HomeProps = {};
 
@@ -25,37 +26,35 @@ const Home: NextPage<HomeProps> = () => {
   console.log("peopleDATA", peopleData);
 
   return (
-    <div className={styles.container}>
-      {(isMoviesLoading || isSeriesLoading || isPeopleLoading) &&
-        <LinearProgress />
-      }
-      <Head>
-        <title>Flixtr movie App</title>
-        <meta name="description" content="Flixtr movie App, a next app" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
+      <CustomHead title="Flixtr - Watch Movies & TV Shows" media_type={"movie"} />
 
+      <div className={styles.container}>
+        {(isMoviesLoading || isSeriesLoading || isPeopleLoading) &&
+          <LinearProgress />
+        }
 
-      <Box sx={classes.sliderContainer}>
-        <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h4" sx={classes.headTxt}>Trending Movies</Typography>
-          <Typography variant="body1" sx={classes.subTxt}>
-            Here are some of the most recent movies recommended by our community
-          </Typography>
+        <Box sx={classes.sliderContainer}>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant="h4" sx={classes.headTxt}>Trending Movies</Typography>
+            <Typography variant="body1" sx={classes.subTxt}>
+              Here are some of the most recent movies recommended by our community
+            </Typography>
+          </Box>
+          <TileSlider movieData={movieData} />
         </Box>
-        <TileSlider movieData={movieData} />
-      </Box>
 
-      <Box sx={classes.sliderContainer}>
-        <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h4" sx={classes.headTxt}>Trending Shows</Typography>
-          <Typography variant="body1" sx={classes.subTxt}>
-            Here are some of the most recent shows recommended by our community
-          </Typography>
+        <Box sx={classes.sliderContainer}>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant="h4" sx={classes.headTxt}>Trending Shows</Typography>
+            <Typography variant="body1" sx={classes.subTxt}>
+              Here are some of the most recent shows recommended by our community
+            </Typography>
+          </Box>
+          <TvTileSlider seriesData={seriesData} />
         </Box>
-        <TvTileSlider seriesData={seriesData} />
-      </Box>
-    </div>
+      </div>
+    </>
   );
 };
 

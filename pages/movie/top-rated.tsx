@@ -9,6 +9,7 @@ import Poster from "../../components/Poster/Poster";
 import Loader from "../../components/Loader/Loader";
 import { getTopMovies } from "../../api/movies.api";
 import { MovieQueryKey, useTopMovies } from "../../hooks/movies.hooks";
+import CustomHead from "../../components/CustomHead/CustomHead";
 
 type TopRatedProps = {};
 
@@ -24,33 +25,36 @@ function TopRated() {
   if (isLoading) return <Loader />;
 
   return (
-    <Box sx={classes.pageContainer}>
-      <Typography variant="h4" sx={classes.headTxt}>
-        Top rated movies
-      </Typography>
-      <Grid container sx={classes.moviesContainer}>
-        {topMovies?.pages.map((page) =>
-          page.results.map((movie) => (
-            <Grid item key={movie.id}>
-              <Poster singleMovieData={movie} />
-            </Grid>
-          ))
-        )}
-      </Grid>
-      <Grid container justifyContent="center">
-        <LoadingButton
-          onClick={() => fetchNextPage()}
-          loading={isFetching || isLoading}
-          loadingIndicator="Loading…"
-          color="secondary"
-          variant="contained"
-          size="large"
-          sx={classes.loadBtn}
-        >
-          show more
-        </LoadingButton>
-      </Grid>
-    </Box>
+    <>
+      <CustomHead title="Top rated movies to watch." media_type={"movie"} />
+      <Box sx={classes.pageContainer}>
+        <Typography variant="h4" sx={classes.headTxt}>
+          Top rated movies
+        </Typography>
+        <Grid container sx={classes.moviesContainer}>
+          {topMovies?.pages.map((page) =>
+            page.results.map((movie) => (
+              <Grid item key={movie.id}>
+                <Poster singleMovieData={movie} />
+              </Grid>
+            ))
+          )}
+        </Grid>
+        <Grid container justifyContent="center">
+          <LoadingButton
+            onClick={() => fetchNextPage()}
+            loading={isFetching || isLoading}
+            loadingIndicator="Loading…"
+            color="secondary"
+            variant="contained"
+            size="large"
+            sx={classes.loadBtn}
+          >
+            show more
+          </LoadingButton>
+        </Grid>
+      </Box>
+    </>
   );
 }
 
