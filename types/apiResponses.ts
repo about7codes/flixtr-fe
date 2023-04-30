@@ -1,3 +1,10 @@
+export interface SearchData {
+  page: number;
+  results: MovieResult[] | SeriesResult[] | PeopleResult[];
+  total_pages: number;
+  total_results: number;
+}
+
 export interface MovieData {
   page: number;
   results: MovieResult[];
