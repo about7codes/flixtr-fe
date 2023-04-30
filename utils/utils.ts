@@ -47,3 +47,9 @@ export const formatImgSrc = (urlLink: string, path?: string): string => {
 
   return urlLink + path;
 };
+
+export const toPercent = (num: number): number => Math.round(num * 10);
+
+// export function toPercent(num: number, decimals: number = 0): string {
+//   return (num * 10).toFixed(decimals) + "%";
+// }

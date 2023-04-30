@@ -1,5 +1,6 @@
 export const styles = {
   poster: {
+    position: "relative",
     color: "secondary.main",
     maxWidth: "150px",
     width: "100%",
@@ -35,5 +36,25 @@ export const styles = {
     overflow: "hidden",
     textOverflow: "ellipsis",
     fontWeight: "500",
+  },
+  ratings: {
+    position: "absolute",
+    bottom: 33,
+    right: 0,
+    backgroundColor: "primary.main",
+    padding: "3px",
+    borderRadius: "50%",
+    scale: "0.8",
+  },
+  ratingsInner: { position: "relative", display: "flex" },
+  ratingsTxt: {
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    position: "absolute",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 };

@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { styles as classes } from "./tvPoster.styles";
 import { SeriesResult } from "../../types/apiResponses";
-import { formatImgSrc, toUrlFriendly } from "../../utils/utils";
+import { formatImgSrc, toPercent, toUrlFriendly } from "../../utils/utils";
 
 type TvPosterProps = {
   singleShowData: SeriesResult;
@@ -37,6 +37,24 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
           <Typography variant="subtitle2">
             {new Date(first_air_date).getFullYear()}
           </Typography>
+        </Box>
+
+        <Box sx={classes.ratings}>
+          <Box sx={classes.ratingsInner}>
+            <CircularProgress
+              color="secondary"
+              variant="determinate"
+              value={toPercent(singleShowData.vote_average)}
+            />
+            <Box sx={classes.ratingsTxt}>
+              <Typography
+                title="Ratings"
+                variant="caption"
+                component="div"
+                color="secondary"
+              >{`${toPercent(singleShowData.vote_average)}%`}</Typography>
+            </Box>
+          </Box>
         </Box>
       </Link>
     </Box>

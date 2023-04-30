@@ -19,9 +19,10 @@ const Home: NextPage<HomeProps> = () => {
   const { data: movieData, isLoading: isMoviesLoading } = useMovies();
   const { data: seriesData, isLoading: isSeriesLoading } = useSeries();
   const { data: peopleData, isLoading: isPeopleLoading } = usePeople();
-  // console.log("MovieDATA", movieData);
+  console.log("MovieDATA", movieData);
+  // console.log("MovieDATA", toPercent(movieData[1].vote_average || 0));
   // console.log("seriesDATA", seriesData);
-  // console.log("peopleDATA", peopleData);
+  console.log("peopleDATA", peopleData);
 
   return (
     <div className={styles.container}>
