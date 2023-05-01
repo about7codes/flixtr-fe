@@ -3,6 +3,8 @@ import { MediaType, SearchData } from "../../types/apiResponses";
 import { Box, Paper } from "@mui/material";
 import { styles as classes } from "./searchAuto.styles";
 import PosterAlt from "../PosterAlt/PosterAlt";
+import TvPosterAlt from "../TvPosterAlt/TvPosterAlt";
+import PersonPosterAlt from "../PersonPosterAlt/PersonPosterAlt";
 
 type SearchAutoProps = {
   searchData?: SearchData;
@@ -18,9 +20,9 @@ const SearchAuto = ({ searchData }: SearchAutoProps) => {
           {media.media_type === MediaType.Movie ? (
             <PosterAlt singleMovieData={media} />
           ) : media.media_type === MediaType.Tv ? (
-            media.name
+            <TvPosterAlt singleShowData={media} />
           ) : (
-            "Person"
+            <PersonPosterAlt singlePersonData={media} />
           )}
         </Box>
       ))}

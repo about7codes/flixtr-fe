@@ -3,21 +3,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
 
-import { styles as classes } from "./posterAlt.styles";
-import { MovieResult } from "../../types/apiResponses";
+import { styles as classes } from "./personPosterAlt.styles";
+import { Gender, PeopleResult } from "../../types/apiResponses";
 import { formatImgSrc, toPercent, toUrlFriendly } from "../../utils/utils";
 
-type PosterAltProps = {
-  singleMovieData: MovieResult;
+type PersonPosterAltProps = {
+  singlePersonData: PeopleResult;
 };
 
-const PosterAlt = ({ singleMovieData }: PosterAltProps) => {
-  const { id, title, release_date, poster_path, vote_average } =
-    singleMovieData;
-  const titleConverted = toUrlFriendly(title);
+const PersonPosterAlt = ({ singlePersonData }: PersonPosterAltProps) => {
+  const { id, name, gender, profile_path, known_for_department, known_for } =
+    singlePersonData;
+  const nameConverted = toUrlFriendly(name);
 
   return (
-    <Link href={`/movie/${id}/${titleConverted}`} style={{ display: "block" }}>
+    <Link href={`/person/${id}/${nameConverted}`} style={{ display: "block" }}>
       <Grid container sx={classes.posterAlt}>
         <Grid item sx={classes.posterImg}>
           <Image
@@ -26,28 +26,28 @@ const PosterAlt = ({ singleMovieData }: PosterAltProps) => {
             className="poster-img"
             blurDataURL={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
-              poster_path
+              profile_path
             )}
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
-              poster_path
+              profile_path
             )}
             sizes={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
-              poster_path
+              profile_path
             )}
             style={{ objectFit: "cover", objectPosition: "top" }}
-            alt={titleConverted}
+            alt={nameConverted}
           />
         </Grid>
         <Grid item sx={classes.posterTxt}>
           <Typography variant="h6" sx={classes.posterTxtHead}>
-            {title}
+            {name}
           </Typography>
           <Box sx={classes.posterTxtSub}>
-            <Box>{release_date}</Box>
-            <Box sx={classes.posterType}>Movie</Box>
-            <Box>{`${toPercent(vote_average)}%`}</Box>
+            <Box>{gender === Gender.Male ? "Male" : "Female"}</Box>
+            <Box sx={classes.posterType}>{known_for_department}</Box>
+            <Box>{known_for[0].title ?? known_for[0].name}</Box>
           </Box>
         </Grid>
       </Grid>
@@ -55,4 +55,4 @@ const PosterAlt = ({ singleMovieData }: PosterAltProps) => {
   );
 };
 
-export default PosterAlt;
+export default PersonPosterAlt;

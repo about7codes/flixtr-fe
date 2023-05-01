@@ -2,22 +2,21 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
-
-import { styles as classes } from "./posterAlt.styles";
-import { MovieResult } from "../../types/apiResponses";
+import { styles as classes } from "./tvPosterAlt.styles";
+import { SeriesResult } from "../../types/apiResponses";
 import { formatImgSrc, toPercent, toUrlFriendly } from "../../utils/utils";
 
-type PosterAltProps = {
-  singleMovieData: MovieResult;
+type TvPosterAltProps = {
+  singleShowData: SeriesResult;
 };
 
-const PosterAlt = ({ singleMovieData }: PosterAltProps) => {
-  const { id, title, release_date, poster_path, vote_average } =
-    singleMovieData;
-  const titleConverted = toUrlFriendly(title);
+const TvPosterAlt = ({ singleShowData }: TvPosterAltProps) => {
+  const { id, name, first_air_date, poster_path, vote_average } =
+    singleShowData;
+  const titleConverted = toUrlFriendly(name);
 
   return (
-    <Link href={`/movie/${id}/${titleConverted}`} style={{ display: "block" }}>
+    <Link href={`/tv/${id}/${titleConverted}`} style={{ display: "block" }}>
       <Grid container sx={classes.posterAlt}>
         <Grid item sx={classes.posterImg}>
           <Image
@@ -42,11 +41,11 @@ const PosterAlt = ({ singleMovieData }: PosterAltProps) => {
         </Grid>
         <Grid item sx={classes.posterTxt}>
           <Typography variant="h6" sx={classes.posterTxtHead}>
-            {title}
+            {name}
           </Typography>
           <Box sx={classes.posterTxtSub}>
-            <Box>{release_date}</Box>
-            <Box sx={classes.posterType}>Movie</Box>
+            <Box>{first_air_date}</Box>
+            <Box sx={classes.posterType}>TV</Box>
             <Box>{`${toPercent(vote_average)}%`}</Box>
           </Box>
         </Grid>
@@ -55,4 +54,4 @@ const PosterAlt = ({ singleMovieData }: PosterAltProps) => {
   );
 };
 
-export default PosterAlt;
+export default TvPosterAlt;

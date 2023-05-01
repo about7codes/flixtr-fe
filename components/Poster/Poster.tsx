@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Box, CircularProgress, Typography } from "@mui/material";
+
 import { styles as classes } from "./poster.styles";
 import { MovieResult } from "../../types/apiResponses";
 import { formatImgSrc, toPercent, toUrlFriendly } from "../../utils/utils";

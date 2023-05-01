@@ -136,6 +136,10 @@ export interface PeopleData {
   total_results: number;
 }
 
+export enum Gender {
+  Female = 1,
+  Male = 2,
+}
 export interface PeopleResult {
   adult: boolean;
   id: number;
@@ -143,9 +147,9 @@ export interface PeopleResult {
   original_name: string;
   media_type: MediaType.Person;
   popularity: number;
-  gender: number;
+  gender: Gender;
   known_for_department: KnownForDepartment;
-  profile_path: null | string;
+  profile_path: string;
   known_for: KnownFor[];
 }
 

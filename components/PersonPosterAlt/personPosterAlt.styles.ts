@@ -31,6 +31,7 @@ export const styles = {
     display: "flex",
     fontSize: "10px",
     whiteSpace: "nowrap",
+    flexWrap: "wrap",
   },
   posterType: {
     position: "relative",
