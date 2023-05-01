@@ -1,10 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
-import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 import { PeopleQueryKey, usePersonById } from "../../../../hooks/people.hooks";
-import { PeopleResult } from "../../../../types/apiResponses";
 import { getPersonById } from "../../../../api/people.api";
 
 type PersonInfoProps = {};
