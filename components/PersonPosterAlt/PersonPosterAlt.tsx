@@ -5,7 +5,7 @@ import { Box, Grid, Typography } from "@mui/material";
 
 import { styles as classes } from "./personPosterAlt.styles";
 import { Gender, PeopleResult } from "../../types/apiResponses";
-import { formatImgSrc, toPercent, toUrlFriendly } from "../../utils/utils";
+import { formatImgSrc, toUrlFriendly } from "../../utils/utils";
 
 type PersonPosterAltProps = {
   singlePersonData: PeopleResult;

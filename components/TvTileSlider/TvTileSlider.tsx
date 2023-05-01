@@ -1,16 +1,17 @@
-import React from 'react'
-import Slider from 'react-slick';
+import React from "react";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Container, Typography, Box } from '@mui/material';
-import { SeriesResult } from '../../types/apiResponses';
-import TvPoster from '../TvPoster/TvPoster';
-import { styles as classes } from './tvTileSlider.styles';
+import { Container, Typography, Box } from "@mui/material";
+
+import { SeriesResult } from "../../types/apiResponses";
+import TvPoster from "../TvPoster/TvPoster";
+import { styles as classes } from "./tvTileSlider.styles";
 
 type TvTileSliderProps = {
   title?: string;
   seriesData?: SeriesResult[];
-}
+};
 
 const TvTileSlider = ({ title, seriesData }: TvTileSliderProps) => {
   if (!seriesData?.length) return null;
@@ -31,7 +32,11 @@ const TvTileSlider = ({ title, seriesData }: TvTileSliderProps) => {
 
   return (
     <Container>
-      {title && <Typography variant='h5' textAlign='center' sx={classes.headTxt}>{title}</Typography>}
+      {title && (
+        <Typography variant="h5" textAlign="center" sx={classes.headTxt}>
+          {title}
+        </Typography>
+      )}
       <Box>
         <Slider {...settings}>
           {seriesData?.map((singleShowData, index) => (
@@ -43,6 +48,6 @@ const TvTileSlider = ({ title, seriesData }: TvTileSliderProps) => {
       </Box>
     </Container>
   );
-}
+};
 
 export default TvTileSlider;

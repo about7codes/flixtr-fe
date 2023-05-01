@@ -4,19 +4,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box, Container, Typography } from "@mui/material";
 
-import Poster from "../Poster/Poster";
-import { MovieResult } from "../../types/apiResponses";
-import { styles as classes } from "./tileSlider.styles";
+import PersonPoster from "../PersonPoster/PersonPoster";
+import { PeopleResult } from "../../types/apiResponses";
+import { styles as classes } from "./personTileSlider.styles";
 
 type TileSliderProps = {
   title?: string;
-  movieData?: MovieResult[];
+  peopleData?: PeopleResult[];
 };
 
-const TileSlider = ({ title, movieData }: TileSliderProps) => {
-  if (!movieData?.length) return null;
+const TileSlider = ({ title, peopleData }: TileSliderProps) => {
+  if (!peopleData?.length) return null;
 
-  // console.log("TileSlider", movieData);
   const settings = {
     arrows: true,
     dots: false,
@@ -39,9 +38,9 @@ const TileSlider = ({ title, movieData }: TileSliderProps) => {
       )}
       <Box>
         <Slider {...settings}>
-          {movieData?.map((singleMovieData, index) => (
+          {peopleData?.map((singlePersonData, index) => (
             <div key={index}>
-              <Poster singleMovieData={singleMovieData} />
+              <PersonPoster singlePersonData={singlePersonData} />
             </div>
           ))}
         </Slider>
