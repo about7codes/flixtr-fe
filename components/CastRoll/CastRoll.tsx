@@ -21,13 +21,14 @@ const CastRoll = ({ castList }: CastRollProps) => {
         Casts
       </Typography>
       <Grid container sx={classes.castRoll}>
-        {castList.map((cast, index) => (
+        {castList.map((cast) => (
           <Link
             href={`/person/${cast.id}/${toUrlFriendly(cast.name)}`}
             shallow
             style={{ display: "flex" }}
+            key={cast.id}
           >
-            <Grid item sx={classes.castItem} key={index}>
+            <Grid item sx={classes.castItem}>
               <Grid sx={classes.castImg}>
                 <Image
                   fill
