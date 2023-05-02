@@ -47,7 +47,12 @@ export interface MovieResult {
   imdb_id: string;
 }
 
-export type Cast = { character: string; name: string; profile_path: string };
+export type Cast = {
+  character: string;
+  name: string;
+  profile_path: string;
+  id: string;
+};
 
 export type ClipResults = {
   key: string;
@@ -148,9 +153,19 @@ export interface PeopleResult {
   media_type: MediaType.Person;
   popularity: number;
   gender: Gender;
+  also_known_as: string[];
   known_for_department: KnownForDepartment;
   profile_path: string;
+  biography: string;
+  imdb_id: string;
+  deathday: string | null;
+  birthday: string;
+  place_of_birth: string;
+  homepage: string | null;
   known_for: KnownFor[];
+  images: { profiles: { file_path: string }[] };
+  movie_credits: { cast: MovieResult[] };
+  tv_credits: { cast: SeriesResult[] };
 }
 
 export interface KnownFor {
