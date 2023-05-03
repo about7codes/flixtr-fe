@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   AppBar,
   Avatar,
@@ -7,20 +8,20 @@ import {
   Container,
   IconButton,
   InputBase,
-  ListItem,
   Menu,
   MenuItem,
   Toolbar,
   Tooltip,
   Typography,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
+import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
+
 import Sidebar from "../Sidebar/Sidebar";
 import { useCustomRedirect } from "../../hooks/app.hooks";
 import SearchAuto from "../SearchAuto/SearchAuto";
@@ -123,9 +124,9 @@ const Navbar = () => {
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
-              variant="h6"
               noWrap
-              component="a"
+              variant="h6"
+              component={Link}
               href="/"
               sx={{
                 mr: 2,
@@ -156,7 +157,7 @@ const Navbar = () => {
             <Typography
               variant="h5"
               noWrap
-              component="a"
+              component={Link}
               href="/"
               sx={{
                 mr: 2,
@@ -167,6 +168,7 @@ const Navbar = () => {
                 letterSpacing: ".3rem",
                 color: "inherit",
                 textDecoration: "none",
+                WebkitTapHighlightColor: "transparent",
               }}
             >
               FLIXTR
