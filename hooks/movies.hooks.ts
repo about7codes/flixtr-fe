@@ -13,6 +13,7 @@ export enum MovieQueryKey {
   PopularMovies = "PopularMovies",
   RecentMovies = "RecentMovies",
   TopMovies = "TopMovies",
+  SearchQuery = "SearchQuery",
 }
 
 export const useMovies = () => {

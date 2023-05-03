@@ -15,7 +15,7 @@ export const useCustomRedirect = () => {
 };
 
 type UseMaxHeightReturnType = [number, React.MutableRefObject<any>];
-
+// Returns component height in px numbers
 export const useMaxHeight = (): UseMaxHeightReturnType => {
   const [maxHeight, setMaxHeight] = useState<number>(0);
   const ref = React.useRef(null);
@@ -42,4 +42,21 @@ export const useMaxHeight = (): UseMaxHeightReturnType => {
   }, [maxHeight]);
 
   return [maxHeight, ref];
+};
+
+export const useIsMobile = (): boolean => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = (): void => {
+      const width = window.innerWidth;
+      setIsMobile(width < 900);
+    };
+    handleResize(); // set initial state on mount
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return isMobile;
 };

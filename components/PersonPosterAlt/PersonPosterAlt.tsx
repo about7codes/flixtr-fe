@@ -47,7 +47,7 @@ const PersonPosterAlt = ({ singlePersonData }: PersonPosterAltProps) => {
           <Box sx={classes.posterTxtSub}>
             <Box>{gender === Gender.Male ? "Male" : "Female"}</Box>
             <Box sx={classes.posterType}>{known_for_department}</Box>
-            <Box>{known_for[0].title ?? known_for[0].name}</Box>
+            <Box>{known_for[0]?.title || known_for[0]?.name || "N/A"}</Box>
           </Box>
         </Grid>
       </Grid>

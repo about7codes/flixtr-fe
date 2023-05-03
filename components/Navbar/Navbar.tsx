@@ -8,6 +8,7 @@ import {
   Container,
   IconButton,
   InputBase,
+  LinearProgress,
   Menu,
   MenuItem,
   Toolbar,
@@ -23,9 +24,12 @@ import LiveTvIcon from "@mui/icons-material/LiveTv";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 
 import Sidebar from "../Sidebar/Sidebar";
-import { useCustomRedirect } from "../../hooks/app.hooks";
+import { useCustomRedirect, useIsMobile } from "../../hooks/app.hooks";
 import SearchAuto from "../SearchAuto/SearchAuto";
 import { SearchData } from "../../types/apiResponses";
+import { styles as classes } from "./navbar.styles";
+import { useQuery } from "@tanstack/react-query";
+import { MovieQueryKey } from "../../hooks/movies.hooks";
 
 type NavbarProps = {};
 
@@ -77,12 +81,26 @@ const settings = ["Profile", "Logout"];
 
 const Navbar = () => {
   const { customRedirect } = useCustomRedirect();
+  const isMobile = useIsMobile();
+  console.log("isMobile: ", isMobile);
+
   const [searchVal, setSearchVal] = useState<string>();
-  const [searchData, setSearchData] = useState<SearchData>();
+  const [isResultsVisible, setIsResultsVisible] = useState<boolean>(false);
+  // const [searchData, setSearchData] = useState<SearchData>();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [anchorElLinks, setAnchorElLinks] = useState<null | HTMLElement>(null);
   const [openLinksMenu, setOpenLinksMenu] = useState<null | string>(null);
+
+  const {
+    data: searchData,
+    isFetching,
+    isError,
+  } = useSearchQuery(searchVal ? searchVal : "");
+
+  // console.log("QueryErrorxx: ", error);
+  // console.log("isLoading: ", isLoading);
+  // console.log("isFetching: ", isFetching);
 
   const handleOpenNavMenu = () => {
     setSidebarOpen(!sidebarOpen);
@@ -113,8 +131,8 @@ const Navbar = () => {
   };
 
   const getSearchResults = async () => {
-    const data = await getSearchQuery(searchVal);
-    setSearchData(data);
+    // const data = await getSearchQuery(searchVal);
+    // setSearchData(data);
   };
 
   return (
@@ -128,15 +146,7 @@ const Navbar = () => {
               variant="h6"
               component={Link}
               href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
+              sx={classes.logoTxt}
             >
               FLIXTR
             </Typography>
@@ -159,17 +169,7 @@ const Navbar = () => {
               noWrap
               component={Link}
               href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-                WebkitTapHighlightColor: "transparent",
-              }}
+              sx={classes.logoTxtMob}
             >
               FLIXTR
             </Typography>
@@ -239,6 +239,8 @@ const Navbar = () => {
                     inputProps={{ "aria-label": "search" }}
                     value={searchVal || ""}
                     onChange={(e) => setSearchVal(e.target.value)}
+                    onFocus={() => setIsResultsVisible(true)}
+                    onBlur={() => setIsResultsVisible(false)}
                     onKeyUp={(e) => {
                       if (
                         e.keyCode !== 38 &&
@@ -249,8 +251,27 @@ const Navbar = () => {
                       }
                     }}
                   />
+
+                  {isFetching && (
+                    <LinearProgress
+                      color="secondary"
+                      sx={{
+                        backgroundColor: "primary.main",
+                        position: "absolute",
+                        top: "100%",
+                        left: 0,
+                        width: "100%",
+                        zIndex: 2,
+                      }}
+                    />
+                  )}
                 </Search>
-                <SearchAuto searchData={searchData} />
+                <SearchAuto
+                  searchData={searchData}
+                  isResultsVisible={isResultsVisible}
+                  // isResultsVisible={true}
+                  isError={isError}
+                />
               </Box>
               <Box sx={{ ml: 1 }}>
                 <Tooltip title="Open settings">
@@ -310,6 +331,14 @@ const Navbar = () => {
   );
 };
 
+export const useSearchQuery = (searchQuery?: string | string[]) => {
+  return useQuery(
+    [MovieQueryKey.SearchQuery, searchQuery],
+    () => getSearchQuery(searchQuery),
+    { enabled: !!searchQuery }
+  );
+};
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -356,6 +385,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const getSearchQuery = async (
   searchValue?: string | string[]
 ): Promise<SearchData> => {
+  console.log("API CALLED");
   try {
     const searchRes = await fetch(
       `https://api.themoviedb.org/3/search/multi?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&query=${searchValue}`
