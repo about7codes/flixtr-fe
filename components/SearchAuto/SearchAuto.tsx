@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Collapse, Link, Paper, Typography } from "@mui/material";
+import Link from "next/link";
+import { Box, Collapse, Paper, Typography } from "@mui/material";
 import LaunchIcon from "@mui/icons-material/Launch";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
 
@@ -8,15 +9,23 @@ import { MediaType, SearchData } from "../../types/apiResponses";
 import PosterAlt from "../PosterAlt/PosterAlt";
 import TvPosterAlt from "../TvPosterAlt/TvPosterAlt";
 import PersonPosterAlt from "../PersonPosterAlt/PersonPosterAlt";
+import { InfiniteData } from "@tanstack/react-query";
 
 type SearchAutoProps = {
   searchData?: SearchData;
+  searchVal?: string;
   isResultsVisible: boolean;
   isError: boolean;
 };
 
-const SearchAuto = ({ searchData, isResultsVisible }: SearchAutoProps) => {
+const SearchAuto = ({
+  searchVal,
+  searchData,
+  isResultsVisible,
+}: SearchAutoProps) => {
   console.log("SearchData", searchData);
+
+  // const results = searchData?.pages[0].results
 
   return (
     <Paper sx={classes.searchAuto}>
@@ -34,7 +43,7 @@ const SearchAuto = ({ searchData, isResultsVisible }: SearchAutoProps) => {
         ))}
 
         {searchData?.results?.length && searchData?.results?.length > 4 ? (
-          <Link href={"/search?q=" + "query"}>
+          <Link href={"/search?q=" + (searchVal ?? "")} shallow>
             <Box
               color="secondary.main"
               sx={{

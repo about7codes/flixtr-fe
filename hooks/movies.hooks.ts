@@ -14,6 +14,7 @@ export enum MovieQueryKey {
   RecentMovies = "RecentMovies",
   TopMovies = "TopMovies",
   SearchQuery = "SearchQuery",
+  SearchPageQuery = "SearchPageQuery",
 }
 
 export const useMovies = () => {

@@ -24,12 +24,18 @@ import LiveTvIcon from "@mui/icons-material/LiveTv";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 
 import Sidebar from "../Sidebar/Sidebar";
-import { useCustomRedirect, useIsMobile } from "../../hooks/app.hooks";
+import {
+  useCustomRedirect,
+  useIsMobile,
+  usePageLoading,
+} from "../../hooks/app.hooks";
 import SearchAuto from "../SearchAuto/SearchAuto";
 import { SearchData } from "../../types/apiResponses";
 import { styles as classes } from "./navbar.styles";
 import { useQuery } from "@tanstack/react-query";
 import { MovieQueryKey } from "../../hooks/movies.hooks";
+import Loader from "../Loader/Loader";
+import { getSearchQuery } from "../../api/search.api";
 
 type NavbarProps = {};
 
@@ -80,9 +86,10 @@ export const appRoutes = [
 const settings = ["Profile", "Logout"];
 
 const Navbar = () => {
+  const isPageLoading = usePageLoading();
   const { customRedirect } = useCustomRedirect();
   const isMobile = useIsMobile();
-  console.log("isMobile: ", isMobile);
+  // console.log("isMobile: ", isMobile);
 
   const [searchVal, setSearchVal] = useState<string>();
   const [isResultsVisible, setIsResultsVisible] = useState<boolean>(false);
@@ -137,6 +144,7 @@ const Navbar = () => {
 
   return (
     <>
+      {isPageLoading && <Loader />}
       <AppBar position="static">
         <Container maxWidth="xl" sx={{ color: "secondary.main" }}>
           <Toolbar disableGutters>
@@ -267,6 +275,7 @@ const Navbar = () => {
                   )}
                 </Search>
                 <SearchAuto
+                  searchVal={searchVal}
                   searchData={searchData}
                   isResultsVisible={isResultsVisible}
                   // isResultsVisible={true}
@@ -334,7 +343,7 @@ const Navbar = () => {
 export const useSearchQuery = (searchQuery?: string | string[]) => {
   return useQuery(
     [MovieQueryKey.SearchQuery, searchQuery],
-    () => getSearchQuery(searchQuery),
+    () => getSearchQuery(1, searchQuery),
     { enabled: !!searchQuery }
   );
 };
@@ -381,28 +390,5 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
-export const getSearchQuery = async (
-  searchValue?: string | string[]
-): Promise<SearchData> => {
-  console.log("API CALLED");
-  try {
-    const searchRes = await fetch(
-      `https://api.themoviedb.org/3/search/multi?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&query=${searchValue}`
-    );
-    const searchData = await searchRes.json();
-
-    // console.log("SearchData", searchData);
-
-    // failure if 'success' property exists
-    if (searchData.hasOwnProperty("success"))
-      throw new Error("Api call failed");
-
-    return searchData;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Api call failed");
-  }
-};
 
 export default Navbar;
