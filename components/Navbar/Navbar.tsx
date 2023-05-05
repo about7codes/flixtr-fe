@@ -245,6 +245,7 @@ const Navbar = () => {
                     onBlur={() => setIsResultsVisible(false)}
                     onKeyUp={(e) => {
                       if (e.key == "Enter") {
+                        e.currentTarget.blur();
                         customRedirect("/search?q=" + (searchVal ?? ""));
                       }
                     }}
@@ -268,7 +269,6 @@ const Navbar = () => {
                   searchVal={searchVal}
                   searchData={searchData}
                   isResultsVisible={isResultsVisible}
-                  // isResultsVisible={true}
                   isError={isError}
                 />
               </Box>
@@ -351,7 +351,8 @@ const Navbar = () => {
                   onFocus={() => setIsResultsVisible(true)}
                   onBlur={() => setIsResultsVisible(false)}
                   onKeyUp={(e) => {
-                    if (e.key == "Enter") {
+                    if (e.key === "Enter") {
+                      e.currentTarget.blur();
                       customRedirect("/search?q=" + (searchVal ?? ""));
                     }
                   }}
