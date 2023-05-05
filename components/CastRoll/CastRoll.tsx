@@ -23,10 +23,10 @@ const CastRoll = ({ castList }: CastRollProps) => {
       <Grid container sx={classes.castRoll}>
         {castList.map((cast) => (
           <Link
-            href={`/person/${cast.id}/${toUrlFriendly(cast.name)}`}
-            shallow
-            style={{ display: "flex" }}
             key={cast.id}
+            shallow
+            style={{ display: "flex", WebkitTapHighlightColor: "transparent" }}
+            href={`/person/${cast.id}/${toUrlFriendly(cast.name)}`}
           >
             <Grid item sx={classes.castItem}>
               <Grid sx={classes.castImg}>

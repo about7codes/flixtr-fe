@@ -24,18 +24,13 @@ import LiveTvIcon from "@mui/icons-material/LiveTv";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 
 import Sidebar from "../Sidebar/Sidebar";
-import {
-  useCustomRedirect,
-  useIsMobile,
-  usePageLoading,
-} from "../../hooks/app.hooks";
+import { useCustomRedirect, usePageLoading } from "../../hooks/app.hooks";
 import SearchAuto from "../SearchAuto/SearchAuto";
-import { SearchData } from "../../types/apiResponses";
 import { styles as classes } from "./navbar.styles";
 import { useQuery } from "@tanstack/react-query";
 import { MovieQueryKey } from "../../hooks/movies.hooks";
-import Loader from "../Loader/Loader";
 import { getSearchQuery } from "../../api/search.api";
+import Loader from "../Loader/Loader";
 
 type NavbarProps = {};
 
@@ -88,13 +83,12 @@ const settings = ["Profile", "Logout"];
 const Navbar = () => {
   const isPageLoading = usePageLoading();
   const { customRedirect } = useCustomRedirect();
-  const isMobile = useIsMobile();
-  // console.log("isMobile: ", isMobile);
 
   const [searchVal, setSearchVal] = useState<string>();
   const [isResultsVisible, setIsResultsVisible] = useState<boolean>(false);
-  // const [searchData, setSearchData] = useState<SearchData>();
+  const [isMobileSearch, setIsMobileSearch] = useState<boolean>(false);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [anchorElLinks, setAnchorElLinks] = useState<null | HTMLElement>(null);
   const [openLinksMenu, setOpenLinksMenu] = useState<null | string>(null);
@@ -250,12 +244,8 @@ const Navbar = () => {
                     onFocus={() => setIsResultsVisible(true)}
                     onBlur={() => setIsResultsVisible(false)}
                     onKeyUp={(e) => {
-                      if (
-                        e.keyCode !== 38 &&
-                        e.keyCode !== 40 &&
-                        e.key == "Enter"
-                      ) {
-                        getSearchResults();
+                      if (e.key == "Enter") {
+                        customRedirect("/search?q=" + (searchVal ?? ""));
                       }
                     }}
                   />
@@ -282,7 +272,7 @@ const Navbar = () => {
                   isError={isError}
                 />
               </Box>
-              <Box sx={{ ml: 1 }}>
+              <Box sx={{ ml: 1, display: { xs: "none", md: "flex" } }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
@@ -328,8 +318,68 @@ const Navbar = () => {
                   ))}
                 </Menu>
               </Box>
+
+              <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  onClick={() => setIsMobileSearch((prev) => !prev)}
+                  aria-label="upload picture"
+                  sx={{ color: isMobileSearch ? "#fff" : "secondary.main" }}
+                >
+                  <SearchIcon />
+                </IconButton>
+              </Box>
             </Box>
           </Toolbar>
+
+          {isMobileSearch && (
+            <Box
+              sx={{
+                mb: 1,
+                position: "relative",
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                  value={searchVal || ""}
+                  onChange={(e) => setSearchVal(e.target.value)}
+                  onFocus={() => setIsResultsVisible(true)}
+                  onBlur={() => setIsResultsVisible(false)}
+                  onKeyUp={(e) => {
+                    if (e.key == "Enter") {
+                      customRedirect("/search?q=" + (searchVal ?? ""));
+                    }
+                  }}
+                />
+
+                {isFetching && (
+                  <LinearProgress
+                    color="secondary"
+                    sx={{
+                      backgroundColor: "primary.main",
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      width: "100%",
+                      zIndex: 2,
+                    }}
+                  />
+                )}
+              </Search>
+              <SearchAuto
+                searchVal={searchVal}
+                searchData={searchData}
+                isResultsVisible={isResultsVisible}
+                // isResultsVisible={true}
+                isError={isError}
+              />
+            </Box>
+          )}
         </Container>
       </AppBar>
       <Sidebar
@@ -376,13 +426,16 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
+  },
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       width: "12ch",
       "&:focus": {
         width: "20ch",
