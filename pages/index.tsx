@@ -44,8 +44,7 @@ const Home: NextPage<HomeProps> = () => {
               Trending Movies
             </Typography>
             <Typography variant="body1" sx={classes.subTxt}>
-              Here are some of the most recent movies recommended by our
-              community
+              The most recent movies recommended by our community
             </Typography>
           </Box>
           <TileSlider movieData={movieData} />
@@ -57,8 +56,7 @@ const Home: NextPage<HomeProps> = () => {
               Trending Shows
             </Typography>
             <Typography variant="body1" sx={classes.subTxt}>
-              Here are some of the most recent shows recommended by our
-              community
+              The most recent shows recommended by our community
             </Typography>
           </Box>
           <TvTileSlider seriesData={seriesData} />
@@ -70,8 +68,7 @@ const Home: NextPage<HomeProps> = () => {
               Trending Artists
             </Typography>
             <Typography variant="body1" sx={classes.subTxt}>
-              Here are some of the top rated artists recommended by our
-              community
+              The top rated artists recommended by our community
             </Typography>
           </Box>
           <PersonTileSlider peopleData={peopleData} />
