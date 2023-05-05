@@ -23,13 +23,12 @@ const SearchAuto = ({
   searchData,
   isResultsVisible,
 }: SearchAutoProps) => {
-  console.log("SearchData", searchData);
-
+  // console.log("SearchData", searchData);
   // const results = searchData?.pages[0].results
 
   return (
     <Paper sx={classes.searchAuto}>
-      <Collapse in={isResultsVisible}>
+      <Collapse in={isResultsVisible} timeout={{ enter: 300, exit: 500 }}>
         {searchData?.results?.slice(0, 4).map((media) => (
           <Box key={media.id}>
             {media.media_type === MediaType.Movie ? (

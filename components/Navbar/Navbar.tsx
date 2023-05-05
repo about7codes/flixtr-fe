@@ -269,6 +269,7 @@ const Navbar = () => {
                   searchVal={searchVal}
                   searchData={searchData}
                   isResultsVisible={isResultsVisible}
+                  // isResultsVisible={true}
                   isError={isError}
                 />
               </Box>
