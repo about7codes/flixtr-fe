@@ -19,6 +19,7 @@ function Popular() {
     isLoading,
     fetchNextPage,
     isFetching,
+    hasNextPage,
   } = usePopularSeries();
   // console.log('popularSeries: ', popularSeries)
 
@@ -40,19 +41,21 @@ function Popular() {
             ))
           )}
         </Grid>
-        <Grid container justifyContent="center">
-          <LoadingButton
-            onClick={() => fetchNextPage()}
-            loading={isFetching || isLoading}
-            loadingIndicator="Loading…"
-            color="secondary"
-            variant="contained"
-            size="large"
-            sx={classes.loadBtn}
-          >
-            show more
-          </LoadingButton>
-        </Grid>
+        {hasNextPage && (
+          <Grid container justifyContent="center">
+            <LoadingButton
+              onClick={() => fetchNextPage()}
+              loading={isFetching || isLoading}
+              loadingIndicator="Loading…"
+              color="secondary"
+              variant="contained"
+              size="large"
+              sx={classes.loadBtn}
+            >
+              show more
+            </LoadingButton>
+          </Grid>
+        )}
       </Box>
     </>
   );

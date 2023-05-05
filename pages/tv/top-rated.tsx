@@ -19,8 +19,9 @@ function TopRated({}: TopRatedProps) {
     isLoading,
     fetchNextPage,
     isFetching,
+    hasNextPage,
   } = useTopSeries();
-  // console.log('TopSeries: ', topSeries)
+  // console.log("TopSeries: ", topSeries);
 
   if (isLoading) return <Loader />;
 
@@ -40,19 +41,21 @@ function TopRated({}: TopRatedProps) {
             ))
           )}
         </Grid>
-        <Grid container justifyContent="center">
-          <LoadingButton
-            onClick={() => fetchNextPage()}
-            loading={isFetching || isLoading}
-            loadingIndicator="Loading…"
-            color="secondary"
-            variant="contained"
-            size="large"
-            sx={classes.loadBtn}
-          >
-            show more
-          </LoadingButton>
-        </Grid>
+        {hasNextPage && (
+          <Grid container justifyContent="center">
+            <LoadingButton
+              onClick={() => fetchNextPage()}
+              loading={isFetching || isLoading}
+              loadingIndicator="Loading…"
+              color="secondary"
+              variant="contained"
+              size="large"
+              sx={classes.loadBtn}
+            >
+              show more
+            </LoadingButton>
+          </Grid>
+        )}
       </Box>
     </>
   );
