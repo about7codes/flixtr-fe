@@ -7,6 +7,9 @@ export const styles = {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(155px, 1fr) )",
     justifyItems: "center",
+    "@media (max-width: 900px)": {
+      gridTemplateColumns: "repeat(auto-fill, minmax(108px, 1fr))",
+    },
   },
   loadBtn: { width: "100%" },
 };

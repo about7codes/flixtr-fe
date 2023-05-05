@@ -13,7 +13,7 @@ export const styles = {
     },
     "@media (max-width: 900px)": {
       margin: "10px 3px",
-      maxWidth: "120px",
+      maxWidth: "108px",
     },
   },
   posterUp: {
@@ -21,8 +21,8 @@ export const styles = {
     width: "150px",
     height: "225px",
     "@media (max-width: 900px)": {
-      width: "120px",
-      height: "180px",
+      width: "108px",
+      height: "162px",
     },
   },
   posterDown: {
@@ -36,5 +36,13 @@ export const styles = {
     overflow: "hidden",
     textOverflow: "ellipsis",
     fontWeight: "500",
+    "@media (max-width: 900px)": {
+      fontSize: "11px",
+    },
+  },
+  posterDept: {
+    "@media (max-width: 900px)": {
+      fontSize: "11px",
+    },
   },
 };

@@ -29,3 +29,8 @@ a {
   padding: 0 24px;
   min-height: 100vh;
 }
+@media (max-width: 900px){
+  .main{
+    padding: 0 10px;
+  }
+}

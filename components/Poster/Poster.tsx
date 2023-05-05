@@ -47,7 +47,7 @@ const Poster = ({ singleMovieData }: PosterProps) => {
           >
             {title}
           </Typography>
-          <Typography variant="subtitle2">
+          <Typography variant="subtitle2" sx={classes.posterYear}>
             {new Date(release_date).getFullYear()}
           </Typography>
         </Box>

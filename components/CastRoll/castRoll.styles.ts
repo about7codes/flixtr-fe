@@ -20,7 +20,8 @@ export const styles = {
     width: "138px",
     flex: "none",
     "@media (max-width: 900px)": {
-      width: "110px",
+      width: "115px",
+      marginRight: "7px",
     },
   },
   castImg: {

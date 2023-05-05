@@ -43,7 +43,9 @@ const PersonPoster = ({ singlePersonData }: PersonPosterProps) => {
           <Typography variant="subtitle2" sx={classes.posterTitle} title={name}>
             {name}
           </Typography>
-          <Typography variant="subtitle2">{known_for_department}</Typography>
+          <Typography variant="subtitle2" sx={classes.posterDept}>
+            {known_for_department}
+          </Typography>
         </Box>
       </Link>
     </Box>

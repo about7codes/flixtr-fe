@@ -11,7 +11,6 @@ type TvPosterProps = {
 };
 
 const TvPoster = ({ singleShowData }: TvPosterProps) => {
-
   const { id, name, first_air_date, poster_path } = singleShowData;
   const titleConverted = toUrlFriendly(name);
 
@@ -23,10 +22,19 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
             fill
             placeholder="blur"
             className="poster-img"
-            blurDataURL={formatImgSrc('https://image.tmdb.org/t/p/w220_and_h330_face/', poster_path)}
-            src={formatImgSrc('https://image.tmdb.org/t/p/w220_and_h330_face/', poster_path)}
-            sizes={formatImgSrc('https://image.tmdb.org/t/p/w220_and_h330_face/', poster_path)}
-            style={{ objectFit: 'cover', objectPosition: 'top' }}
+            blurDataURL={formatImgSrc(
+              "https://image.tmdb.org/t/p/w220_and_h330_face/",
+              poster_path
+            )}
+            src={formatImgSrc(
+              "https://image.tmdb.org/t/p/w220_and_h330_face/",
+              poster_path
+            )}
+            sizes={formatImgSrc(
+              "https://image.tmdb.org/t/p/w220_and_h330_face/",
+              poster_path
+            )}
+            style={{ objectFit: "cover", objectPosition: "top" }}
             alt={titleConverted}
           />
         </Box>
@@ -34,7 +42,7 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
           <Typography variant="subtitle2" sx={classes.posterTitle} title={name}>
             {name}
           </Typography>
-          <Typography variant="subtitle2">
+          <Typography variant="subtitle2" sx={classes.posterYear}>
             {new Date(first_air_date).getFullYear()}
           </Typography>
         </Box>
