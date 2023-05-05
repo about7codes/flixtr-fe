@@ -99,7 +99,10 @@ function MovieInfo() {
             </Box>
             <Box sx={classes.mediaBtns}>
               {new Date() > new Date(release_date) && (
-                <Link href={`/movie/${id}/${toUrlFriendly(title)}/watch`}>
+                <Link
+                  href={`/movie/${id}/${toUrlFriendly(title)}/watch`}
+                  style={{ WebkitTapHighlightColor: "transparent" }}
+                >
                   <Button
                     variant="contained"
                     color="secondary"

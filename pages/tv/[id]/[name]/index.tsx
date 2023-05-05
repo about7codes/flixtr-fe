@@ -99,7 +99,10 @@ function TvShowInfo() {
             </Box>
             <Box sx={classes.mediaBtns}>
               {new Date() > new Date(first_air_date) && (
-                <Link href={`/tv/${id}/${toUrlFriendly(name)}/season/1`}>
+                <Link
+                  href={`/tv/${id}/${toUrlFriendly(name)}/season/1`}
+                  style={{ WebkitTapHighlightColor: "transparent" }}
+                >
                   <Button
                     variant="contained"
                     color="secondary"
