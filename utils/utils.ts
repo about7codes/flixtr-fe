@@ -14,7 +14,7 @@ export const toUrlFriendly = (phrase: string) => {
 
 export const formatMinutes = (minutes?: number): string => {
   if (!minutes || isNaN(minutes)) {
-    return "0 min";
+    return "";
   }
 
   if (minutes < 60) {
