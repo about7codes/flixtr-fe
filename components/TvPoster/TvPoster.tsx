@@ -16,7 +16,11 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
 
   return (
     <Box sx={classes.poster}>
-      <Link href={`/tv/${id}/${titleConverted}`} shallow>
+      <Link
+        shallow
+        href={`/tv/${id}/${titleConverted}`}
+        style={{ WebkitTapHighlightColor: "transparent" }}
+      >
         <Box sx={classes.posterUp}>
           <Image
             fill

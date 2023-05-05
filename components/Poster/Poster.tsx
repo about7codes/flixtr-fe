@@ -17,7 +17,11 @@ const Poster = ({ singleMovieData }: PosterProps) => {
 
   return (
     <Box sx={classes.poster}>
-      <Link href={`/movie/${id}/${titleConverted}`} shallow>
+      <Link
+        shallow
+        href={`/movie/${id}/${titleConverted}`}
+        style={{ WebkitTapHighlightColor: "transparent" }}
+      >
         <Box sx={classes.posterUp}>
           <Image
             fill
