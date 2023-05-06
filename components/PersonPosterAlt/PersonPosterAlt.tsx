@@ -24,10 +24,7 @@ const PersonPosterAlt = ({ singlePersonData }: PersonPosterAltProps) => {
             fill
             placeholder="blur"
             className="poster-img"
-            blurDataURL={formatImgSrc(
-              "https://image.tmdb.org/t/p/w220_and_h330_face/",
-              profile_path
-            )}
+            blurDataURL={"/assets/blur.jpeg"}
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               profile_path

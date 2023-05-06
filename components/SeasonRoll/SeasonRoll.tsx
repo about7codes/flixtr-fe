@@ -33,10 +33,7 @@ const SeasonRoll = ({ seasonList, showId, showName }: SeasonRollProps) => {
                     <Image
                       fill
                       placeholder="blur"
-                      blurDataURL={formatImgSrc(
-                        "https://image.tmdb.org/t/p/w138_and_h175_face/",
-                        season.poster_path
-                      )}
+                      blurDataURL={"/assets/blur.jpeg"}
                       src={formatImgSrc(
                         "https://image.tmdb.org/t/p/w138_and_h175_face/",
                         season.poster_path

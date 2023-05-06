@@ -71,10 +71,7 @@ function PersonInfo() {
                   ? { objectFit: "cover", objectPosition: "top" }
                   : { objectFit: "contain", objectPosition: "center" }
               }
-              blurDataURL={formatImgSrc(
-                "https://image.tmdb.org/t/p/w780",
-                profile_path
-              )}
+              blurDataURL={"/assets/blur.jpeg"}
               src={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",
                 profile_path
