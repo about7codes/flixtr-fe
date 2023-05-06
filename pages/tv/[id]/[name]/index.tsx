@@ -21,6 +21,7 @@ import {
   toUrlFriendly,
 } from "../../../../utils/utils";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
+import { scrollToTop } from "../../../../hooks/app.hooks";
 
 type TvShowInfoProps = {};
 
@@ -248,11 +249,16 @@ function TvShowInfo() {
         </Grid>
 
         {[
-          { movieData: recommendations?.results, title: "Must watch shows" },
-          { movieData: similar?.results, title: "Shows you may like" },
-        ].map(({ movieData, title }) => (
-          <Grid item sx={{ p: "20px 0" }} key={title}>
-            <TvTileSlider title={title} seriesData={movieData} />
+          { seriesData: recommendations?.results, title: "Must watch shows" },
+          { seriesData: similar?.results, title: "Shows you may like" },
+        ].map(({ seriesData, title }) => (
+          <Grid
+            item
+            key={title}
+            sx={{ p: "20px 0" }}
+            onClick={() => scrollToTop()}
+          >
+            <TvTileSlider title={title} seriesData={seriesData} />
           </Grid>
         ))}
       </Grid>

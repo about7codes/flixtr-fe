@@ -84,3 +84,10 @@ export const usePageLoading = () => {
 
   return isLoading;
 };
+
+export const scrollToTop = () => {
+  const navElement = document.getElementById("app-nav");
+  if (navElement) {
+    navElement.scrollIntoView();
+  }
+};

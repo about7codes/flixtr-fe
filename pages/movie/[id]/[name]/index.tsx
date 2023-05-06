@@ -21,6 +21,7 @@ import {
   toUrlFriendly,
 } from "../../../../utils/utils";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
+import { scrollToTop } from "../../../../hooks/app.hooks";
 
 type MovieInfoProps = {};
 
@@ -264,7 +265,12 @@ function MovieInfo() {
           { movieData: recommendations?.results, title: "Our recommendations" },
           { movieData: similar?.results, title: "Something similar" },
         ].map(({ movieData, title }) => (
-          <Grid item sx={{ p: "20px 0" }} key={title}>
+          <Grid
+            item
+            key={title}
+            sx={{ p: "20px 0" }}
+            onClick={() => scrollToTop()}
+          >
             <TileSlider title={title} movieData={movieData} />
           </Grid>
         ))}

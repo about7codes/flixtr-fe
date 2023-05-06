@@ -140,7 +140,7 @@ const Navbar = () => {
     <>
       {isPageLoading && <Loader />}
       <AppBar position="static">
-        <Container maxWidth="xl" sx={{ color: "secondary.main" }}>
+        <Container maxWidth="xl" sx={{ color: "secondary.main" }} id="app-nav">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
