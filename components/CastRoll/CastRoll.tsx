@@ -33,7 +33,7 @@ const CastRoll = ({ castList }: CastRollProps) => {
                 <Image
                   fill
                   placeholder="blur"
-                  blurDataURL="/blur.webp"
+                  blurDataURL="/assets/abstract-bg.png"
                   src={formatImgSrc(
                     "https://image.tmdb.org/t/p/w138_and_h175_face/",
                     cast.profile_path

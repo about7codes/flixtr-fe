@@ -24,7 +24,7 @@ const PosterAlt = ({ singleMovieData }: PosterAltProps) => {
             fill
             placeholder="blur"
             className="poster-img"
-            blurDataURL="/blur.webp"
+            blurDataURL="/assets/abstract-bg.png"
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               poster_path

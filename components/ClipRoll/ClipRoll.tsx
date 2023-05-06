@@ -32,7 +32,7 @@ const ClipRoll = ({ clipList }: ClipRollProps) => {
                   fill
                   placeholder="blur"
                   style={{ objectFit: "cover" }}
-                  blurDataURL="/blur.webp"
+                  blurDataURL="/assets/abstract-bg.png"
                   src={"https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"}
                   sizes={
                     "https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"
