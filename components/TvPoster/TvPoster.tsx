@@ -26,7 +26,7 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
             fill
             placeholder="blur"
             className="poster-img"
-            blurDataURL="/assets/blur.jpeg"
+            blurDataURL="https://flixtr.netlify.app/assets/blur.jpeg"
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               poster_path

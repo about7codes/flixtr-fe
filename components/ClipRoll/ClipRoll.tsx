@@ -32,7 +32,7 @@ const ClipRoll = ({ clipList }: ClipRollProps) => {
                   fill
                   placeholder="blur"
                   style={{ objectFit: "cover" }}
-                  blurDataURL="/assets/blur.jpeg"
+                  blurDataURL="https://flixtr.netlify.app/assets/blur.jpeg"
                   src={"https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"}
                   sizes={
                     "https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"
