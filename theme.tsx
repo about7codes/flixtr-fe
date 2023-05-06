@@ -2,12 +2,12 @@ import { createTheme } from "@mui/material/styles";
 
 const colors = {
   primary: {
-    main: "#191919",
+    main: "#222",
     contrastText: "#fff",
   },
   secondary: {
-    main: "#96bdd9",
-    contrastText: "#fff",
+    main: "#addc35",
+    contrastText: "#222",
   },
 };
 
@@ -20,27 +20,30 @@ const theme = createTheme({
       default: "#191919",
     },
     primary: {
-      main: "#222",
-      contrastText: "#fff",
+      main: colors.primary.main,
+      contrastText: colors.primary.contrastText,
     },
     secondary: {
-      main: "#addc35",
-      contrastText: "#222",
+      main: colors.secondary.main,
+      contrastText: colors.secondary.contrastText,
     },
   },
   components: {
     MuiListItemButton: {
       styleOverrides: {
         root: {
+          "& .MuiListItemIcon-root": {
+            color: colors.secondary.main,
+          },
           "&.Mui-selected": {
-            // backgroundColor: colors.primary.main,
-            // color: colors.primary.contrastText,
+            backgroundColor: colors.secondary.main,
+            color: colors.secondary.contrastText,
             "& .MuiListItemIcon-root": {
-              // color: colors.primary.contrastText,
+              color: colors.secondary.contrastText,
             },
           },
           "&.Mui-selected:hover": {
-            // backgroundColor: colors.primary.main,
+            backgroundColor: colors.secondary.main,
           },
         },
       },

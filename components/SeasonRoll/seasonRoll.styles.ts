@@ -21,6 +21,7 @@ export const styles = {
     },
     "@media (max-width: 900px)": {
       width: "110px",
+      marginRight: "7px",
     },
   },
   seasonImg: {

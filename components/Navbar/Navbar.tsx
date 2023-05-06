@@ -37,7 +37,7 @@ type NavbarProps = {};
 export const appRoutes = [
   {
     title: "Movies",
-    icon: <OndemandVideoIcon color="secondary" />,
+    icon: <OndemandVideoIcon />,
     childRoutes: [
       {
         childTitle: "Popular",
@@ -55,7 +55,7 @@ export const appRoutes = [
   },
   {
     title: "TV Shows",
-    icon: <LiveTvIcon color="secondary" />,
+    icon: <LiveTvIcon />,
     childRoutes: [
       {
         childTitle: "Popular",
@@ -73,7 +73,7 @@ export const appRoutes = [
   },
   {
     title: "Watchlist",
-    icon: <SubscriptionsIcon color="secondary" />,
+    icon: <SubscriptionsIcon />,
     path: "/watchlist",
   },
 ];
