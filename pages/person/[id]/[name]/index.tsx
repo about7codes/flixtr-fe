@@ -71,7 +71,7 @@ function PersonInfo() {
                   ? { objectFit: "cover", objectPosition: "top" }
                   : { objectFit: "contain", objectPosition: "center" }
               }
-              blurDataURL="https://flixtr.netlify.app/assets/blur.jpeg"
+              blurDataURL="/blur.webp"
               src={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",
                 profile_path

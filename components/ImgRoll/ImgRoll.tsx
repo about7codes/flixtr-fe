@@ -19,7 +19,7 @@ const ImgRoll = ({ imageList }: ImgRollProps) => {
             <Image
               fill
               placeholder="blur"
-              blurDataURL="https://flixtr.netlify.app/assets/blur.jpeg"
+              blurDataURL="/blur.webp"
               src={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",
                 imageItem.file_path

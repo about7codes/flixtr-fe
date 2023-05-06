@@ -23,7 +23,7 @@ const PersonPoster = ({ singlePersonData }: PersonPosterProps) => {
             fill
             placeholder="blur"
             className="poster-img"
-            blurDataURL="https://flixtr.netlify.app/assets/blur.jpeg"
+            blurDataURL="/blur.webp"
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               profile_path

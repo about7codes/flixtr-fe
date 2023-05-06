@@ -33,7 +33,7 @@ const CastRoll = ({ castList }: CastRollProps) => {
                 <Image
                   fill
                   placeholder="blur"
-                  blurDataURL="https://flixtr.netlify.app/assets/blur.jpeg"
+                  blurDataURL="/blur.webp"
                   src={formatImgSrc(
                     "https://image.tmdb.org/t/p/w138_and_h175_face/",
                     cast.profile_path
