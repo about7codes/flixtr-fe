@@ -33,7 +33,7 @@ const CastRoll = ({ castList }: CastRollProps) => {
                 <Image
                   fill
                   placeholder="blur"
-                  blurDataURL="/assets/insta.svg"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
                   src={formatImgSrc(
                     "https://image.tmdb.org/t/p/w138_and_h175_face/",
                     cast.profile_path

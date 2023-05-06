@@ -71,7 +71,7 @@ function PersonInfo() {
                   ? { objectFit: "cover", objectPosition: "top" }
                   : { objectFit: "contain", objectPosition: "center" }
               }
-              blurDataURL="/assets/insta.svg"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
               src={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",
                 profile_path

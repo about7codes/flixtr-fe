@@ -24,7 +24,7 @@ const PersonPosterAlt = ({ singlePersonData }: PersonPosterAltProps) => {
             fill
             placeholder="blur"
             className="poster-img"
-            blurDataURL="/assets/insta.svg"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               profile_path

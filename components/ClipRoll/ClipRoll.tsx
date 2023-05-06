@@ -32,7 +32,7 @@ const ClipRoll = ({ clipList }: ClipRollProps) => {
                   fill
                   placeholder="blur"
                   style={{ objectFit: "cover" }}
-                  blurDataURL="/assets/insta.svg"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
                   src={"https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"}
                   sizes={
                     "https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"
