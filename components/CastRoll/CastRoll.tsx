@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
 import { styles as classes } from "./castRoll.styles";
 import { Cast } from "../../types/apiResponses";
-import { formatImgSrc, toUrlFriendly } from "../../utils/utils";
+import { blurData, formatImgSrc, toUrlFriendly } from "../../utils/utils";
 import Link from "next/link";
 
 type CastRollProps = {
@@ -33,7 +33,7 @@ const CastRoll = ({ castList }: CastRollProps) => {
                 <Image
                   fill
                   placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
+                  blurDataURL={blurData}
                   src={formatImgSrc(
                     "https://image.tmdb.org/t/p/w138_and_h175_face/",
                     cast.profile_path

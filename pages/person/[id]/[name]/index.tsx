@@ -14,7 +14,7 @@ import TvTileSlider from "../../../../components/TvTileSlider/TvTileSlider";
 import TileSlider from "../../../../components/TileSider/TileSlider";
 import ProfileImgRoll from "../../../../components/ProfileImgRoll/ProfileImgRoll";
 import { PeopleResult } from "../../../../types/apiResponses";
-import { formatImgSrc } from "../../../../utils/utils";
+import { blurData, formatImgSrc } from "../../../../utils/utils";
 import { useMaxHeight } from "../../../../hooks/app.hooks";
 
 type PersonInfoProps = {};
@@ -71,7 +71,7 @@ function PersonInfo() {
                   ? { objectFit: "cover", objectPosition: "top" }
                   : { objectFit: "contain", objectPosition: "center" }
               }
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
+              blurDataURL={blurData}
               src={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",
                 profile_path

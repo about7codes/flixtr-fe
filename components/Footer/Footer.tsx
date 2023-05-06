@@ -1,6 +1,7 @@
 import { Box, Typography, Grid, Link as MuiLink } from "@mui/material";
 import React from "react";
 import { styles as classes } from "./footer.styles";
+import { blurData } from "../../utils/utils";
 
 // type Props = {}
 
@@ -54,7 +55,7 @@ const Footer = () => {
                 // sx={classes.sociallink}
               >
                 <img
-                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
+                  src={blurData}
                   alt="instagramLogo"
                   style={classes.socialLogo}
                 />

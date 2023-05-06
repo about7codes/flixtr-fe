@@ -4,6 +4,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import { styles as classes } from "./clipRoll.styles";
 import { ClipResults } from "../../types/apiResponses";
+import { blurData } from "../../utils/utils";
 
 type ClipRollProps = {
   clipList: ClipResults[];
@@ -32,7 +33,7 @@ const ClipRoll = ({ clipList }: ClipRollProps) => {
                   fill
                   placeholder="blur"
                   style={{ objectFit: "cover" }}
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
+                  blurDataURL={blurData}
                   src={"https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"}
                   sizes={
                     "https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"

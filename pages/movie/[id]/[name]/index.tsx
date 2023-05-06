@@ -15,6 +15,7 @@ import { MovieResult } from "../../../../types/apiResponses";
 import { getMovieById } from "../../../../api/movies.api";
 import { MovieQueryKey, useMovieById } from "../../../../hooks/movies.hooks";
 import {
+  blurData,
   formatImgSrc,
   formatMinutes,
   formatToUSD,
@@ -76,7 +77,7 @@ function MovieInfo() {
                   ? { objectFit: "cover", objectPosition: "top" }
                   : { objectFit: "contain", objectPosition: "center" }
               }
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
+              blurDataURL={blurData}
               src={formatImgSrc("https://image.tmdb.org/t/p/w780", poster_path)}
               sizes={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",

@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 
 import { styles as classes } from "./personPoster.styles";
 import { PeopleResult } from "../../types/apiResponses";
-import { formatImgSrc, toUrlFriendly } from "../../utils/utils";
+import { blurData, formatImgSrc, toUrlFriendly } from "../../utils/utils";
 
 type PersonPosterProps = {
   singlePersonData: PeopleResult;
@@ -23,7 +23,7 @@ const PersonPoster = ({ singlePersonData }: PersonPosterProps) => {
             fill
             placeholder="blur"
             className="poster-img"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
+            blurDataURL={blurData}
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               profile_path

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Box, Grid } from "@mui/material";
 import { styles as classes } from "./imgRoll.styles";
-import { formatImgSrc } from "../../utils/utils";
+import { blurData, formatImgSrc } from "../../utils/utils";
 
 type ImgRollProps = {
   imageList: { file_path: string }[];
@@ -19,7 +19,7 @@ const ImgRoll = ({ imageList }: ImgRollProps) => {
             <Image
               fill
               placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
+              blurDataURL={blurData}
               src={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",
                 imageItem.file_path

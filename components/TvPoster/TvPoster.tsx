@@ -4,7 +4,12 @@ import Link from "next/link";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { styles as classes } from "./tvPoster.styles";
 import { SeriesResult } from "../../types/apiResponses";
-import { formatImgSrc, toPercent, toUrlFriendly } from "../../utils/utils";
+import {
+  blurData,
+  formatImgSrc,
+  toPercent,
+  toUrlFriendly,
+} from "../../utils/utils";
 
 type TvPosterProps = {
   singleShowData: SeriesResult;
@@ -26,7 +31,7 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
             fill
             placeholder="blur"
             className="poster-img"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
+            blurDataURL={blurData}
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               poster_path

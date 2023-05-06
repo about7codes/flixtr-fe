@@ -16,6 +16,7 @@ import SeasonRoll from "../../../../components/SeasonRoll/SeasonRoll";
 import { getSeriesById } from "../../../../api/series.api";
 import { SeriesQueryKey, useSeriesById } from "../../../../hooks/series.hooks";
 import {
+  blurData,
   formatImgSrc,
   formatMinutes,
   toUrlFriendly,
@@ -76,7 +77,7 @@ function TvShowInfo() {
                   ? { objectFit: "cover", objectPosition: "top" }
                   : { objectFit: "contain", objectPosition: "center" }
               }
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUuMy3HQADlgGqs+StuAAAAABJRU5ErkJggg=="
+              blurDataURL={blurData}
               src={formatImgSrc("https://image.tmdb.org/t/p/w780", poster_path)}
               sizes={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",
