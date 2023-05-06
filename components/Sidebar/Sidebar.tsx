@@ -52,7 +52,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
             }}
             sx={{ display: "block" }}
           >
-            <ListItemButton>
+            <ListItemButton selected={router.asPath === path}>
               <ListItemIcon>{icon}</ListItemIcon>
               <ListItemText primary={title} />
               {!path && (isDropped == title ? <ExpandLess /> : <ExpandMore />)}
