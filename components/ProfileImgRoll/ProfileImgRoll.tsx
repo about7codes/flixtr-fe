@@ -19,7 +19,7 @@ const ImgRoll = ({ imageList }: ImgRollProps) => {
             <Image
               fill
               placeholder="blur"
-              blurDataURL="/assets/abstract-bg.png"
+              blurDataURL="/assets/insta.svg"
               src={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",
                 imageItem.file_path
