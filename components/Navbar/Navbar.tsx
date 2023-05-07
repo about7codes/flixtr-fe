@@ -345,6 +345,7 @@ const Navbar = () => {
                   <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
+                  autoFocus
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
                   value={searchVal || ""}

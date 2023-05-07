@@ -55,7 +55,7 @@ const Footer = () => {
                 // sx={classes.sociallink}
               >
                 <img
-                  src={blurData}
+                  src="/assets/insta.svg"
                   alt="instagramLogo"
                   style={classes.socialLogo}
                 />
