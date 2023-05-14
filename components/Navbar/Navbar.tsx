@@ -22,6 +22,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import Sidebar from "../Sidebar/Sidebar";
 import { useCustomRedirect, usePageLoading } from "../../hooks/app.hooks";
@@ -81,6 +82,9 @@ export const appRoutes = [
 const settings = ["Profile", "Logout"];
 
 const Navbar = () => {
+  const { data: sessionData } = useSession();
+  console.log("sessionData: ", sessionData);
+
   const isPageLoading = usePageLoading();
   const { customRedirect } = useCustomRedirect();
 
@@ -114,7 +118,11 @@ const Navbar = () => {
     setSidebarOpen(false);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = async (
+    event: React.MouseEvent<HTMLElement>,
+    btnKey?: string
+  ) => {
+    if (btnKey == "Logout") await signOut();
     setAnchorElUser(null);
   };
 
@@ -274,14 +282,26 @@ const Navbar = () => {
                 />
               </Box>
               <Box sx={{ ml: 1, display: { xs: "none", md: "flex" } }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      // src="/static/images/avatar/2.jpg"
-                    />
-                  </IconButton>
-                </Tooltip>
+                {sessionData?.user ? (
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar
+                        alt="Remy Sharp"
+                        // src="/static/images/avatar/2.jpg"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Avatar
+                    onClick={() => signIn()}
+                    sx={{
+                      bgcolor: "secondary.main",
+                      cursor: "pointer",
+                    }}
+                  >
+                    IN
+                  </Avatar>
+                )}
                 <Menu
                   sx={{
                     mt: "45px",
@@ -312,7 +332,7 @@ const Navbar = () => {
                         },
                       }}
                       key={setting}
-                      onClick={handleCloseUserMenu}
+                      onClick={(e) => handleCloseUserMenu(e, setting)}
                     >
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>

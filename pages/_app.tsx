@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
+import { SessionProvider } from "next-auth/react";
 import {
   Hydrate,
   QueryClient,
@@ -13,7 +14,7 @@ import theme from "../theme";
 import Layout from "../components/Layout/Layout";
 import * as gtag from "../analytics";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
   const [queryClient] = useState(
     () =>
@@ -39,15 +40,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <ThemeProvider theme={theme}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </Hydrate>
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ThemeProvider theme={theme}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </Hydrate>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }
 
