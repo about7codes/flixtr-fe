@@ -22,11 +22,14 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
         const { username, password } = credentials as any;
-        const res = await fetch(`http://localhost:8000/auth/signin`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: username, password }),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BE_ROUTE}/auth/signin`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: username, password }),
+          }
+        );
 
         const user = await res.json();
 

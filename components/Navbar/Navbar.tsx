@@ -292,15 +292,13 @@ const Navbar = () => {
                     </IconButton>
                   </Tooltip>
                 ) : (
-                  <Avatar
+                  <Button
+                    color="secondary"
+                    variant="contained"
                     onClick={() => signIn()}
-                    sx={{
-                      bgcolor: "secondary.main",
-                      cursor: "pointer",
-                    }}
                   >
-                    IN
-                  </Avatar>
+                    Login
+                  </Button>
                 )}
                 <Menu
                   sx={{

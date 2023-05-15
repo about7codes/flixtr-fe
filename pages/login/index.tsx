@@ -27,6 +27,8 @@ import { styles as classes } from "../../styles/login.styles";
 import { useRouter } from "next/router";
 import CustomHead from "../../components/CustomHead/CustomHead";
 import { signIn } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { setNotify } from "../../redux/notifySlice";
 // import { parseCookies } from "nookies";
 // import { useCheckLogin } from "../../hooks/app.hooks";
 
@@ -36,6 +38,7 @@ interface IFormValues {
 }
 
 const Login = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   // const isLogged = useCheckLogin();
   const isLogged = false;
@@ -59,6 +62,14 @@ const Login = () => {
       redirect: true,
       callbackUrl: "/",
     });
+
+    dispatch(
+      setNotify({
+        isOpen: true,
+        message: "Login successfull",
+        type: "success",
+      })
+    );
     // login({ email: values.email, password: values.password });
   };
   const formikSchema = Yup.object().shape({

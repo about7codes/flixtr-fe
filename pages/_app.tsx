@@ -7,8 +7,10 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { Provider } from "react-redux";
 import { ThemeProvider } from "@mui/material";
 
+import { store } from "../redux/store";
 import "../styles/globals.css";
 import theme from "../theme";
 import Layout from "../components/Layout/Layout";
@@ -43,11 +45,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <ThemeProvider theme={theme}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ThemeProvider>
+          <Provider store={store}>
+            <ThemeProvider theme={theme}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ThemeProvider>
+          </Provider>
         </Hydrate>
       </QueryClientProvider>
     </SessionProvider>
