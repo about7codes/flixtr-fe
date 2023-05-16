@@ -18,7 +18,7 @@ const Notify = () => {
     <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
       <Alert
         elevation={3}
-        security={type}
+        severity={type}
         onClose={handleClose}
         sx={{ width: "100%" }}
       >

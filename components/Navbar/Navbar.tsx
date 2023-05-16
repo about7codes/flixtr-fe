@@ -122,7 +122,7 @@ const Navbar = () => {
     event: React.MouseEvent<HTMLElement>,
     btnKey?: string
   ) => {
-    if (btnKey == "Logout") await signOut();
+    if (btnKey == "Logout") await signOut({ redirect: false });
     setAnchorElUser(null);
   };
 
@@ -296,6 +296,7 @@ const Navbar = () => {
                     color="secondary"
                     variant="contained"
                     onClick={() => signIn()}
+                    // onClick={() => customRedirect("/login")}
                   >
                     Login
                   </Button>

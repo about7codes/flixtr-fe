@@ -26,7 +26,7 @@ import { styles as classes } from "../../styles/login.styles";
 // import HeaderInfo from "../../components/HeaderInfo/HeaderInfo";
 import { useRouter } from "next/router";
 import CustomHead from "../../components/CustomHead/CustomHead";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../redux/notifySlice";
 // import { parseCookies } from "nookies";
@@ -38,16 +38,18 @@ interface IFormValues {
 }
 
 const Login = () => {
+  const { data: sessionData, status } = useSession();
   const dispatch = useDispatch();
   const router = useRouter();
   // const isLogged = useCheckLogin();
   const isLogged = false;
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isLogged) {
       console.log("Lredirect to /all");
-      router.push("/all");
+      router.push("/");
       return;
     }
   }, []);
@@ -56,20 +58,40 @@ const Login = () => {
 
   const handleSubmit = async (values: IFormValues) => {
     console.log(values);
-    const result = await signIn("credentials", {
-      username: values.email,
-      password: values.password,
-      redirect: true,
-      callbackUrl: "/",
-    });
+    try {
+      setIsLoading(true);
+      const result = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      });
 
-    dispatch(
-      setNotify({
-        isOpen: true,
-        message: "Login successfull",
-        type: "success",
-      })
-    );
+      setIsLoading(false);
+
+      if (result?.error) throw new Error(result.error);
+
+      // console.log("LoginResult: ", result);
+
+      dispatch(
+        setNotify({
+          isOpen: true,
+          message: "Login successfull",
+          type: "success",
+        })
+      );
+    } catch (error: any) {
+      setIsLoading(false);
+      console.log(error);
+
+      dispatch(
+        setNotify({
+          isOpen: true,
+          message: error.message,
+          type: "error",
+        })
+      );
+    }
+
     // login({ email: values.email, password: values.password });
   };
   const formikSchema = Yup.object().shape({
@@ -179,7 +201,8 @@ const Login = () => {
               </Box>
               <LoadingButton
                 fullWidth
-                // loading={isLoading}
+                loading={isLoading}
+                // loading={status === "loading"}
                 sx={classes.submit}
                 variant="contained"
                 onClick={() => formik.handleSubmit()}
