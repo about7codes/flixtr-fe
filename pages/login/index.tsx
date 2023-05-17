@@ -136,10 +136,12 @@ const Login = () => {
               <Box sx={classes.formGroup}>
                 <Grid container spacing={1} sx={classes.field}>
                   <Grid item>
-                    <AccountCircle />
+                    <AccountCircle color="secondary" />
                   </Grid>
                   <Grid item sx={classes.fieldInput}>
                     <TextField
+                      sx={classes.input}
+                      color="secondary"
                       fullWidth
                       id="email"
                       label="Email"
@@ -158,10 +160,12 @@ const Login = () => {
               <Box sx={classes.formGroup}>
                 <Grid container spacing={1} sx={classes.field}>
                   <Grid item>
-                    <Lock />
+                    <Lock color="secondary" />
                   </Grid>
                   <Grid item sx={classes.fieldInput}>
                     <TextField
+                      sx={classes.input}
+                      color="secondary"
                       fullWidth
                       id="password"
                       label="Password"
@@ -181,6 +185,7 @@ const Login = () => {
                         endAdornment: (
                           <InputAdornment position="end">
                             <IconButton
+                              color="secondary"
                               aria-label="toggle password visibility"
                               onClick={() =>
                                 setShowPassword((prev) => (prev ? false : true))
@@ -205,6 +210,7 @@ const Login = () => {
                 // loading={status === "loading"}
                 sx={classes.submit}
                 variant="contained"
+                color="secondary"
                 onClick={() => formik.handleSubmit()}
               >
                 Sign In
@@ -212,7 +218,7 @@ const Login = () => {
               <Link href="/signup" style={classes.altBtn}>
                 <Button
                   variant="outlined"
-                  color="primary"
+                  color="secondary"
                   fullWidth
                   sx={classes.submit}
                 >

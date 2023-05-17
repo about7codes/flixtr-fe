@@ -12,6 +12,8 @@ import {
   Button,
   IconButton,
   Link as MuiLink,
+  Avatar,
+  ButtonBase,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -30,17 +32,18 @@ import { useDispatch } from "react-redux";
 import { setNotify } from "../../redux/notifySlice";
 import { signupRequest } from "../../api/auth.api";
 import { signIn } from "next-auth/react";
+import AvatarSelector from "../../components/AvatarSelector/AvatarSelector";
 
 interface IFormValues {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
-  avatar: number;
 }
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const [avatarPic, setAvatarPic] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   // const [, dispatch] = useContext<any>(AppContext);
@@ -59,7 +62,7 @@ const Signup = () => {
         name: values.name,
         email: values.email,
         password: values.password,
-        propic: values.avatar,
+        propic: avatarPic,
       });
 
       let result;
@@ -99,12 +102,8 @@ const Signup = () => {
     }
   };
   const formikSchema = Yup.object().shape({
-    avatar: Yup.number()
-      .typeError("Avatar must be a number")
-      .max(10, "Max is 10.")
-      .required("Please enter your Avatar."),
     name: Yup.string()
-      .max(25, "Max character is 25.")
+      .max(20, "Max characters is of 20.")
       .required("Please enter your name."),
     email: Yup.string()
       .email("Enter a valid email.")
@@ -125,7 +124,6 @@ const Signup = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      avatar: 1,
     },
     validationSchema: formikSchema,
     onSubmit: handleSubmit,
@@ -152,34 +150,20 @@ const Signup = () => {
           <Grid item>
             <Box>
               <Box sx={classes.formGroup}>
-                <Grid container spacing={1} sx={classes.field}>
-                  <Grid item>
-                    <AccountCircle />
-                  </Grid>
-                  <Grid item sx={classes.fieldInput}>
-                    <TextField
-                      fullWidth
-                      id="avatar"
-                      label="Avatar"
-                      name="avatar"
-                      variant="standard"
-                      value={formik.values.avatar}
-                      onChange={formik.handleChange}
-                      error={
-                        formik.touched.avatar && Boolean(formik.errors.avatar)
-                      }
-                      helperText={formik.touched.avatar && formik.errors.avatar}
-                    />
-                  </Grid>
-                </Grid>
+                <AvatarSelector
+                  avatarPic={avatarPic}
+                  setAvatarPic={setAvatarPic}
+                />
               </Box>
               <Box sx={classes.formGroup}>
                 <Grid container spacing={1} sx={classes.field}>
                   <Grid item>
-                    <AccountCircle />
+                    <AccountCircle color="secondary" />
                   </Grid>
                   <Grid item sx={classes.fieldInput}>
                     <TextField
+                      sx={classes.input}
+                      color="secondary"
                       fullWidth
                       id="name"
                       label="Name"
@@ -196,10 +180,12 @@ const Signup = () => {
               <Box sx={classes.formGroup}>
                 <Grid container spacing={1} sx={classes.field}>
                   <Grid item>
-                    <EmailIcon />
+                    <EmailIcon color="secondary" />
                   </Grid>
                   <Grid item sx={classes.fieldInput}>
                     <TextField
+                      sx={classes.input}
+                      color="secondary"
                       fullWidth
                       id="email"
                       label="Email"
@@ -218,10 +204,12 @@ const Signup = () => {
               <Box sx={classes.formGroup}>
                 <Grid container spacing={1} sx={classes.field}>
                   <Grid item>
-                    <Lock />
+                    <Lock color="secondary" />
                   </Grid>
                   <Grid item sx={classes.fieldInput}>
                     <TextField
+                      sx={classes.input}
+                      color="secondary"
                       fullWidth
                       id="password"
                       label="Password"
@@ -241,6 +229,7 @@ const Signup = () => {
                         endAdornment: (
                           <InputAdornment position="end">
                             <IconButton
+                              color="secondary"
                               aria-label="toggle password visibility"
                               onClick={() =>
                                 setShowPassword((prev) => (prev ? false : true))
@@ -262,11 +251,13 @@ const Signup = () => {
               <Box sx={classes.formGroup}>
                 <Grid container spacing={1} sx={classes.field}>
                   <Grid item>
-                    <Lock />
+                    <Lock color="secondary" />
                   </Grid>
                   <Grid item sx={classes.fieldInput}>
                     <TextField
+                      sx={classes.input}
                       fullWidth
+                      color="secondary"
                       id="confirmPassword"
                       label="Confirm Password"
                       name="confirmPassword"
@@ -286,6 +277,7 @@ const Signup = () => {
                         endAdornment: (
                           <InputAdornment position="end">
                             <IconButton
+                              color="secondary"
                               aria-label="toggle password visibility"
                               onClick={() =>
                                 setShowPassword((prev) => (prev ? false : true))
@@ -306,9 +298,10 @@ const Signup = () => {
               </Box>
               <LoadingButton
                 fullWidth
-                // loading={isLoading}
+                loading={isLoading}
                 sx={classes.submit}
                 variant="contained"
+                color="secondary"
                 onClick={() => formik.handleSubmit()}
               >
                 Create account
@@ -316,7 +309,7 @@ const Signup = () => {
               <Link href="/login" style={classes.altBtn}>
                 <Button
                   variant="outlined"
-                  color="primary"
+                  color="secondary"
                   fullWidth
                   sx={classes.submit}
                 >

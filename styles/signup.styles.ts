@@ -8,14 +8,16 @@ export const styles = {
   },
   signInner: {
     maxWidth: "370px",
-    margin: "0 auto",
+    margin: "30px auto",
     flexDirection: "column",
     padding: "20px",
     borderRadius: "10px",
-    backgroundColor: "#616161", // TODO: Change later
-    boxShadow: "rgb(0 0 0 / 8%) 0px 0px 18px",
+    backgroundColor: "#222",
+    boxShadow:
+      "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
   },
   logo: {},
+
   signInnerHeader: {
     textAlign: "center",
   },
@@ -29,6 +31,14 @@ export const styles = {
   },
   fieldInput: {
     flex: 1,
+  },
+  input: {
+    label: {
+      color: "secondary.main",
+    },
+    "& .MuiInputBase-root:before": {
+      borderColor: "secondary.main",
+    },
   },
   submit: {
     marginTop: "15px",
