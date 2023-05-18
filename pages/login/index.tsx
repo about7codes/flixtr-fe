@@ -41,6 +41,7 @@ const Login = () => {
   const { data: sessionData, status } = useSession();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { callbackUrl } = router.query;
   // const isLogged = useCheckLogin();
   const isLogged = false;
   const [showPassword, setShowPassword] = useState(false);
@@ -64,6 +65,7 @@ const Login = () => {
         email: values.email,
         password: values.password,
         redirect: false,
+        // callbackUrl: "/",
       });
 
       setIsLoading(false);
@@ -71,7 +73,6 @@ const Login = () => {
       if (result?.error) throw new Error(result.error);
 
       // console.log("LoginResult: ", result);
-
       dispatch(
         setNotify({
           isOpen: true,
@@ -79,6 +80,7 @@ const Login = () => {
           type: "success",
         })
       );
+      router.push((callbackUrl as string) || "/");
     } catch (error: any) {
       setIsLoading(false);
       console.log(error);

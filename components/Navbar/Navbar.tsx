@@ -288,6 +288,9 @@ const Navbar = () => {
                       <Avatar
                         alt="Remy Sharp"
                         // src="/static/images/avatar/2.jpg"
+                        src={`/assets/${
+                          sessionData.user?.user?.propic ?? 1
+                        }.png`}
                       />
                     </IconButton>
                   </Tooltip>
