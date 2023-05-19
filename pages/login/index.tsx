@@ -42,8 +42,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { callbackUrl } = router.query;
-  // const isLogged = useCheckLogin();
-  const isLogged = false;
+  const isLogged = status === "authenticated";
+  // const isLogged = false;
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,7 +53,7 @@ const Login = () => {
       router.push("/");
       return;
     }
-  }, []);
+  }, [isLogged]);
 
   // const { mutate: login, isLoading, error } = useLogin();
 
@@ -65,7 +65,6 @@ const Login = () => {
         email: values.email,
         password: values.password,
         redirect: false,
-        // callbackUrl: "/",
       });
 
       setIsLoading(false);

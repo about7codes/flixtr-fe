@@ -3,8 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
+import {
+  QueryClient,
+  dehydrate,
+  useMutation,
+  useQuery,
+} from "@tanstack/react-query";
 import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 import ImgRoll from "../../../../components/ImgRoll/ImgRoll";
 import CastRoll from "../../../../components/CastRoll/CastRoll";
@@ -23,12 +29,101 @@ import {
 } from "../../../../utils/utils";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { scrollToTop } from "../../../../hooks/app.hooks";
+import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { setNotify } from "../../../../redux/notifySlice";
 
 type MovieInfoProps = {};
+type MediaArgs = {
+  token: string;
+  tmdb_id: number;
+  media_type: string;
+  media_name: string;
+  release_date: string;
+  poster_path: string;
+};
+
+export const addToWatchlist = async ({
+  token,
+  tmdb_id,
+  media_type,
+  media_name,
+  release_date,
+  poster_path,
+}: MediaArgs) => {
+  try {
+    const watchlistRes = await fetch(
+      `${process.env.NEXT_PUBLIC_BE_ROUTE}/watchlist/add`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          tmdb_id,
+          media_type,
+          media_name,
+          release_date,
+          poster_path,
+        }),
+      }
+    );
+
+    const watchlistData = await watchlistRes.json();
+
+    if (watchlistData.hasOwnProperty("error"))
+      throw new Error(watchlistData.error);
+
+    if (watchlistData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+    console.log(watchlistData);
+
+    return watchlistData;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+
+export const useAddToWatchlist = () => {
+  const dispatch = useDispatch();
+  const { data: sessionData } = useSession();
+  const token = sessionData?.user.authToken;
+
+  return useMutation(addToWatchlist, {
+    onSuccess: (data) => {
+      // Update cache data
+      // cache.invalidateQueries("key");
+
+      dispatch(
+        setNotify({
+          isOpen: true,
+          message: "Added successfull",
+          type: "success",
+        })
+      );
+      console.log("Successdata", data);
+    },
+    onError: (error: any) => {
+      dispatch(
+        setNotify({
+          isOpen: true,
+          message: error.message,
+          type: "error",
+        })
+      );
+      console.log("QueryError", error);
+    },
+  });
+};
 
 function MovieInfo() {
+  const { data: sessionData } = useSession();
   const router = useRouter();
   const { data: singleMovieData, isLoading } = useMovieById(router.query.id);
+  const { mutateAsync: addWatchlist, isLoading: isLoadingPost } =
+    useAddToWatchlist();
   // console.log('movieInfo: ', singleMovieData);
 
   if (isLoading) return <LinearProgress />;
@@ -55,6 +150,23 @@ function MovieInfo() {
     recommendations,
     similar,
   } = singleMovieData as MovieResult;
+
+  const handleAddToWatchlist = async () => {
+    try {
+      const data = await addWatchlist({
+        token: sessionData?.user.authToken ?? "",
+        tmdb_id: id,
+        media_type: "movie",
+        media_name: title,
+        release_date: release_date,
+        poster_path: poster_path,
+      });
+
+      console.log("AddWatchlist", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -121,13 +233,24 @@ function MovieInfo() {
                   Remove from watchlist
                 </Button>
               ) : (
-                <Button
+                // <Button
+                //   variant="outlined"
+                //   color="secondary"
+                //   sx={classes.watchlistBtn}
+                //   onClick={handleAddToWatchlist}
+                // >
+                //   Add to watchlist
+                // </Button>
+                <LoadingButton
+                  // fullWidth
+                  loading={isLoadingPost}
                   variant="outlined"
                   color="secondary"
                   sx={classes.watchlistBtn}
+                  onClick={handleAddToWatchlist}
                 >
                   Add to watchlist
-                </Button>
+                </LoadingButton>
               )}
             </Box>
             <Box>

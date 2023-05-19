@@ -32,6 +32,7 @@ import { useQuery } from "@tanstack/react-query";
 import { MovieQueryKey } from "../../hooks/movies.hooks";
 import { getSearchQuery } from "../../api/search.api";
 import Loader from "../Loader/Loader";
+import { useRouter } from "next/router";
 
 type NavbarProps = {};
 
@@ -82,6 +83,7 @@ export const appRoutes = [
 const settings = ["Profile", "Logout"];
 
 const Navbar = () => {
+  const router = useRouter();
   const { data: sessionData } = useSession();
   console.log("sessionData: ", sessionData);
 
@@ -287,7 +289,6 @@ const Navbar = () => {
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Avatar
                         alt="Remy Sharp"
-                        // src="/static/images/avatar/2.jpg"
                         src={`/assets/${
                           sessionData.user?.user?.propic ?? 1
                         }.png`}
@@ -298,7 +299,9 @@ const Navbar = () => {
                   <Button
                     color="secondary"
                     variant="contained"
-                    onClick={() => signIn()}
+                    onClick={() =>
+                      router.pathname !== "/login" ? signIn() : null
+                    }
                     // onClick={() => customRedirect("/login")}
                   >
                     Login

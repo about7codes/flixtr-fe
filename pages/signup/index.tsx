@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -31,8 +31,10 @@ import CustomHead from "../../components/CustomHead/CustomHead";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../redux/notifySlice";
 import { signupRequest } from "../../api/auth.api";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import AvatarSelector from "../../components/AvatarSelector/AvatarSelector";
+import { useCustomRedirect } from "../../hooks/app.hooks";
+import { useRouter } from "next/router";
 
 interface IFormValues {
   name: string;
@@ -42,17 +44,30 @@ interface IFormValues {
 }
 
 const Signup = () => {
+  const { status } = useSession();
+  const router = useRouter();
   const dispatch = useDispatch();
+
+  const isLogged = status === "authenticated";
   const [avatarPic, setAvatarPic] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { customRedirect } = useCustomRedirect();
   // const [, dispatch] = useContext<any>(AppContext);
 
   // const { mutate: signup, isLoading, error } = useSignup();
   // console.log("Error2: ", error?.response?.data);
 
+  useEffect(() => {
+    if (isLogged) {
+      console.log("Lredirect to /all");
+      router.push("/");
+      return;
+    }
+  }, [isLogged]);
+
   const handleSubmit = async (values: IFormValues) => {
-    console.log(values);
+    // console.log(values);
     // signup({ email: values.email, password: values.password });
 
     console.log(values);
@@ -88,6 +103,8 @@ const Signup = () => {
           type: "success",
         })
       );
+
+      customRedirect("/");
     } catch (error: any) {
       setIsLoading(false);
       console.log(error);

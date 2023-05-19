@@ -37,6 +37,11 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
 
   const [isDropped, setIsDropped] = useState(appRoutes[0].title);
 
+  const handleSignIn = () => {
+    if (router.pathname !== "/login") signIn();
+    handleCloseNavMenu();
+  };
+
   const list = () => (
     <Box sx={{ width: 250, height: "100%" }} role="presentation">
       <Divider />
@@ -107,7 +112,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
           <>
             <ListItem disablePadding>
               <ListItemButton
-                onClick={() => signIn()}
+                onClick={handleSignIn}
                 selected={router.pathname === "/login"}
               >
                 <ListItemIcon>
@@ -158,7 +163,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
             />
           </ButtonBase>
         ) : (
-          <ButtonBase sx={classes.profileBtn} onClick={() => signIn()}>
+          <ButtonBase sx={classes.profileBtn} onClick={handleSignIn}>
             <Avatar sx={classes.profileIco}>
               <LoginIcon fontSize="inherit" />
             </Avatar>
