@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -32,96 +32,19 @@ import { scrollToTop } from "../../../../hooks/app.hooks";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../../../redux/notifySlice";
+import {
+  useAddToWatchlist,
+  useWatchlistById,
+} from "../../../../hooks/watchlist.hooks";
 
 type MovieInfoProps = {};
-type MediaArgs = {
-  token: string;
-  tmdb_id: number;
-  media_type: string;
-  media_name: string;
-  release_date: string;
-  poster_path: string;
-};
-
-export const addToWatchlist = async ({
-  token,
-  tmdb_id,
-  media_type,
-  media_name,
-  release_date,
-  poster_path,
-}: MediaArgs) => {
-  try {
-    const watchlistRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BE_ROUTE}/watchlist/add`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          tmdb_id,
-          media_type,
-          media_name,
-          release_date,
-          poster_path,
-        }),
-      }
-    );
-
-    const watchlistData = await watchlistRes.json();
-
-    if (watchlistData.hasOwnProperty("error"))
-      throw new Error(watchlistData.error);
-
-    if (watchlistData.hasOwnProperty("success"))
-      throw new Error("Api call failed, check console.");
-    console.log(watchlistData);
-
-    return watchlistData;
-  } catch (error: any) {
-    console.log(error);
-    throw new Error(error.message);
-  }
-};
-
-export const useAddToWatchlist = () => {
-  const dispatch = useDispatch();
-  const { data: sessionData } = useSession();
-  const token = sessionData?.user.authToken;
-
-  return useMutation(addToWatchlist, {
-    onSuccess: (data) => {
-      // Update cache data
-      // cache.invalidateQueries("key");
-
-      dispatch(
-        setNotify({
-          isOpen: true,
-          message: "Added successfull",
-          type: "success",
-        })
-      );
-      console.log("Successdata", data);
-    },
-    onError: (error: any) => {
-      dispatch(
-        setNotify({
-          isOpen: true,
-          message: error.message,
-          type: "error",
-        })
-      );
-      console.log("QueryError", error);
-    },
-  });
-};
 
 function MovieInfo() {
   const { data: sessionData } = useSession();
   const router = useRouter();
+  const [watchlistExists, setWatchlistExists] = useState(false);
   const { data: singleMovieData, isLoading } = useMovieById(router.query.id);
+
   const { mutateAsync: addWatchlist, isLoading: isLoadingPost } =
     useAddToWatchlist();
   // console.log('movieInfo: ', singleMovieData);
@@ -150,6 +73,14 @@ function MovieInfo() {
     recommendations,
     similar,
   } = singleMovieData as MovieResult;
+
+  const { data: watchlistData, isLoading: isWatchlistLoad } =
+    useWatchlistById(id);
+
+  useEffect(() => {
+    console.log("watchlistData: ", watchlistData);
+    if (watchlistData?.media) setWatchlistExists(true);
+  }, [id, isWatchlistLoad]);
 
   const handleAddToWatchlist = async () => {
     try {
@@ -224,11 +155,12 @@ function MovieInfo() {
                 </Link>
               )}
 
-              {false ? (
+              {watchlistExists ? (
                 <Button
                   variant="outlined"
                   color="error"
                   sx={classes.watchlistBtn}
+                  onClick={() => console.log(watchlistData)}
                 >
                   Remove from watchlist
                 </Button>
@@ -242,7 +174,6 @@ function MovieInfo() {
                 //   Add to watchlist
                 // </Button>
                 <LoadingButton
-                  // fullWidth
                   loading={isLoadingPost}
                   variant="outlined"
                   color="secondary"
