@@ -3,7 +3,7 @@ export const getWatchlistById = async ({
   tmdbId,
 }: {
   token: string | undefined;
-  tmdbId: number;
+  tmdbId: number | undefined;
 }) => {
   try {
     const mediaRes = await fetch(
@@ -32,7 +32,7 @@ export const getWatchlistById = async ({
   }
 };
 
-type MediaArgs = {
+type AddMediaArgs = {
   token: string;
   tmdb_id: number;
   media_type: string;
@@ -48,7 +48,7 @@ export const addToWatchlist = async ({
   media_name,
   release_date,
   poster_path,
-}: MediaArgs) => {
+}: AddMediaArgs) => {
   try {
     const watchlistRes = await fetch(
       `${process.env.NEXT_PUBLIC_BE_ROUTE}/watchlist/add`,
@@ -65,6 +65,43 @@ export const addToWatchlist = async ({
           release_date,
           poster_path,
         }),
+      }
+    );
+
+    const watchlistData = await watchlistRes.json();
+
+    if (watchlistData.hasOwnProperty("error"))
+      throw new Error(watchlistData.error);
+
+    if (watchlistData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+    // console.log(watchlistData);
+
+    return watchlistData;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+
+type RemoveMediaArgs = {
+  token: string;
+  tmdbId: number;
+};
+
+export const removeFromWatchlist = async ({
+  token,
+  tmdbId,
+}: RemoveMediaArgs) => {
+  try {
+    const watchlistRes = await fetch(
+      `${process.env.NEXT_PUBLIC_BE_ROUTE}/watchlist/delete/${tmdbId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 

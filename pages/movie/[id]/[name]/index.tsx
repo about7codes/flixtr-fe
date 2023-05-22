@@ -33,8 +33,9 @@ import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../../../redux/notifySlice";
 import {
-  useAddToWatchlist,
   useWatchlistById,
+  useAddToWatchlist,
+  useRemoveFromWatchlist,
 } from "../../../../hooks/watchlist.hooks";
 
 type MovieInfoProps = {};
@@ -47,7 +48,19 @@ function MovieInfo() {
 
   const { mutateAsync: addWatchlist, isLoading: isLoadingPost } =
     useAddToWatchlist();
+  const { mutateAsync: removeWatchlist, isLoading: isLoadingRemove } =
+    useRemoveFromWatchlist();
   // console.log('movieInfo: ', singleMovieData);
+
+  const { data: watchlistData, isLoading: isWatchlistLoad } = useWatchlistById(
+    singleMovieData?.id
+  );
+
+  useEffect(() => {
+    console.log("watchlistData: ", watchlistData);
+    if (!watchlistData) setWatchlistExists(false);
+    if (watchlistData?.media) setWatchlistExists(true);
+  }, [singleMovieData?.id, isWatchlistLoad]);
 
   if (isLoading) return <LinearProgress />;
 
@@ -74,14 +87,6 @@ function MovieInfo() {
     similar,
   } = singleMovieData as MovieResult;
 
-  const { data: watchlistData, isLoading: isWatchlistLoad } =
-    useWatchlistById(id);
-
-  useEffect(() => {
-    console.log("watchlistData: ", watchlistData);
-    if (watchlistData?.media) setWatchlistExists(true);
-  }, [id, isWatchlistLoad]);
-
   const handleAddToWatchlist = async () => {
     try {
       const data = await addWatchlist({
@@ -93,7 +98,24 @@ function MovieInfo() {
         poster_path: poster_path,
       });
 
+      setWatchlistExists(true);
+
       console.log("AddWatchlist", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRemoveWatchlist = async () => {
+    try {
+      const data = await removeWatchlist({
+        token: sessionData?.user.authToken ?? "",
+        tmdbId: id,
+      });
+
+      setWatchlistExists(false);
+
+      console.log("RemoveWatchlist", data);
     } catch (error) {
       console.log(error);
     }
@@ -156,14 +178,23 @@ function MovieInfo() {
               )}
 
               {watchlistExists ? (
-                <Button
+                // <Button
+                //   variant="outlined"
+                //   color="error"
+                //   sx={classes.watchlistBtn}
+                //   onClick={() => console.log(watchlistData)}
+                // >
+                //   Remove from watchlist
+                // </Button>
+                <LoadingButton
+                  loading={isLoadingRemove}
                   variant="outlined"
                   color="error"
                   sx={classes.watchlistBtn}
-                  onClick={() => console.log(watchlistData)}
+                  onClick={handleRemoveWatchlist}
                 >
                   Remove from watchlist
-                </Button>
+                </LoadingButton>
               ) : (
                 // <Button
                 //   variant="outlined"
