@@ -121,12 +121,11 @@ const Login = () => {
         <Grid container sx={classes.signInner}>
           <Grid item justifyContent="center" display="flex">
             <Image
-              src="/assets/abstract-bg.png"
-              alt="Threemax logo"
+              src="/assets/flixtr.png"
+              alt="Flixtr logo"
               width={36}
               height={36}
               style={classes.logo}
-              className="1logo-img"
             />
           </Grid>
           <Grid item sx={classes.signInnerHeader}>

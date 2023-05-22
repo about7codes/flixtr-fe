@@ -152,7 +152,16 @@ const Navbar = () => {
       <AppBar position="static">
         <Container maxWidth="xl" sx={{ color: "secondary.main" }} id="app-nav">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Avatar
+              src="/assets/flixtr.png"
+              sx={{
+                display: { xs: "none", md: "flex" },
+                mr: 1,
+                width: "24px",
+                height: "24px",
+              }}
+            />
+
             <Typography
               noWrap
               variant="h6"
@@ -175,7 +184,15 @@ const Navbar = () => {
                 <MenuIcon />
               </IconButton>
             </Box>
-            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <Avatar
+              src="/assets/flixtr.png"
+              sx={{
+                display: { xs: "flex", md: "none" },
+                mr: 1,
+                width: "24px",
+                height: "24px",
+              }}
+            />
             <Typography
               variant="h5"
               noWrap
