@@ -43,14 +43,14 @@ const Login = () => {
   const router = useRouter();
   const { callbackUrl } = router.query;
   const isLogged = status === "authenticated";
-  // const isLogged = false;
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isLogged) {
-      console.log("Lredirect to /all");
-      router.push("/");
+      // console.log("Lredirect to /all");
+      // router.push("/");
+      router.push((callbackUrl as string) || "/");
       return;
     }
   }, [isLogged]);

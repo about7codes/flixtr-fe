@@ -3,12 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
-import {
-  QueryClient,
-  dehydrate,
-  useMutation,
-  useQuery,
-} from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
@@ -30,8 +25,6 @@ import {
 import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { scrollToTop } from "../../../../hooks/app.hooks";
 import { useSession } from "next-auth/react";
-import { useDispatch } from "react-redux";
-import { setNotify } from "../../../../redux/notifySlice";
 import {
   useWatchlistById,
   useAddToWatchlist,
@@ -40,6 +33,7 @@ import {
 
 type MovieInfoProps = {};
 
+// TODO: refactor this component page
 function MovieInfo() {
   const { data: sessionData } = useSession();
   const router = useRouter();
@@ -178,14 +172,6 @@ function MovieInfo() {
               )}
 
               {watchlistExists ? (
-                // <Button
-                //   variant="outlined"
-                //   color="error"
-                //   sx={classes.watchlistBtn}
-                //   onClick={() => console.log(watchlistData)}
-                // >
-                //   Remove from watchlist
-                // </Button>
                 <LoadingButton
                   loading={isLoadingRemove}
                   variant="outlined"
@@ -196,14 +182,6 @@ function MovieInfo() {
                   Remove from watchlist
                 </LoadingButton>
               ) : (
-                // <Button
-                //   variant="outlined"
-                //   color="secondary"
-                //   sx={classes.watchlistBtn}
-                //   onClick={handleAddToWatchlist}
-                // >
-                //   Add to watchlist
-                // </Button>
                 <LoadingButton
                   loading={isLoadingPost}
                   variant="outlined"

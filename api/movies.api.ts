@@ -46,6 +46,7 @@ export const getPopularMovies = async (pageNum: number): Promise<MovieData> => {
     if (movieData.hasOwnProperty("success"))
       throw new Error("Api call failed, check console.");
 
+    // console.log(movieData);
     return movieData;
   } catch (error) {
     console.log(error);

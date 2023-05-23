@@ -17,6 +17,7 @@ type PosterProps = {
 };
 
 const Poster = ({ singleMovieData }: PosterProps) => {
+  console.log("singleMovieData:", singleMovieData);
   const { id, title, release_date, poster_path } = singleMovieData;
   const titleConverted = toUrlFriendly(title);
 
