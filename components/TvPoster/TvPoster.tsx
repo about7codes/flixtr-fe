@@ -16,7 +16,8 @@ type TvPosterProps = {
 };
 
 const TvPoster = ({ singleShowData }: TvPosterProps) => {
-  const { id, name, first_air_date, poster_path } = singleShowData;
+  const { id, name, first_air_date, poster_path, vote_average } =
+    singleShowData;
   const titleConverted = toUrlFriendly(name);
 
   return (
@@ -53,23 +54,25 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
           </Typography>
         </Box>
 
-        <Box sx={classes.ratings}>
-          <Box sx={classes.ratingsInner}>
-            <CircularProgress
-              color="secondary"
-              variant="determinate"
-              value={toPercent(singleShowData.vote_average)}
-            />
-            <Box sx={classes.ratingsTxt}>
-              <Typography
-                title="Ratings"
-                variant="caption"
-                component="div"
+        {vote_average && (
+          <Box sx={classes.ratings}>
+            <Box sx={classes.ratingsInner}>
+              <CircularProgress
                 color="secondary"
-              >{`${toPercent(singleShowData.vote_average)}%`}</Typography>
+                variant="determinate"
+                value={toPercent(vote_average)}
+              />
+              <Box sx={classes.ratingsTxt}>
+                <Typography
+                  title="Ratings"
+                  variant="caption"
+                  component="div"
+                  color="secondary"
+                >{`${toPercent(vote_average)}%`}</Typography>
+              </Box>
             </Box>
           </Box>
-        </Box>
+        )}
       </Link>
     </Box>
   );

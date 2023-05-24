@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -23,13 +23,41 @@ import {
 } from "../../../../utils/utils";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { scrollToTop } from "../../../../hooks/app.hooks";
+import {
+  useAddToWatchlist,
+  useRemoveFromWatchlist,
+  useWatchlistById,
+} from "../../../../hooks/watchlist.hooks";
+import { LoadingButton } from "@mui/lab";
+import { useSession } from "next-auth/react";
 
 type TvShowInfoProps = {};
 
 function TvShowInfo() {
+  const { data: sessionData } = useSession();
   const router = useRouter();
   const { data: singleShowData, isLoading } = useSeriesById(router.query.id);
   // console.log('tvInfo: ', singleShowData);
+  const [watchlistExists, setWatchlistExists] = useState(false);
+
+  const { mutateAsync: addWatchlist, isLoading: isLoadingPost } =
+    useAddToWatchlist();
+  const { mutateAsync: removeWatchlist, isLoading: isLoadingRemove } =
+    useRemoveFromWatchlist();
+
+  const {
+    data: watchlistData,
+    isLoading: isWatchlistLoad,
+    isFetching,
+    error,
+  } = useWatchlistById(singleShowData?.id);
+
+  useEffect(() => {
+    console.log("watchlistData: ", watchlistData);
+    setWatchlistExists(false);
+    if (watchlistData?.media) setWatchlistExists(true);
+    if (error) setWatchlistExists(false);
+  }, [singleShowData?.id, isWatchlistLoad, isFetching, error]);
 
   if (isLoading) return <LinearProgress />;
 
@@ -55,6 +83,40 @@ function TvShowInfo() {
     recommendations,
     similar,
   } = singleShowData as SeriesResult;
+
+  const handleAddToWatchlist = async () => {
+    try {
+      const data = await addWatchlist({
+        token: sessionData?.user.authToken ?? "",
+        tmdb_id: id,
+        media_type: "tv",
+        media_name: name,
+        release_date: first_air_date,
+        poster_path: poster_path,
+      });
+
+      setWatchlistExists(true);
+
+      console.log("AddWatchlist", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRemoveWatchlist = async () => {
+    try {
+      const data = await removeWatchlist({
+        token: sessionData?.user.authToken ?? "",
+        tmdbId: id,
+      });
+
+      setWatchlistExists(false);
+
+      console.log("RemoveWatchlist", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -112,7 +174,7 @@ function TvShowInfo() {
                 </Link>
               )}
 
-              {false ? (
+              {/* {false ? (
                 <Button
                   variant="outlined"
                   color="error"
@@ -128,6 +190,28 @@ function TvShowInfo() {
                 >
                   Add to watchlist
                 </Button>
+              )} */}
+
+              {watchlistExists ? (
+                <LoadingButton
+                  loading={isLoadingRemove}
+                  variant="outlined"
+                  color="error"
+                  sx={classes.watchlistBtn}
+                  onClick={handleRemoveWatchlist}
+                >
+                  Remove from watchlist
+                </LoadingButton>
+              ) : (
+                <LoadingButton
+                  loading={isLoadingPost}
+                  variant="outlined"
+                  color="secondary"
+                  sx={classes.watchlistBtn}
+                  onClick={handleAddToWatchlist}
+                >
+                  Add to watchlist
+                </LoadingButton>
               )}
             </Box>
             <Box>

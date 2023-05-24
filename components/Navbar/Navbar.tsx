@@ -85,7 +85,7 @@ const settings = ["Profile", "Logout"];
 const Navbar = () => {
   const router = useRouter();
   const { data: sessionData } = useSession();
-  console.log("sessionData: ", sessionData);
+  // console.log("sessionData: ", sessionData);
 
   const isPageLoading = usePageLoading();
   const { customRedirect } = useCustomRedirect();
