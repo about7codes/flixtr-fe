@@ -11,14 +11,16 @@ import {
   toPercent,
   toUrlFriendly,
 } from "../../utils/utils";
+import { MovieWatchlist } from "../../types/watchlist.apiResponses";
 
 type PosterProps = {
   singleMovieData: MovieResult;
 };
 
 const Poster = ({ singleMovieData }: PosterProps) => {
-  console.log("singleMovieData:", singleMovieData);
-  const { id, title, release_date, poster_path } = singleMovieData;
+  // console.log("singleMovieData:", singleMovieData);
+  const { id, title, release_date, poster_path, vote_average } =
+    singleMovieData;
   const titleConverted = toUrlFriendly(title);
 
   return (
@@ -59,23 +61,25 @@ const Poster = ({ singleMovieData }: PosterProps) => {
           </Typography>
         </Box>
 
-        <Box sx={classes.ratings}>
-          <Box sx={classes.ratingsInner}>
-            <CircularProgress
-              color="secondary"
-              variant="determinate"
-              value={toPercent(singleMovieData.vote_average)}
-            />
-            <Box sx={classes.ratingsTxt}>
-              <Typography
-                title="Ratings"
-                variant="caption"
-                component="div"
+        {vote_average && (
+          <Box sx={classes.ratings}>
+            <Box sx={classes.ratingsInner}>
+              <CircularProgress
                 color="secondary"
-              >{`${toPercent(singleMovieData.vote_average)}%`}</Typography>
+                variant="determinate"
+                value={toPercent(vote_average)}
+              />
+              <Box sx={classes.ratingsTxt}>
+                <Typography
+                  title="Ratings"
+                  variant="caption"
+                  component="div"
+                  color="secondary"
+                >{`${toPercent(vote_average)}%`}</Typography>
+              </Box>
             </Box>
           </Box>
-        </Box>
+        )}
       </Link>
     </Box>
   );

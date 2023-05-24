@@ -12,4 +12,10 @@ export const styles = {
     },
   },
   loadBtn: { width: "100%" },
+  emptyList: {
+    display: "grid",
+    justifyItems: "center",
+    textAlign: "center",
+    gap: "30px",
+  },
 };

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
@@ -9,6 +9,14 @@ import { Box, Grid, Typography } from "@mui/material";
 import Poster from "../../components/Poster/Poster";
 import { LoadingButton } from "@mui/lab";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import {
+  WatchlistData,
+  WatchlistMediaType,
+} from "../../types/watchlist.apiResponses";
+import TvPoster from "../../components/TvPoster/TvPoster";
+import { MovieResult, SeriesResult } from "../../types/apiResponses";
+import { useWatchlist } from "../../hooks/watchlist.hooks";
 
 type WatchlistProps = {};
 
@@ -16,7 +24,6 @@ function Watchlist({}: WatchlistProps) {
   const { data: sessionData, status } = useSession();
   const router = useRouter();
   const { callbackUrl } = router.query;
-  console.log("status:", status);
   const isNotLogged = status === "unauthenticated";
 
   useEffect(() => {
@@ -43,20 +50,49 @@ function Watchlist({}: WatchlistProps) {
       <CustomHead title="Your watchlist." media_type={"movie"} />
 
       <Box sx={classes.pageContainer}>
-        <Typography variant="h4" sx={classes.headTxt}>
-          Your watchlist
-        </Typography>
+        {!watchlistData ? (
+          <Box sx={classes.emptyList}>
+            <Image
+              width={128}
+              height={128}
+              src="/assets/alone.png"
+              alt="empty"
+            />
+            <Typography variant="h4" sx={classes.headTxt}>
+              Nothing added to your watchlist yet.
+            </Typography>
+          </Box>
+        ) : (
+          <Typography variant="h4" sx={classes.headTxt}>
+            Your watchlist
+          </Typography>
+        )}
         <Grid container sx={classes.moviesContainer}>
           {watchlistData?.pages.map((page) =>
-            page.results.map((movie: any) => (
-              <Grid item key={movie._id}>
-                <Poster
-                  singleMovieData={{
-                    ...movie,
-                    id: movie.tmdb_id,
-                    title: movie.media_name,
-                  }}
-                />
+            page.results.map((media) => (
+              <Grid item key={media._id}>
+                {media.media_type === WatchlistMediaType.Movie ? (
+                  <Poster
+                    singleMovieData={
+                      {
+                        ...media,
+                        id: media.tmdb_id,
+                        title: media.media_name,
+                      } as unknown as MovieResult
+                    }
+                  />
+                ) : (
+                  <TvPoster
+                    singleShowData={
+                      {
+                        ...media,
+                        id: media.tmdb_id,
+                        name: media.media_name,
+                        first_air_date: media.release_date,
+                      } as unknown as SeriesResult
+                    }
+                  />
+                )}
               </Grid>
             ))
           )}
@@ -80,58 +116,5 @@ function Watchlist({}: WatchlistProps) {
     </>
   );
 }
-
-export const getWatchlist = async (token: string, pageNum: number) => {
-  try {
-    const watchlistRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BE_ROUTE}/watchlist/all?page=${pageNum}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const watchlistData = await watchlistRes.json();
-
-    if (watchlistData.hasOwnProperty("success"))
-      throw new Error("Api call failed, check console.");
-    console.log(watchlistData);
-
-    return watchlistData;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Api call failed, check console.");
-  }
-};
-
-// export const useWatchlist = () => {
-//   const { data: sessionData } = useSession();
-//   const token = sessionData?.user.authToken;
-
-//   return useQuery(["watchlist", token], () => getWatchlist(token ?? ""), {
-//     enabled: !!token,
-//   });
-// };
-
-export const useWatchlist = () => {
-  const { data: sessionData } = useSession();
-  const token = sessionData?.user.authToken;
-
-  return useInfiniteQuery(
-    ["watchlist"],
-    ({ pageParam = 1 }) => getWatchlist(token ?? "", pageParam),
-    {
-      getNextPageParam: ({ page, total_pages }) => {
-        return page < total_pages ? page + 1 : undefined;
-      },
-      select: (data) => {
-        return data;
-      },
-      enabled: !!token,
-    }
-  );
-};
 
 export default Watchlist;

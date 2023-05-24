@@ -46,15 +46,19 @@ function MovieInfo() {
     useRemoveFromWatchlist();
   // console.log('movieInfo: ', singleMovieData);
 
-  const { data: watchlistData, isLoading: isWatchlistLoad } = useWatchlistById(
-    singleMovieData?.id
-  );
+  const {
+    data: watchlistData,
+    isLoading: isWatchlistLoad,
+    isFetching,
+    error,
+  } = useWatchlistById(singleMovieData?.id);
 
   useEffect(() => {
     console.log("watchlistData: ", watchlistData);
-    if (!watchlistData) setWatchlistExists(false);
+    setWatchlistExists(false);
     if (watchlistData?.media) setWatchlistExists(true);
-  }, [singleMovieData?.id, isWatchlistLoad]);
+    if (error) setWatchlistExists(false);
+  }, [singleMovieData?.id, isWatchlistLoad, isFetching, error]);
 
   if (isLoading) return <LinearProgress />;
 

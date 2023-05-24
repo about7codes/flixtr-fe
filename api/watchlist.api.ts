@@ -1,3 +1,40 @@
+import { WatchlistData } from "../types/watchlist.apiResponses";
+
+export const getWatchlist = async (
+  token: string,
+  pageNum: number
+): Promise<WatchlistData> => {
+  try {
+    const watchlistRes = await fetch(
+      `${process.env.NEXT_PUBLIC_BE_ROUTE}/watchlist/all?page=${pageNum}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const watchlistData: WatchlistData = await watchlistRes.json();
+
+    if (watchlistData.hasOwnProperty("error"))
+      throw new Error(watchlistData.error);
+
+    if (watchlistData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
+    return watchlistData;
+  } catch (error: any) {
+    console.log(error);
+    if (error?.message) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("Api call failed, check console.");
+    }
+  }
+};
+
 export const getWatchlistById = async ({
   token,
   tmdbId,
