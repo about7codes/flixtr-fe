@@ -61,7 +61,14 @@ export const useAddToWatchlist = () => {
   return useMutation(addToWatchlist, {
     onSuccess: (data) => {
       // Update cache data
-      cache.invalidateQueries();
+      cache.invalidateQueries({
+        queryKey: [WatchlistQueryKey.WatchlistById],
+      });
+
+      cache.invalidateQueries({
+        queryKey: [WatchlistQueryKey.WatchlistAll],
+        exact: true,
+      });
 
       dispatch(
         setNotify({
@@ -92,7 +99,13 @@ export const useRemoveFromWatchlist = () => {
   return useMutation(removeFromWatchlist, {
     onSuccess: (data) => {
       // Update cache data
-      cache.invalidateQueries();
+      cache.invalidateQueries({
+        queryKey: [WatchlistQueryKey.WatchlistById],
+      });
+      cache.resetQueries({
+        queryKey: [WatchlistQueryKey.WatchlistAll],
+        exact: true,
+      });
 
       dispatch(
         setNotify({

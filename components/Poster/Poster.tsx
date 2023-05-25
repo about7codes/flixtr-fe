@@ -61,7 +61,7 @@ const Poster = ({ singleMovieData }: PosterProps) => {
           </Typography>
         </Box>
 
-        {vote_average && (
+        {vote_average ? (
           <Box sx={classes.ratings}>
             <Box sx={classes.ratingsInner}>
               <CircularProgress
@@ -79,7 +79,7 @@ const Poster = ({ singleMovieData }: PosterProps) => {
               </Box>
             </Box>
           </Box>
-        )}
+        ) : null}
       </Link>
     </Box>
   );

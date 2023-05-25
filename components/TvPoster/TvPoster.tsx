@@ -54,7 +54,7 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
           </Typography>
         </Box>
 
-        {vote_average && (
+        {vote_average ? (
           <Box sx={classes.ratings}>
             <Box sx={classes.ratingsInner}>
               <CircularProgress
@@ -72,7 +72,7 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
               </Box>
             </Box>
           </Box>
-        )}
+        ) : null}
       </Link>
     </Box>
   );

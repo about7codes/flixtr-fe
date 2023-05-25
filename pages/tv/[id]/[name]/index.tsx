@@ -29,12 +29,16 @@ import {
   useWatchlistById,
 } from "../../../../hooks/watchlist.hooks";
 import { LoadingButton } from "@mui/lab";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { setNotify } from "../../../../redux/notifySlice";
+import { useDispatch } from "react-redux";
 
 type TvShowInfoProps = {};
 
 function TvShowInfo() {
-  const { data: sessionData } = useSession();
+  const { data: sessionData, status: loginStatus } = useSession();
+  const isNotLogged = loginStatus === "unauthenticated";
+  const dispatch = useDispatch();
   const router = useRouter();
   const { data: singleShowData, isLoading } = useSeriesById(router.query.id);
   // console.log('tvInfo: ', singleShowData);
@@ -86,6 +90,17 @@ function TvShowInfo() {
 
   const handleAddToWatchlist = async () => {
     try {
+      if (isNotLogged) {
+        dispatch(
+          setNotify({
+            isOpen: true,
+            message: "Login to add to your watchlist.",
+            type: "warning",
+          })
+        );
+        return signIn();
+      }
+
       const data = await addWatchlist({
         token: sessionData?.user.authToken ?? "",
         tmdb_id: id,

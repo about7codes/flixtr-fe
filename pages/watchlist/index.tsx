@@ -1,34 +1,27 @@
 import React, { useEffect } from "react";
+import Image from "next/image";
+import { Box, Grid, Typography } from "@mui/material";
 import { signIn, useSession } from "next-auth/react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { LoadingButton } from "@mui/lab";
 
 import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
 import CustomHead from "../../components/CustomHead/CustomHead";
-import { Box, Grid, Typography } from "@mui/material";
 import Poster from "../../components/Poster/Poster";
-import { LoadingButton } from "@mui/lab";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import {
-  WatchlistData,
-  WatchlistMediaType,
-} from "../../types/watchlist.apiResponses";
 import TvPoster from "../../components/TvPoster/TvPoster";
+import { WatchlistMediaType } from "../../types/watchlist.apiResponses";
 import { MovieResult, SeriesResult } from "../../types/apiResponses";
 import { useWatchlist } from "../../hooks/watchlist.hooks";
 
 type WatchlistProps = {};
 
 function Watchlist({}: WatchlistProps) {
-  const { data: sessionData, status } = useSession();
-  const router = useRouter();
-  const { callbackUrl } = router.query;
+  const { status } = useSession();
   const isNotLogged = status === "unauthenticated";
 
   useEffect(() => {
     if (isNotLogged) {
-      console.log("redirect to /login");
+      // console.log("redirect to /login");
       signIn();
       return;
     }
@@ -41,7 +34,7 @@ function Watchlist({}: WatchlistProps) {
     isFetching,
     hasNextPage,
   } = useWatchlist();
-  // console.log("watchlistData: ", watchlistData);
+  // console.log("watchlistXXX: ", watchlistData);
 
   if (isLoading) return <Loader />;
 

@@ -24,18 +24,22 @@ import {
 } from "../../../../utils/utils";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { scrollToTop } from "../../../../hooks/app.hooks";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import {
   useWatchlistById,
   useAddToWatchlist,
   useRemoveFromWatchlist,
 } from "../../../../hooks/watchlist.hooks";
+import { setNotify } from "../../../../redux/notifySlice";
+import { useDispatch } from "react-redux";
 
 type MovieInfoProps = {};
 
 // TODO: refactor this component page
 function MovieInfo() {
-  const { data: sessionData } = useSession();
+  const { data: sessionData, status: loginStatus } = useSession();
+  const isNotLogged = loginStatus === "unauthenticated";
+  const dispatch = useDispatch();
   const router = useRouter();
   const [watchlistExists, setWatchlistExists] = useState(false);
   const { data: singleMovieData, isLoading } = useMovieById(router.query.id);
@@ -87,6 +91,17 @@ function MovieInfo() {
 
   const handleAddToWatchlist = async () => {
     try {
+      if (isNotLogged) {
+        dispatch(
+          setNotify({
+            isOpen: true,
+            message: "Login to add to your watchlist.",
+            type: "warning",
+          })
+        );
+        return signIn();
+      }
+
       const data = await addWatchlist({
         token: sessionData?.user.authToken ?? "",
         tmdb_id: id,
