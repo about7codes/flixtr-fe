@@ -5,6 +5,20 @@ export const styles = {
     overflow: "hidden",
     overflowX: "auto",
     margin: "10px 0",
+    pb: "4px",
+    scrollbarColor: "#616161 transparent",
+    scrollbarWidth: "thin",
+    "&::-webkit-scrollbar-track": {
+      backgroundColor: "transparent",
+    },
+    "&::-webkit-scrollbar": {
+      width: "6px",
+      height: "6px",
+      backgroundColor: "transparent",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#616161",
+    },
   },
   seasonItem: {
     backgroundColor: "secondary.main",

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -11,9 +11,6 @@ import {
   Typography,
   Button,
   IconButton,
-  Link as MuiLink,
-  Avatar,
-  ButtonBase,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -25,8 +22,6 @@ import { useFormik, FormikProps } from "formik";
 import * as Yup from "yup";
 
 import { styles as classes } from "../../styles/signup.styles";
-// import { AppContext } from "../../context/app.context";
-// import { useSignup } from "../../hooks/auth.hooks";
 import CustomHead from "../../components/CustomHead/CustomHead";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../redux/notifySlice";
@@ -43,6 +38,7 @@ interface IFormValues {
   confirmPassword: string;
 }
 
+// TODO: refactor this component page
 const Signup = () => {
   const { status } = useSession();
   const router = useRouter();
@@ -53,10 +49,6 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { customRedirect } = useCustomRedirect();
-  // const [, dispatch] = useContext<any>(AppContext);
-
-  // const { mutate: signup, isLoading, error } = useSignup();
-  // console.log("Error2: ", error?.response?.data);
 
   useEffect(() => {
     if (isLogged) {
@@ -68,9 +60,6 @@ const Signup = () => {
 
   const handleSubmit = async (values: IFormValues) => {
     // console.log(values);
-    // signup({ email: values.email, password: values.password });
-
-    console.log(values);
     try {
       setIsLoading(true);
       const register = await signupRequest({
@@ -93,8 +82,8 @@ const Signup = () => {
 
       if (result?.error) throw new Error(result.error);
 
-      console.log("RegResult: ", register);
-      console.log("LoginResult: ", result);
+      // console.log("RegResult: ", register);
+      // console.log("LoginResult: ", result);
 
       dispatch(
         setNotify({
