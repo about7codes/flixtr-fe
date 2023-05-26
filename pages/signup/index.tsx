@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { signIn, useSession } from "next-auth/react";
 import {
   Box,
   Container,
@@ -26,7 +27,6 @@ import CustomHead from "../../components/CustomHead/CustomHead";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../redux/notifySlice";
 import { signupRequest } from "../../api/auth.api";
-import { signIn, useSession } from "next-auth/react";
 import AvatarSelector from "../../components/AvatarSelector/AvatarSelector";
 import { useCustomRedirect } from "../../hooks/app.hooks";
 import { useRouter } from "next/router";
