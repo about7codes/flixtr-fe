@@ -153,7 +153,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
           <ButtonBase
             sx={classes.profileBtn}
             onClick={() => {
-              customRedirect("/"); // to profile page
+              customRedirect("/profile"); // to profile page
               handleCloseNavMenu();
             }}
           >

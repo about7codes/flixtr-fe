@@ -125,6 +125,7 @@ const Navbar = () => {
     btnKey?: string
   ) => {
     if (btnKey == "Logout") await signOut({ redirect: false });
+    if (btnKey == settings[0]) customRedirect("/profile");
     setAnchorElUser(null);
   };
 
