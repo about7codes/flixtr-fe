@@ -35,3 +35,48 @@ export const signupRequest = async ({
     throw new Error(error.message);
   }
 };
+
+type UpdateProfileArgs = {
+  token: string;
+  name: string;
+  email: string;
+  propic: number;
+};
+
+// Update User profile
+export const updateProfile = async ({
+  token,
+  name,
+  email,
+  propic,
+}: UpdateProfileArgs) => {
+  try {
+    const profileRes = await fetch(
+      `${process.env.NEXT_PUBLIC_BE_ROUTE}/auth/profile`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          propic,
+        }),
+      }
+    );
+
+    const profileData = await profileRes.json();
+
+    if (profileData.hasOwnProperty("error")) throw new Error(profileData.error);
+
+    if (profileData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
+    return profileData;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { LoadingButton } from "@mui/lab";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import EmailIcon from "@mui/icons-material/Email";
-
 import {
   Container,
   Fade,
@@ -15,13 +14,12 @@ import {
   Button,
 } from "@mui/material";
 import * as Yup from "yup";
+import { FormikProps, useFormik } from "formik";
 
+import { styles as classes } from "../../styles/profile.styles";
 import CustomHead from "../../components/CustomHead/CustomHead";
 import AvatarSelector from "../../components/AvatarSelector/AvatarSelector";
-import { styles as classes } from "../../styles/profile.styles";
-import { useDispatch } from "react-redux";
-import { setNotify } from "../../redux/notifySlice";
-import { FormikProps, useFormik } from "formik";
+import { useUpdateProfile } from "../../hooks/auth.hooks";
 
 interface IFormValues {
   name: string;
@@ -31,54 +29,49 @@ interface IFormValues {
 type ProfilePageProps = {};
 
 function ProfilePage({}: ProfilePageProps) {
-  const dispatch = useDispatch();
-  const { data: sessionData } = useSession();
+  const { data: sessionData, status } = useSession();
+  const isNotLogged = status === "unauthenticated";
   const user = sessionData?.user.user;
 
   const [avatarPic, setAvatarPic] = useState(user?.propic || 1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [editable, setEditable] = useState(false);
+  const { mutateAsync: updateProfile, isLoading: isLoadingProfileUpdate } =
+    useUpdateProfile();
 
-  console.log("first", sessionData);
+  // console.log("first", sessionData);
+
+  useEffect(() => {
+    if (isNotLogged) {
+      signIn();
+      return;
+    }
+  }, [isNotLogged]);
+
+  useEffect(() => {
+    setAvatarPic(user?.propic || 1);
+  }, [user?.propic]);
 
   const handleSubmit = async (values: IFormValues) => {
-    // console.log(values);
+    console.log(values);
     try {
-      setIsLoading(true);
-      // const register = await signupRequest({
-      //   name: values.name,
-      //   email: values.email,
-      //   propic: avatarPic,
-      // });
+      const updateReq = await updateProfile({
+        token: sessionData?.user.authToken || "",
+        name: values.name,
+        email: values.email,
+        propic: avatarPic,
+      });
 
-      setIsLoading(false);
+      if (updateReq?.error) throw new Error(updateReq.error);
 
-      // if (result?.error) throw new Error(result.error);
-
-      // console.log("RegResult: ", register);
+      // console.log("RegResult: ", updateReq);
       // console.log("LoginResult: ", result);
 
-      dispatch(
-        setNotify({
-          isOpen: true,
-          message: "Signup successfull",
-          type: "success",
-        })
-      );
-
-      // customRedirect("/");
+      await signOut({ redirect: true, callbackUrl: "/login" });
     } catch (error: any) {
-      setIsLoading(false);
       console.log(error);
-
-      dispatch(
-        setNotify({
-          isOpen: true,
-          message: error.message,
-          type: "error",
-        })
-      );
     }
   };
+
   const formikSchema = Yup.object().shape({
     name: Yup.string()
       .max(20, "Max characters is of 20.")
@@ -162,9 +155,9 @@ function ProfilePage({}: ProfilePageProps) {
               </Box>
 
               <LoadingButton
-                disabled={!formik.dirty}
+                disabled={!(formik.dirty || user?.propic !== avatarPic)}
                 fullWidth
-                loading={isLoading}
+                loading={isLoadingProfileUpdate}
                 sx={classes.submit}
                 variant="contained"
                 color="secondary"
