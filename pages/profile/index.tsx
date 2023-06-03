@@ -27,7 +27,7 @@ interface IFormValues {
 }
 
 type ProfilePageProps = {};
-
+// TODO: refactor this component page
 function ProfilePage({}: ProfilePageProps) {
   const { data: sessionData, status } = useSession();
   const isNotLogged = status === "unauthenticated";
@@ -37,8 +37,6 @@ function ProfilePage({}: ProfilePageProps) {
   const [editable, setEditable] = useState(false);
   const { mutateAsync: updateProfile, isLoading: isLoadingProfileUpdate } =
     useUpdateProfile();
-
-  // console.log("first", sessionData);
 
   useEffect(() => {
     if (isNotLogged) {
@@ -62,9 +60,6 @@ function ProfilePage({}: ProfilePageProps) {
       });
 
       if (updateReq?.error) throw new Error(updateReq.error);
-
-      // console.log("RegResult: ", updateReq);
-      // console.log("LoginResult: ", result);
 
       await signOut({ redirect: true, callbackUrl: "/login" });
     } catch (error: any) {
@@ -165,8 +160,9 @@ function ProfilePage({}: ProfilePageProps) {
               >
                 Update profile
               </LoadingButton>
-              <Link href="/login" style={classes.altBtn}>
+              <Link href="/profile" style={classes.altBtn}>
                 <Button
+                  disabled
                   variant="outlined"
                   color="secondary"
                   fullWidth
