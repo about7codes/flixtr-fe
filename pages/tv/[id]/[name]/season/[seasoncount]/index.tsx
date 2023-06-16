@@ -67,12 +67,19 @@ function SeasonCount() {
         </Grid>
 
         <Grid item sx={classes.moviePlayer}>
-          <iframe
+          {/* <iframe
             allowFullScreen
             id="watch-iframe"
             src={`${process.env.NEXT_PUBLIC_Player_URL}/tv?id=${id}&s=${
               seasoncount ? seasoncount : 1
             }&e=${ep}`}
+          ></iframe> */}
+          <iframe
+            allowFullScreen
+            id="watch-iframe"
+            src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${
+              seasoncount ? seasoncount : 1
+            }-${ep}/color-ADDC35`}
           ></iframe>
         </Grid>
 
