@@ -46,10 +46,15 @@ function Watch() {
         </Grid>
 
         <Grid item sx={classes.moviePlayer}>
-          <iframe
+          {/* <iframe
             allowFullScreen
             id="watch-iframe"
             src={`${process.env.NEXT_PUBLIC_Player_URL}/movie?id=${id}`}
+          ></iframe> */}
+          <iframe
+            allowFullScreen
+            id="watch-iframe"
+            src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-addc35`}
           ></iframe>
         </Grid>
 
