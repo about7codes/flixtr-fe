@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
@@ -19,17 +19,24 @@ import {
   useSeriesSeasonById,
 } from "../../../../../../hooks/series.hooks";
 import CustomHead from "../../../../../../components/CustomHead/CustomHead";
+import { convertToNumber } from "../../../../../../utils/utils";
 
 type SeasonCountProps = {};
 
 function SeasonCount() {
   const router = useRouter();
-  const { id, name, seasoncount } = router.query;
+
+  const { id, name, seasoncount, e } = router.query;
   const [ep, setEp] = useState(1);
 
   const { data: tvShowSeasonData, isLoading: isSeasonLoading } =
     useSeriesSeasonById(id, seasoncount);
   const { data: tvShowData, isLoading: isShowLoading } = useSeriesById(id);
+
+  useEffect(() => {
+    const eNum = convertToNumber(e);
+    if (eNum) setEp(eNum);
+  }, []);
 
   if (isSeasonLoading || isShowLoading) return <LinearProgress />;
 
@@ -39,7 +46,8 @@ function SeasonCount() {
     name: showTitle,
   } = tvShowData as SeriesResult;
 
-  console.log("tvShowData", tvShowData);
+  // console.log(router.query);
+  // console.log("tvShowData", tvShowData);
   // console.log('tvShowSeasonData', tvShowSeasonData)
 
   return (
@@ -90,7 +98,19 @@ function SeasonCount() {
                 variant="contained"
                 sx={classes.episodeBtn}
                 color={ep === episode_number ? "primary" : "secondary"}
-                onClick={() => setEp(episode_number)}
+                onClick={() => {
+                  setEp(episode_number);
+                  router.replace(
+                    {
+                      pathname: router.asPath.split("?")[0],
+                      query: { e: episode_number },
+                    },
+                    undefined,
+                    {
+                      shallow: true,
+                    }
+                  );
+                }}
               >
                 Ep {episode_number}
               </Button>

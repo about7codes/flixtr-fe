@@ -52,3 +52,24 @@ export const toPercent = (num: number): number => Math.round(num * 10);
 
 export const blurData =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNce8f0KQAGoQKlpcmuHQAAAABJRU5ErkJggg==";
+
+export const convertToNumber = (
+  arg: string | string[] | undefined
+): number | undefined => {
+  if (arg === undefined) {
+    return undefined;
+  }
+  if (Array.isArray(arg)) {
+    return undefined;
+  }
+
+  if (typeof arg === "string") {
+    const parsedNumber = parseFloat(arg);
+    if (isNaN(parsedNumber)) {
+      return undefined;
+    }
+    return parsedNumber;
+  }
+
+  return undefined;
+};
