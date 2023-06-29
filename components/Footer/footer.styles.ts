@@ -80,7 +80,8 @@ export const styles = {
     height: "30px",
   },
   footerBottom: {
-    display: "flex",
+    // display: "flex",
+    display: "none",
     "@media (max-width: 900px)": {
       flexDirection: "column",
       alignItems: "center",

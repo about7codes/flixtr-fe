@@ -10,9 +10,15 @@ type SeasonRollProps = {
   seasonList: ShowSeason[];
   showId: number;
   showName: string;
+  isSeriesStreamable?: boolean;
 };
 
-const SeasonRoll = ({ seasonList, showId, showName }: SeasonRollProps) => {
+const SeasonRoll = ({
+  seasonList,
+  showId,
+  showName,
+  isSeriesStreamable,
+}: SeasonRollProps) => {
   if (!seasonList.length) return null;
 
   return (
@@ -25,9 +31,13 @@ const SeasonRoll = ({ seasonList, showId, showName }: SeasonRollProps) => {
               <Grid item sx={classes.seasonItem} key={index}>
                 <Link
                   style={{ WebkitTapHighlightColor: "transparent" }}
-                  href={`/tv/${showId}/${toUrlFriendly(showName)}/season/${
-                    season.season_number
-                  }`}
+                  href={
+                    isSeriesStreamable
+                      ? `/tv/${showId}/${toUrlFriendly(showName)}/season/${
+                          season.season_number
+                        }`
+                      : `/tv/${showId}/${toUrlFriendly(showName)}`
+                  }
                 >
                   <Grid sx={classes.seasonImg}>
                     <Image

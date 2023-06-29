@@ -36,6 +36,27 @@ export const getMovieById = async (
   }
 };
 
+export const getMovieStreamable = async (
+  movieId: string | string[] | undefined
+): Promise<boolean> => {
+  if (movieId === undefined || Array.isArray(movieId)) {
+    return false;
+  }
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_Player_URL_VS}/${movieId}`,
+      {
+        method: "HEAD",
+      }
+    );
+    return response.ok;
+  } catch (error) {
+    console.error("Error movie not available to stream:", error);
+    return false;
+  }
+};
+
 export const getPopularMovies = async (pageNum: number): Promise<MovieData> => {
   try {
     const movieRes = await fetch(

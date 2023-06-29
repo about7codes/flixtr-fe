@@ -36,6 +36,27 @@ export const getSeriesById = async (
   }
 };
 
+export const getSeriesStreamable = async (
+  seriesId: string | string[] | undefined
+): Promise<boolean> => {
+  if (seriesId === undefined || Array.isArray(seriesId)) {
+    return false;
+  }
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_Player_URL_VS}/${seriesId}/1-1`,
+      {
+        method: "HEAD",
+      }
+    );
+    return response.ok;
+  } catch (error) {
+    console.error("Error tv show not available to stream:", error);
+    return false;
+  }
+};
+
 export const getSeriesSeasonById = async (
   seriesId: string | string[] | undefined,
   seasonCount: string | string[] | undefined

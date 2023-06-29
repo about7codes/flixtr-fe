@@ -14,7 +14,11 @@ import CastRoll from "../../../../components/CastRoll/CastRoll";
 import TvTileSlider from "../../../../components/TvTileSlider/TvTileSlider";
 import SeasonRoll from "../../../../components/SeasonRoll/SeasonRoll";
 import { getSeriesById } from "../../../../api/series.api";
-import { SeriesQueryKey, useSeriesById } from "../../../../hooks/series.hooks";
+import {
+  SeriesQueryKey,
+  useSeriesById,
+  useSeriesStreamableById,
+} from "../../../../hooks/series.hooks";
 import {
   blurData,
   formatImgSrc,
@@ -40,8 +44,11 @@ function TvShowInfo() {
   const isNotLogged = loginStatus === "unauthenticated";
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const { data: isStreamable } = useSeriesStreamableById(router.query.id);
+  console.log("tvisStreamable: ", isStreamable);
+
   const { data: singleShowData, isLoading } = useSeriesById(router.query.id);
-  // console.log('tvInfo: ', singleShowData);
   const [watchlistExists, setWatchlistExists] = useState(false);
 
   const { mutateAsync: addWatchlist, isLoading: isLoadingPost } =
@@ -111,8 +118,6 @@ function TvShowInfo() {
       });
 
       setWatchlistExists(true);
-
-      console.log("AddWatchlist", data);
     } catch (error) {
       console.log(error);
     }
@@ -126,8 +131,6 @@ function TvShowInfo() {
       });
 
       setWatchlistExists(false);
-
-      console.log("RemoveWatchlist", data);
     } catch (error) {
       console.log(error);
     }
@@ -174,7 +177,7 @@ function TvShowInfo() {
               </Grid>
             </Box>
             <Box sx={classes.mediaBtns}>
-              {new Date() > new Date(first_air_date) && (
+              {isStreamable && new Date() > new Date(first_air_date) && (
                 <Link
                   href={`/tv/${id}/${toUrlFriendly(name)}/season/1`}
                   style={{ WebkitTapHighlightColor: "transparent" }}
@@ -188,24 +191,6 @@ function TvShowInfo() {
                   </Button>
                 </Link>
               )}
-
-              {/* {false ? (
-                <Button
-                  variant="outlined"
-                  color="error"
-                  sx={classes.watchlistBtn}
-                >
-                  Remove from watchlist
-                </Button>
-              ) : (
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  sx={classes.watchlistBtn}
-                >
-                  Add to watchlist
-                </Button>
-              )} */}
 
               {watchlistExists ? (
                 <LoadingButton
@@ -330,7 +315,12 @@ function TvShowInfo() {
         </Grid>
 
         <Grid item>
-          <SeasonRoll seasonList={seasons} showId={id} showName={name} />
+          <SeasonRoll
+            seasonList={seasons}
+            showId={id}
+            showName={name}
+            isSeriesStreamable={isStreamable}
+          />
         </Grid>
 
         <Grid item>
