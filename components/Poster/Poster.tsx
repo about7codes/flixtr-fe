@@ -11,7 +11,6 @@ import {
   toPercent,
   toUrlFriendly,
 } from "../../utils/utils";
-import { MovieWatchlist } from "../../types/watchlist.apiResponses";
 
 type PosterProps = {
   singleMovieData: MovieResult;
@@ -56,9 +55,14 @@ const Poster = ({ singleMovieData }: PosterProps) => {
           >
             {title}
           </Typography>
-          <Typography variant="subtitle2" sx={classes.posterYear}>
-            {new Date(release_date).getFullYear()}
-          </Typography>
+          <Box sx={classes.posterYearMain}>
+            <Typography variant="subtitle2" sx={classes.posterYear}>
+              {new Date(release_date).getFullYear()}
+            </Typography>
+            <Typography variant="subtitle2" sx={classes.posterType}>
+              Movie
+            </Typography>
+          </Box>
         </Box>
 
         {vote_average ? (

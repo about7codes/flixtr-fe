@@ -315,12 +315,7 @@ function TvShowInfo() {
         </Grid>
 
         <Grid item>
-          <SeasonRoll
-            seasonList={seasons}
-            showId={id}
-            showName={name}
-            isSeriesStreamable={isStreamable}
-          />
+          <SeasonRoll seasonList={seasons} showId={id} showName={name} />
         </Grid>
 
         <Grid item>

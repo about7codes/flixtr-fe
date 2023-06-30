@@ -40,9 +40,26 @@ export const styles = {
       fontSize: "11px",
     },
   },
+
+  posterYearMain: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    pr: "3px",
+  },
   posterYear: {
     "@media (max-width: 900px)": {
       fontSize: "11px",
+    },
+  },
+  posterType: {
+    borderRadius: "4px",
+    color: "primary.main",
+    backgroundColor: "secondary.main",
+    fontSize: "11px",
+    padding: "0 5px",
+    "@media (max-width: 900px)": {
+      fontSize: "8px",
     },
   },
   ratings: {

@@ -49,9 +49,16 @@ const TvPoster = ({ singleShowData }: TvPosterProps) => {
           <Typography variant="subtitle2" sx={classes.posterTitle} title={name}>
             {name}
           </Typography>
-          <Typography variant="subtitle2" sx={classes.posterYear}>
-            {new Date(first_air_date).getFullYear()}
-          </Typography>
+
+          <Box sx={classes.posterYearMain}>
+            <Typography variant="subtitle2" sx={classes.posterYear}>
+              {new Date(first_air_date).getFullYear()}
+            </Typography>
+
+            <Typography variant="subtitle2" sx={classes.posterType}>
+              TV
+            </Typography>
+          </Box>
         </Box>
 
         {vote_average ? (
