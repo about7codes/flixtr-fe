@@ -18,7 +18,6 @@ import {
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
@@ -140,11 +139,6 @@ const Navbar = () => {
   const handleCloseMenuLinks = () => {
     setAnchorElLinks(null);
     setOpenLinksMenu(null);
-  };
-
-  const getSearchResults = async () => {
-    // const data = await getSearchQuery(searchVal);
-    // setSearchData(data);
   };
 
   return (
@@ -297,7 +291,6 @@ const Navbar = () => {
                   searchVal={searchVal}
                   searchData={searchData}
                   isResultsVisible={isResultsVisible}
-                  // isResultsVisible={true}
                   isError={isError}
                 />
               </Box>
@@ -320,7 +313,6 @@ const Navbar = () => {
                     onClick={() =>
                       router.pathname !== "/login" ? signIn() : null
                     }
-                    // onClick={() => customRedirect("/login")}
                   >
                     Login
                   </Button>
@@ -421,7 +413,6 @@ const Navbar = () => {
                 searchVal={searchVal}
                 searchData={searchData}
                 isResultsVisible={isResultsVisible}
-                // isResultsVisible={true}
                 isError={isError}
               />
             </Box>
@@ -451,11 +442,8 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  // marginLeft: 0,
-  // marginRight: 10,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    // marginLeft: theme.spacing(1),
     width: "auto",
   },
 }));
