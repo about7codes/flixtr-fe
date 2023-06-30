@@ -100,7 +100,7 @@ export const getPopularSeries = async (
 export const getRecentSeries = async (pageNum: number): Promise<SeriesData> => {
   try {
     const seriesRes = await fetch(
-      `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+      `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&with_original_language=en&page=${pageNum}`
     );
     const seriesData: SeriesData = await seriesRes.json();
 
