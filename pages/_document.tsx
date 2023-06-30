@@ -43,8 +43,39 @@ export default class MyDocument extends Document {
             }}
           />
         </Head>
-        <Main />
-        <NextScript />
+        <body>
+          <Main />
+          <NextScript />
+
+          <script
+            async
+            type="application/javascript"
+            src="https://a.exdynsrv.com/ad-provider.js"
+          ></script>
+
+          <ins
+            className="eas6a97888ec52c042c679a36e919843cca"
+            data-zoneid="5018914"
+          ></ins>
+
+          <ins
+            className="eas6a97888ec52c042c679a36e919843cca"
+            data-zoneid="5018914"
+          ></ins>
+
+          <ins
+            className="eas6a97888ec52c042c679a36e919843cca"
+            data-zoneid="5018914"
+          ></ins>
+
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              (AdProvider = window.AdProvider || []).push({"serve": {}});
+              `,
+            }}
+          />
+        </body>
       </Html>
     );
   }
