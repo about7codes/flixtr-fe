@@ -14,6 +14,11 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
 
+          <meta
+            name="exoclick-site-verification"
+            content="7282b61ce99ff60fa82adfd51862bc53"
+          />
+
           <script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7007879471382156"
