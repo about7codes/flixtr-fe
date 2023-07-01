@@ -44,29 +44,24 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
-          <Main />
-          <NextScript />
-
-          <script
+          {/* <script
             async
             type="application/javascript"
             src="https://a.exdynsrv.com/ad-provider.js"
-          ></script>
+          ></script> */}
 
-          <ins
+          <Main />
+          <NextScript />
+
+          {/* <ins
             className="eas6a97888ec52c042c679a36e919843cca"
             data-zoneid="5018914"
           ></ins>
 
           <ins
             className="eas6a97888ec52c042c679a36e919843cca"
-            data-zoneid="5018914"
-          ></ins>
-
-          <ins
-            className="eas6a97888ec52c042c679a36e919843cca"
-            data-zoneid="5018914"
-          ></ins>
+            data-zoneid="5019068"
+          ></ins> */}
 
           <script
             dangerouslySetInnerHTML={{

@@ -14,6 +14,7 @@ import TileSlider from "../components/TileSider/TileSlider";
 import TvTileSlider from "../components/TvTileSlider/TvTileSlider";
 import CustomHead from "../components/CustomHead/CustomHead";
 import PersonTileSlider from "../components/PersonTileSlider/PersonTileSlider";
+import { useEffect, useRef } from "react";
 
 type HomeProps = {};
 
@@ -25,6 +26,27 @@ const Home: NextPage<HomeProps> = () => {
   // console.log("MovieDATA", toPercent(movieData[1].vote_average || 0));
   // console.log("seriesDATA", seriesData);
   // console.log("peopleDATA", peopleData);
+
+  const adRef = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.async = true;
+    script.type = "application/javascript";
+    script.src = "https://a.exdynsrv.com/ad-provider.js";
+
+    const adEl1 = document.createElement("ins");
+    adEl1.className = "eas6a97888ec52c042c679a36e919843cca";
+    adEl1.dataset.zoneid = "5018914";
+
+    const adEl2 = document.createElement("ins");
+    adEl2.className = "eas6a97888ec52c042c679a36e919843cca";
+    adEl2.dataset.zoneid = "5019068";
+
+    adRef.current?.appendChild(script);
+    adRef.current?.appendChild(adEl1);
+    adRef.current?.appendChild(adEl2);
+  }, []);
 
   return (
     <>
@@ -61,6 +83,8 @@ const Home: NextPage<HomeProps> = () => {
           </Box>
           <TvTileSlider seriesData={seriesData} />
         </Box>
+
+        <Box sx={{ display: "flex" }} ref={adRef}></Box>
 
         <Box sx={classes.sliderContainer}>
           <Box sx={{ textAlign: "center" }}>
