@@ -36,7 +36,8 @@ export const getSeriesById = async (
   }
 };
 
-export const getSeriesStreamable = async (
+// TODO: remove if not used
+const getSeriesStreamable = async (
   seriesId: string | string[] | undefined
 ): Promise<boolean> => {
   if (seriesId === undefined || Array.isArray(seriesId)) {

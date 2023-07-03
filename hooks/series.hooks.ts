@@ -5,13 +5,11 @@ import {
   getSeries,
   getSeriesById,
   getSeriesSeasonById,
-  getSeriesStreamable,
   getTopSeries,
 } from "../api/series.api";
 
 export enum SeriesQueryKey {
   SeriesData = "SeriesData",
-  SeriesStreamable = "SeriesStreamable",
   SingleShowData = "SingleShowData",
   TvShowSeasonData = "TvShowSeasonData",
   PopularSeries = "PopularSeries",
@@ -26,12 +24,6 @@ export const useSeries = () => {
 export const useSeriesById = (seriesId?: string | string[]) => {
   return useQuery([SeriesQueryKey.SingleShowData, seriesId], () =>
     getSeriesById(seriesId)
-  );
-};
-
-export const useSeriesStreamableById = (seriesId?: string | string[]) => {
-  return useQuery([SeriesQueryKey.SeriesStreamable, seriesId], () =>
-    getSeriesStreamable(seriesId)
   );
 };
 

@@ -14,11 +14,7 @@ import CastRoll from "../../../../components/CastRoll/CastRoll";
 import TvTileSlider from "../../../../components/TvTileSlider/TvTileSlider";
 import SeasonRoll from "../../../../components/SeasonRoll/SeasonRoll";
 import { getSeriesById } from "../../../../api/series.api";
-import {
-  SeriesQueryKey,
-  useSeriesById,
-  useSeriesStreamableById,
-} from "../../../../hooks/series.hooks";
+import { SeriesQueryKey, useSeriesById } from "../../../../hooks/series.hooks";
 import {
   blurData,
   formatImgSrc,
@@ -44,9 +40,6 @@ function TvShowInfo() {
   const isNotLogged = loginStatus === "unauthenticated";
   const dispatch = useDispatch();
   const router = useRouter();
-
-  const { data: isStreamable } = useSeriesStreamableById(router.query.id);
-  console.log("tvisStreamable: ", isStreamable);
 
   const { data: singleShowData, isLoading } = useSeriesById(router.query.id);
   const [watchlistExists, setWatchlistExists] = useState(false);
@@ -177,7 +170,7 @@ function TvShowInfo() {
               </Grid>
             </Box>
             <Box sx={classes.mediaBtns}>
-              {isStreamable && new Date() > new Date(first_air_date) && (
+              {new Date() > new Date(first_air_date) && (
                 <Link
                   href={`/tv/${id}/${toUrlFriendly(name)}/season/1`}
                   style={{ WebkitTapHighlightColor: "transparent" }}

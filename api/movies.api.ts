@@ -36,7 +36,8 @@ export const getMovieById = async (
   }
 };
 
-export const getMovieStreamable = async (
+// TODO: remove if not used
+const getMovieStreamable = async (
   movieId: string | string[] | undefined
 ): Promise<boolean> => {
   if (movieId === undefined || Array.isArray(movieId)) {

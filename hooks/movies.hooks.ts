@@ -5,7 +5,6 @@ import {
   getPopularMovies,
   getRecentMovies,
   getTopMovies,
-  getMovieStreamable,
 } from "../api/movies.api";
 
 export enum MovieQueryKey {
@@ -26,12 +25,6 @@ export const useMovies = () => {
 export const useMovieById = (movieId?: string | string[]) => {
   return useQuery([MovieQueryKey.SingleMovieData, movieId], () =>
     getMovieById(movieId)
-  );
-};
-
-export const useMovieStreamableById = (movieId?: string | string[]) => {
-  return useQuery([MovieQueryKey.MovieStreamable, movieId], () =>
-    getMovieStreamable(movieId)
   );
 };
 

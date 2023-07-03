@@ -14,11 +14,7 @@ import TileSlider from "../../../../components/TileSider/TileSlider";
 import { styles as classes } from "../../../../styles/movieInfo.styles";
 import { MovieResult } from "../../../../types/apiResponses";
 import { getMovieById } from "../../../../api/movies.api";
-import {
-  MovieQueryKey,
-  useMovieById,
-  useMovieStreamableById,
-} from "../../../../hooks/movies.hooks";
+import { MovieQueryKey, useMovieById } from "../../../../hooks/movies.hooks";
 import {
   blurData,
   formatImgSrc,
@@ -45,8 +41,6 @@ function MovieInfo() {
   const isNotLogged = loginStatus === "unauthenticated";
   const dispatch = useDispatch();
   const router = useRouter();
-
-  const { data: isStreamable } = useMovieStreamableById(router.query.id);
 
   const [watchlistExists, setWatchlistExists] = useState(false);
   const { data: singleMovieData, isLoading } = useMovieById(router.query.id);
@@ -176,7 +170,7 @@ function MovieInfo() {
               </Grid>
             </Box>
             <Box sx={classes.mediaBtns}>
-              {isStreamable && new Date() > new Date(release_date) && (
+              {new Date() > new Date(release_date) && (
                 <Link
                   href={`/movie/${id}/${toUrlFriendly(title)}/watch`}
                   style={{ WebkitTapHighlightColor: "transparent" }}
