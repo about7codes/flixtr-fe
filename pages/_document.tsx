@@ -63,13 +63,13 @@ export default class MyDocument extends Document {
             data-zoneid="5019068"
           ></ins> */}
 
-          <script
+          {/* <script
             dangerouslySetInnerHTML={{
               __html: `
               (AdProvider = window.AdProvider || []).push({"serve": {}});
               `,
             }}
-          />
+          /> */}
         </body>
       </Html>
     );

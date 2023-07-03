@@ -1,5 +1,6 @@
 export const removeSpecialCharacters = (phrase: string) => {
-  return phrase.replace(/[&#,+()$~%'.":!*?<>{}]/g, "");
+  return phrase.replace(/[&#,+()$~%'."!:*?<>{}\/\\]/g, "");
+  // return phrase.replace(/[&#,+()$~%'.":!*?<>{}]/g, "");
 };
 
 export const replaceSpacesWithDash = (phrase: string) => {

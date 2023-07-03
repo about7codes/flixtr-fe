@@ -30,10 +30,18 @@ const Home: NextPage<HomeProps> = () => {
   const adRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.async = true;
-    script.type = "application/javascript";
-    script.src = "https://a.exdynsrv.com/ad-provider.js";
+    console.log("APPEND");
+
+    const script1 = document.createElement("script");
+    script1.async = true;
+    script1.type = "application/javascript";
+    script1.src = "https://a.exdynsrv.com/ad-provider.js";
+
+    const script2 = document.createElement("script");
+    script2.async = true;
+    script2.type = "application/javascript";
+    script2.innerHTML =
+      '(AdProvider = window.AdProvider || []).push({"serve": {}});';
 
     const adEl1 = document.createElement("ins");
     adEl1.className = "eas6a97888ec52c042c679a36e919843cca";
@@ -43,9 +51,17 @@ const Home: NextPage<HomeProps> = () => {
     adEl2.className = "eas6a97888ec52c042c679a36e919843cca";
     adEl2.dataset.zoneid = "5019068";
 
-    adRef.current?.appendChild(script);
+    adRef.current?.appendChild(script1);
     adRef.current?.appendChild(adEl1);
     adRef.current?.appendChild(adEl2);
+    adRef.current?.appendChild(script2);
+
+    return () => {
+      adRef.current?.removeChild(script1);
+      adRef.current?.removeChild(adEl1);
+      adRef.current?.removeChild(adEl2);
+      adRef.current?.removeChild(script2);
+    };
   }, []);
 
   return (
