@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { Button, Grid, LinearProgress, Typography } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  Grid,
+  LinearProgress,
+  Typography,
+} from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import TileSlider from "../../../../components/TileSider/TileSlider";
@@ -12,17 +18,43 @@ import { MovieResult } from "../../../../types/apiResponses";
 import { getMovieById } from "../../../../api/movies.api";
 import { MovieQueryKey, useMovieById } from "../../../../hooks/movies.hooks";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
+import { convertToNumber } from "../../../../utils/utils";
 
 type WatchProps = {};
 
 function Watch() {
   const router = useRouter();
-  const { id, name } = router.query;
+  const { id, name, p } = router.query;
+  const [player, setPlayer] = useState<1 | 2 | 3>(1);
   const { data: singleMovieData, isLoading } = useMovieById(id);
+
+  useEffect(() => {
+    const pNum = convertToNumber(p);
+
+    if (pNum) {
+      if (pNum === 1) setPlayer(pNum);
+      if (pNum === 2) setPlayer(pNum);
+      if (pNum === 3) setPlayer(pNum);
+    }
+  }, []);
 
   if (isLoading) return <LinearProgress />;
 
   const { recommendations, similar, title } = singleMovieData as MovieResult;
+
+  const changePlayer = (playerId: typeof player) => {
+    setPlayer(playerId);
+    router.replace(
+      {
+        pathname: router.asPath.split("?")[0],
+        query: { p: playerId },
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
+  };
 
   return (
     <>
@@ -46,16 +78,66 @@ function Watch() {
         </Grid>
 
         <Grid item sx={classes.moviePlayer}>
+          <ButtonGroup
+            variant="contained"
+            aria-label="Media player list"
+            sx={{
+              width: "100%",
+              mt: "15px",
+            }}
+          >
+            <Button
+              fullWidth
+              color={player === 1 ? "secondary" : "primary"}
+              onClick={() => changePlayer(1)}
+            >
+              Player #1
+            </Button>
+            <Button
+              fullWidth
+              color={player === 2 ? "secondary" : "primary"}
+              onClick={() => changePlayer(2)}
+            >
+              Player #2
+            </Button>
+            <Button
+              fullWidth
+              color={player === 3 ? "secondary" : "primary"}
+              onClick={() => changePlayer(3)}
+            >
+              Player #3
+            </Button>
+          </ButtonGroup>
+
           {/* <iframe
             allowFullScreen
             id="watch-iframe"
             src={`${process.env.NEXT_PUBLIC_Player_URL}/movie?id=${id}`}
           ></iframe> */}
-          <iframe
-            allowFullScreen
-            id="watch-iframe"
-            src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`}
-          ></iframe>
+
+          {player === 1 && (
+            <iframe
+              allowFullScreen
+              id="watch-iframe1"
+              src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`}
+            ></iframe>
+          )}
+
+          {player === 2 && (
+            <iframe
+              allowFullScreen
+              id="watch-iframe2"
+              src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}`}
+            ></iframe>
+          )}
+
+          {player === 3 && (
+            <iframe
+              allowFullScreen
+              id="watch-iframe3"
+              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/tmdb/${id}`}
+            ></iframe>
+          )}
         </Grid>
 
         {[

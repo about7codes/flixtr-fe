@@ -3,7 +3,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Grid,
+  LinearProgress,
+  Typography,
+} from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import { SeriesResult } from "../../../../../../types/apiResponses";
@@ -26,8 +33,9 @@ type SeasonCountProps = {};
 function SeasonCount() {
   const router = useRouter();
 
-  const { id, name, seasoncount, e } = router.query;
+  const { id, name, seasoncount, e, p } = router.query;
   const [ep, setEp] = useState(1);
+  const [player, setPlayer] = useState<1 | 2 | 3>(1);
 
   const { data: tvShowSeasonData, isLoading: isSeasonLoading } =
     useSeriesSeasonById(id, seasoncount);
@@ -35,7 +43,14 @@ function SeasonCount() {
 
   useEffect(() => {
     const eNum = convertToNumber(e);
+    const pNum = convertToNumber(p);
+
     if (eNum) setEp(eNum);
+    if (pNum) {
+      if (pNum === 1) setPlayer(pNum);
+      if (pNum === 2) setPlayer(pNum);
+      if (pNum === 3) setPlayer(pNum);
+    }
   }, []);
 
   if (isSeasonLoading || isShowLoading) return <LinearProgress />;
@@ -49,6 +64,20 @@ function SeasonCount() {
   // console.log(router.query);
   // console.log("tvShowData", tvShowData);
   // console.log('tvShowSeasonData', tvShowSeasonData)
+
+  const changePlayer = (playerId: typeof player) => {
+    setPlayer(playerId);
+    router.replace(
+      {
+        pathname: router.asPath.split("?")[0],
+        query: { e: ep, p: playerId },
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
+  };
 
   return (
     <>
@@ -75,6 +104,36 @@ function SeasonCount() {
         </Grid>
 
         <Grid item sx={classes.moviePlayer}>
+          <ButtonGroup
+            variant="contained"
+            aria-label="Media player list"
+            sx={{
+              width: "100%",
+              mt: "15px",
+            }}
+          >
+            <Button
+              fullWidth
+              color={player === 1 ? "secondary" : "primary"}
+              onClick={() => changePlayer(1)}
+            >
+              Player #1
+            </Button>
+            <Button
+              fullWidth
+              color={player === 2 ? "secondary" : "primary"}
+              onClick={() => changePlayer(2)}
+            >
+              Player #2
+            </Button>
+            <Button
+              fullWidth
+              color={player === 3 ? "secondary" : "primary"}
+              onClick={() => changePlayer(3)}
+            >
+              Player #3
+            </Button>
+          </ButtonGroup>
           {/* <iframe
             allowFullScreen
             id="watch-iframe"
@@ -82,13 +141,36 @@ function SeasonCount() {
               seasoncount ? seasoncount : 1
             }&e=${ep}`}
           ></iframe> */}
-          <iframe
-            allowFullScreen
-            id="watch-iframe"
-            src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${
-              seasoncount ? seasoncount : 1
-            }-${ep}/color-ADDC35`}
-          ></iframe>
+
+          {player === 1 && (
+            <iframe
+              allowFullScreen
+              id="watch-iframe1"
+              src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${
+                seasoncount ? seasoncount : 1
+              }-${ep}/color-ADDC35`}
+            ></iframe>
+          )}
+
+          {player === 2 && (
+            <iframe
+              allowFullScreen
+              id="watch-iframe2"
+              src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}&s=${
+                seasoncount ? seasoncount : 1
+              }&e=${ep}`}
+            ></iframe>
+          )}
+
+          {player === 3 && (
+            <iframe
+              allowFullScreen
+              id="watch-iframe3"
+              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/tmdb/${id}-${
+                seasoncount ? seasoncount : 1
+              }-${ep}`}
+            ></iframe>
+          )}
         </Grid>
 
         <Grid item sx={classes.episodeBtns}>
@@ -103,7 +185,7 @@ function SeasonCount() {
                   router.replace(
                     {
                       pathname: router.asPath.split("?")[0],
-                      query: { e: episode_number },
+                      query: { e: episode_number, p: player },
                     },
                     undefined,
                     {
