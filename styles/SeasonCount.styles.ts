@@ -17,10 +17,31 @@ export const styles = {
     fontSize: "14px",
   },
   episodeBtns: {
-    display: "flex",
-    flexWrap: "wrap",
+    backgroundColor: "#000",
+    borderRadius: "6px",
+    // display: "flex",
+    // flexWrap: "wrap",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(85px, 1fr) )",
+    justifyItems: "center",
     width: "100%",
     margin: "20px 0",
+    maxHeight: "230px",
+    overflow: "hidden",
+    overflowY: "auto",
+    scrollbarColor: "#616161 transparent",
+    scrollbarWidth: "thin",
+    "&::-webkit-scrollbar-track": {
+      backgroundColor: "transparent",
+    },
+    "&::-webkit-scrollbar": {
+      width: "6px",
+      height: "6px",
+      backgroundColor: "transparent",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#616161",
+    },
   },
   episodeBtnBox: {
     flex: "1",
