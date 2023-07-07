@@ -30,8 +30,6 @@ const Home: NextPage<HomeProps> = () => {
   const adRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
-    console.log("APPEND");
-
     const script1 = document.createElement("script");
     script1.async = true;
     script1.type = "application/javascript";

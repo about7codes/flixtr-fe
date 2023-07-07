@@ -43,17 +43,22 @@ function Watch() {
   const { recommendations, similar, title } = singleMovieData as MovieResult;
 
   const changePlayer = (playerId: typeof player) => {
-    setPlayer(playerId);
-    router.replace(
-      {
-        pathname: router.asPath.split("?")[0],
-        query: { p: playerId },
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
+    setPlayer((prevPlayerId) => {
+      if (prevPlayerId === playerId) return prevPlayerId;
+
+      router.replace(
+        {
+          pathname: router.asPath.split("?")[0],
+          query: { p: playerId },
+        },
+        undefined,
+        {
+          shallow: true,
+        }
+      );
+
+      return playerId;
+    });
   };
 
   return (

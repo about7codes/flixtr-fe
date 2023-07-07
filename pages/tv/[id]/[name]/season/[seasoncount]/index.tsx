@@ -66,17 +66,22 @@ function SeasonCount() {
   // console.log('tvShowSeasonData', tvShowSeasonData)
 
   const changePlayer = (playerId: typeof player) => {
-    setPlayer(playerId);
-    router.replace(
-      {
-        pathname: router.asPath.split("?")[0],
-        query: { e: ep, p: playerId },
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
+    setPlayer((prevPlayerId) => {
+      if (prevPlayerId === playerId) return prevPlayerId;
+
+      router.replace(
+        {
+          pathname: router.asPath.split("?")[0],
+          query: { e: ep, p: playerId },
+        },
+        undefined,
+        {
+          shallow: true,
+        }
+      );
+
+      return playerId;
+    });
   };
 
   return (
@@ -179,19 +184,24 @@ function SeasonCount() {
               <Button
                 variant="contained"
                 sx={classes.episodeBtn}
-                color={ep === episode_number ? "primary" : "secondary"}
+                color={ep === episode_number ? "secondary" : "primary"}
                 onClick={() => {
-                  setEp(episode_number);
-                  router.replace(
-                    {
-                      pathname: router.asPath.split("?")[0],
-                      query: { e: episode_number, p: player },
-                    },
-                    undefined,
-                    {
-                      shallow: true,
-                    }
-                  );
+                  setEp((prevEp) => {
+                    if (prevEp === episode_number) return prevEp;
+
+                    router.replace(
+                      {
+                        pathname: router.asPath.split("?")[0],
+                        query: { e: episode_number, p: player },
+                      },
+                      undefined,
+                      {
+                        shallow: true,
+                      }
+                    );
+
+                    return episode_number;
+                  });
                 }}
               >
                 Ep {episode_number}

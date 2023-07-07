@@ -18,6 +18,9 @@ export const styles = {
   },
   moviePlayer: {
     width: "100%",
+    "& #watch-iframe1": {
+      backgroundColor: "primary.main",
+    },
     "& iframe": {
       border: 0,
       marginTop: "20px",
