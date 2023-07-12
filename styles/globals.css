@@ -29,6 +29,12 @@ a {
   padding: 0 24px;
   min-height: 100vh;
 }
+
+.slick-active .media-item-content {
+  opacity: 1;
+  transition: opacity 1s ease 150ms;
+}
+
 @media (max-width: 900px){
   .main{
     padding: 0 10px;

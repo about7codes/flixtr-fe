@@ -4,10 +4,14 @@ import { Box, LinearProgress, Typography } from "@mui/material";
 
 import styles from "../styles/Home.module.css";
 import { styles as classes } from "../styles/Home.styles";
-import { MovieQueryKey, useMovies } from "../hooks/movies.hooks";
+import {
+  MovieQueryKey,
+  useMovies,
+  usePopularMovies,
+} from "../hooks/movies.hooks";
 import { SeriesQueryKey, useSeries } from "../hooks/series.hooks";
 import { PeopleQueryKey, usePeople } from "../hooks/people.hooks";
-import { getMovies } from "../api/movies.api";
+import { getMovies, getPopularMovies } from "../api/movies.api";
 import { getSeries } from "../api/series.api";
 import { getPeople } from "../api/people.api";
 import TileSlider from "../components/TileSider/TileSlider";
@@ -15,17 +19,19 @@ import TvTileSlider from "../components/TvTileSlider/TvTileSlider";
 import CustomHead from "../components/CustomHead/CustomHead";
 import PersonTileSlider from "../components/PersonTileSlider/PersonTileSlider";
 import { useEffect, useRef } from "react";
+import MovieSlider from "../components/MovieSlider/MovieSlider";
 
 type HomeProps = {};
 
 const Home: NextPage<HomeProps> = () => {
+  const { data: popularMovies, isLoading: isPopularLoading } =
+    usePopularMovies();
   const { data: movieData, isLoading: isMoviesLoading } = useMovies();
   const { data: seriesData, isLoading: isSeriesLoading } = useSeries();
   const { data: peopleData, isLoading: isPeopleLoading } = usePeople();
   // console.log("MovieDATA", movieData);
   // console.log("MovieDATA", toPercent(movieData[1].vote_average || 0));
   // console.log("seriesDATA", seriesData);
-  // console.log("peopleDATA", peopleData);
 
   const adRef = useRef<HTMLDivElement>();
 
@@ -70,11 +76,16 @@ const Home: NextPage<HomeProps> = () => {
       />
 
       <div className={styles.container}>
-        {(isMoviesLoading || isSeriesLoading || isPeopleLoading) && (
-          <LinearProgress />
-        )}
+        {(isPopularLoading ||
+          isMoviesLoading ||
+          isSeriesLoading ||
+          isPeopleLoading) && <LinearProgress />}
 
-        <Box sx={classes.sliderContainer}>
+        <Box>
+          <MovieSlider movieData={popularMovies?.pages[0].results} />
+        </Box>
+
+        <Box sx={{ ...classes.sliderContainer, m: "20px 0 60px 0" }}>
           <Box sx={{ textAlign: "center" }}>
             <Typography variant="h4" sx={classes.headTxt}>
               Trending Movies
@@ -120,13 +131,25 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
 
   try {
+    await queryClient.prefetchInfiniteQuery(
+      [MovieQueryKey.PopularMovies],
+      ({ pageParam = 1 }) => getPopularMovies(pageParam),
+      {
+        getNextPageParam: (lastPage) => {
+          return lastPage.page < lastPage.total_pages
+            ? lastPage.page + 1
+            : undefined;
+        },
+      }
+    );
+
     await queryClient.fetchQuery([MovieQueryKey.MovieData], getMovies);
     await queryClient.fetchQuery([SeriesQueryKey.SeriesData], getSeries);
     await queryClient.fetchQuery([PeopleQueryKey.PeopleData], getPeople);
 
     return {
       props: {
-        dehydratedState: dehydrate(queryClient),
+        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       },
     };
   } catch (error) {
