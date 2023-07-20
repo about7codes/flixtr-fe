@@ -13,15 +13,12 @@ import { WatchlistMediaType } from "../../types/watchlist.apiResponses";
 import { MovieResult, SeriesResult } from "../../types/apiResponses";
 import { useWatchlist } from "../../hooks/watchlist.hooks";
 
-type WatchlistProps = {};
-
-function Watchlist({}: WatchlistProps) {
+function Watchlist() {
   const { status } = useSession();
   const isNotLogged = status === "unauthenticated";
 
   useEffect(() => {
     if (isNotLogged) {
-      // console.log("redirect to /login");
       signIn();
       return;
     }

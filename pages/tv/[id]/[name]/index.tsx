@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { Grid, Box, Typography, Button, LinearProgress } from "@mui/material";
 
 import { SeriesResult } from "../../../../types/apiResponses";
@@ -13,8 +11,7 @@ import ClipRoll from "../../../../components/ClipRoll/ClipRoll";
 import CastRoll from "../../../../components/CastRoll/CastRoll";
 import TvTileSlider from "../../../../components/TvTileSlider/TvTileSlider";
 import SeasonRoll from "../../../../components/SeasonRoll/SeasonRoll";
-import { getSeriesById } from "../../../../api/series.api";
-import { SeriesQueryKey, useSeriesById } from "../../../../hooks/series.hooks";
+import { useSeriesById } from "../../../../hooks/series.hooks";
 import {
   blurData,
   formatImgSrc,
@@ -32,8 +29,6 @@ import { LoadingButton } from "@mui/lab";
 import { signIn, useSession } from "next-auth/react";
 import { setNotify } from "../../../../redux/notifySlice";
 import { useDispatch } from "react-redux";
-
-type TvShowInfoProps = {};
 
 function TvShowInfo() {
   const { data: sessionData, status: loginStatus } = useSession();
@@ -341,27 +336,28 @@ function TvShowInfo() {
   );
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const queryClient = new QueryClient();
-  const { id } = ctx.query;
+// Commented to Remove SSR
+// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+//   const queryClient = new QueryClient();
+//   const { id } = ctx.query;
 
-  try {
-    // fetching single movie details
-    await queryClient.fetchQuery([SeriesQueryKey.SingleShowData, id], () =>
-      getSeriesById(id)
-    );
+//   try {
+//     // fetching single movie details
+//     await queryClient.fetchQuery([SeriesQueryKey.SingleShowData, id], () =>
+//       getSeriesById(id)
+//     );
 
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-}
+//     return {
+//       props: {
+//         dehydratedState: dehydrate(queryClient),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
 export default TvShowInfo;

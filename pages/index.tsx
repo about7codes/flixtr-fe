@@ -1,24 +1,16 @@
-import type { GetServerSidePropsContext, NextPage } from "next";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
+import type { NextPage } from "next";
+import { useEffect, useRef } from "react";
 import { Box, LinearProgress, Typography } from "@mui/material";
 
 import styles from "../styles/Home.module.css";
 import { styles as classes } from "../styles/Home.styles";
-import {
-  MovieQueryKey,
-  useMovies,
-  usePopularMovies,
-} from "../hooks/movies.hooks";
-import { SeriesQueryKey, useSeries } from "../hooks/series.hooks";
-import { PeopleQueryKey, usePeople } from "../hooks/people.hooks";
-import { getMovies, getPopularMovies } from "../api/movies.api";
-import { getSeries } from "../api/series.api";
-import { getPeople } from "../api/people.api";
+import { useMovies, usePopularMovies } from "../hooks/movies.hooks";
+import { useSeries } from "../hooks/series.hooks";
+import { usePeople } from "../hooks/people.hooks";
 import TileSlider from "../components/TileSider/TileSlider";
 import TvTileSlider from "../components/TvTileSlider/TvTileSlider";
 import CustomHead from "../components/CustomHead/CustomHead";
 import PersonTileSlider from "../components/PersonTileSlider/PersonTileSlider";
-import { useEffect, useRef } from "react";
 import MovieSlider from "../components/MovieSlider/MovieSlider";
 
 type HomeProps = {};
@@ -127,37 +119,38 @@ const Home: NextPage<HomeProps> = () => {
   );
 };
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const queryClient = new QueryClient();
+// Commented to Remove SSR
+// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+//   const queryClient = new QueryClient();
 
-  try {
-    await queryClient.prefetchInfiniteQuery(
-      [MovieQueryKey.PopularMovies],
-      ({ pageParam = 1 }) => getPopularMovies(pageParam),
-      {
-        getNextPageParam: (lastPage) => {
-          return lastPage.page < lastPage.total_pages
-            ? lastPage.page + 1
-            : undefined;
-        },
-      }
-    );
+//   try {
+//     await queryClient.prefetchInfiniteQuery(
+//       [MovieQueryKey.PopularMovies],
+//       ({ pageParam = 1 }) => getPopularMovies(pageParam),
+//       {
+//         getNextPageParam: (lastPage) => {
+//           return lastPage.page < lastPage.total_pages
+//             ? lastPage.page + 1
+//             : undefined;
+//         },
+//       }
+//     );
 
-    await queryClient.fetchQuery([MovieQueryKey.MovieData], getMovies);
-    await queryClient.fetchQuery([SeriesQueryKey.SeriesData], getSeries);
-    await queryClient.fetchQuery([PeopleQueryKey.PeopleData], getPeople);
+//     await queryClient.fetchQuery([MovieQueryKey.MovieData], getMovies);
+//     await queryClient.fetchQuery([SeriesQueryKey.SeriesData], getSeries);
+//     await queryClient.fetchQuery([PeopleQueryKey.PeopleData], getPeople);
 
-    return {
-      props: {
-        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-}
+//     return {
+//       props: {
+//         dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
 export default Home;

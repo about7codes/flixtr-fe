@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { GetServerSidePropsContext } from "next";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 import {
   Box,
   Button,
@@ -17,18 +15,11 @@ import { SeriesResult } from "../../../../../../types/apiResponses";
 import { styles as classes } from "../../../../../../styles/SeasonCount.styles";
 import TvTileSlider from "../../../../../../components/TvTileSlider/TvTileSlider";
 import {
-  getSeriesById,
-  getSeriesSeasonById,
-} from "../../../../../../api/series.api";
-import {
-  SeriesQueryKey,
   useSeriesById,
   useSeriesSeasonById,
 } from "../../../../../../hooks/series.hooks";
 import CustomHead from "../../../../../../components/CustomHead/CustomHead";
 import { convertToNumber } from "../../../../../../utils/utils";
-
-type SeasonCountProps = {};
 
 function SeasonCount() {
   const router = useRouter();
@@ -223,29 +214,30 @@ function SeasonCount() {
   );
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const queryClient = new QueryClient();
-  const { id, seasoncount } = ctx.query;
+// Commented to Remove SSR
+// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+//   const queryClient = new QueryClient();
+//   const { id, seasoncount } = ctx.query;
 
-  try {
-    await queryClient.fetchQuery([SeriesQueryKey.SingleShowData, id], () =>
-      getSeriesById(id)
-    );
-    await queryClient.fetchQuery([SeriesQueryKey.TvShowSeasonData, id], () =>
-      getSeriesSeasonById(id, seasoncount)
-    );
+//   try {
+//     await queryClient.fetchQuery([SeriesQueryKey.SingleShowData, id], () =>
+//       getSeriesById(id)
+//     );
+//     await queryClient.fetchQuery([SeriesQueryKey.TvShowSeasonData, id], () =>
+//       getSeriesSeasonById(id, seasoncount)
+//     );
 
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-}
+//     return {
+//       props: {
+//         dehydratedState: dehydrate(queryClient),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
 export default SeasonCount;

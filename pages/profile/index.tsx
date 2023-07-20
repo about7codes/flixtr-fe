@@ -26,9 +26,8 @@ interface IFormValues {
   email: string;
 }
 
-type ProfilePageProps = {};
 // TODO: refactor this component page
-function ProfilePage({}: ProfilePageProps) {
+function ProfilePage() {
   const { data: sessionData, status } = useSession();
   const isNotLogged = status === "unauthenticated";
   const user = sessionData?.user.user;

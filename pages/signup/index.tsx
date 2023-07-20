@@ -82,9 +82,6 @@ const Signup = () => {
 
       if (result?.error) throw new Error(result.error);
 
-      // console.log("RegResult: ", register);
-      // console.log("LoginResult: ", result);
-
       dispatch(
         setNotify({
           isOpen: true,

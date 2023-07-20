@@ -1,17 +1,12 @@
 import React from "react";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Box, Typography, Grid } from "@mui/material";
 
-import { withCSR } from "../../HOC/withCSR";
 import { styles as classes } from "../../styles/styles";
 import Poster from "../../components/Poster/Poster";
 import Loader from "../../components/Loader/Loader";
-import { getTopMovies } from "../../api/movies.api";
-import { MovieQueryKey, useTopMovies } from "../../hooks/movies.hooks";
+import { useTopMovies } from "../../hooks/movies.hooks";
 import CustomHead from "../../components/CustomHead/CustomHead";
-
-type TopRatedProps = {};
 
 function TopRated() {
   const {
@@ -61,34 +56,35 @@ function TopRated() {
   );
 }
 
-export const getServerSideProps = withCSR(async () => {
-  const queryClient = new QueryClient();
+// Commented to Remove SSR
+// export const getServerSideProps = withCSR(async () => {
+//   const queryClient = new QueryClient();
 
-  try {
-    // fetching top rated movies detail
-    await queryClient.prefetchInfiniteQuery(
-      [MovieQueryKey.TopMovies],
-      ({ pageParam = 1 }) => getTopMovies(pageParam),
-      {
-        getNextPageParam: (lastPage) => {
-          return lastPage.page < lastPage.total_pages
-            ? lastPage.page + 1
-            : undefined;
-        },
-      }
-    );
+//   try {
+//     // fetching top rated movies detail
+//     await queryClient.prefetchInfiniteQuery(
+//       [MovieQueryKey.TopMovies],
+//       ({ pageParam = 1 }) => getTopMovies(pageParam),
+//       {
+//         getNextPageParam: (lastPage) => {
+//           return lastPage.page < lastPage.total_pages
+//             ? lastPage.page + 1
+//             : undefined;
+//         },
+//       }
+//     );
 
-    return {
-      props: {
-        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-});
+//     return {
+//       props: {
+//         dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// });
 
 export default TopRated;

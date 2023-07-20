@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { GetServerSidePropsContext } from "next";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 import {
   Button,
   ButtonGroup,
@@ -15,12 +13,9 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import TileSlider from "../../../../components/TileSider/TileSlider";
 import { styles as classes } from "../../../../styles/watchMovie.styles";
 import { MovieResult } from "../../../../types/apiResponses";
-import { getMovieById } from "../../../../api/movies.api";
-import { MovieQueryKey, useMovieById } from "../../../../hooks/movies.hooks";
+import { useMovieById } from "../../../../hooks/movies.hooks";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { convertToNumber } from "../../../../utils/utils";
-
-type WatchProps = {};
 
 function Watch() {
   const router = useRouter();
@@ -158,27 +153,28 @@ function Watch() {
   );
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const queryClient = new QueryClient();
-  const { id } = ctx.query;
+// Commented to Remove SSR
+// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+//   const queryClient = new QueryClient();
+//   const { id } = ctx.query;
 
-  try {
-    // fetching single movie details
-    await queryClient.fetchQuery([MovieQueryKey.SingleMovieData, id], () =>
-      getMovieById(id)
-    );
+//   try {
+//     // fetching single movie details
+//     await queryClient.fetchQuery([MovieQueryKey.SingleMovieData, id], () =>
+//       getMovieById(id)
+//     );
 
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-}
+//     return {
+//       props: {
+//         dehydratedState: dehydrate(queryClient),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
 export default Watch;

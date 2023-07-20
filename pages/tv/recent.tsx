@@ -1,17 +1,12 @@
 import React from "react";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { LoadingButton } from "@mui/lab";
 import { Box, Typography, Grid } from "@mui/material";
 
-import { withCSR } from "../../HOC/withCSR";
 import Loader from "../../components/Loader/Loader";
 import TvPoster from "../../components/TvPoster/TvPoster";
 import { styles as classes } from "../../styles/styles";
-import { getRecentSeries } from "../../api/series.api";
-import { SeriesQueryKey, useRecentSeries } from "../../hooks/series.hooks";
+import { useRecentSeries } from "../../hooks/series.hooks";
 import CustomHead from "../../components/CustomHead/CustomHead";
-
-type RecentProps = {};
 
 function Recent() {
   const {
@@ -61,34 +56,35 @@ function Recent() {
   );
 }
 
-export const getServerSideProps = withCSR(async () => {
-  const queryClient = new QueryClient();
+// Commented to Remove SSR
+// export const getServerSideProps = withCSR(async () => {
+//   const queryClient = new QueryClient();
 
-  try {
-    // fetching recent series detail
-    await queryClient.prefetchInfiniteQuery(
-      [SeriesQueryKey.RecentSeries],
-      ({ pageParam = 1 }) => getRecentSeries(pageParam),
-      {
-        getNextPageParam: (lastPage) => {
-          return lastPage.page < lastPage.total_pages
-            ? lastPage.page + 1
-            : undefined;
-        },
-      }
-    );
+//   try {
+//     // fetching recent series detail
+//     await queryClient.prefetchInfiniteQuery(
+//       [SeriesQueryKey.RecentSeries],
+//       ({ pageParam = 1 }) => getRecentSeries(pageParam),
+//       {
+//         getNextPageParam: (lastPage) => {
+//           return lastPage.page < lastPage.total_pages
+//             ? lastPage.page + 1
+//             : undefined;
+//         },
+//       }
+//     );
 
-    return {
-      props: {
-        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-});
+//     return {
+//       props: {
+//         dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// });
 
 export default Recent;

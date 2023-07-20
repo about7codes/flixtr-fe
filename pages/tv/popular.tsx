@@ -1,17 +1,12 @@
 import React from "react";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { LoadingButton } from "@mui/lab";
 import { Box, Typography, Grid } from "@mui/material";
 
-import { withCSR } from "../../HOC/withCSR";
 import Loader from "../../components/Loader/Loader";
 import TvPoster from "../../components/TvPoster/TvPoster";
 import { styles as classes } from "../../styles/styles";
-import { getPopularSeries } from "../../api/series.api";
-import { SeriesQueryKey, usePopularSeries } from "../../hooks/series.hooks";
+import { usePopularSeries } from "../../hooks/series.hooks";
 import CustomHead from "../../components/CustomHead/CustomHead";
-
-type PopularProps = {};
 
 function Popular() {
   const {
@@ -61,34 +56,35 @@ function Popular() {
   );
 }
 
-export const getServerSideProps = withCSR(async () => {
-  const queryClient = new QueryClient();
+// Commented to Remove SSR
+// export const getServerSideProps = withCSR(async () => {
+//   const queryClient = new QueryClient();
 
-  try {
-    // fetching popular series detail
-    await queryClient.prefetchInfiniteQuery(
-      [SeriesQueryKey.PopularSeries],
-      ({ pageParam = 1 }) => getPopularSeries(pageParam),
-      {
-        getNextPageParam: (lastPage) => {
-          return lastPage.page < lastPage.total_pages
-            ? lastPage.page + 1
-            : undefined;
-        },
-      }
-    );
+//   try {
+//     // fetching popular series detail
+//     await queryClient.prefetchInfiniteQuery(
+//       [SeriesQueryKey.PopularSeries],
+//       ({ pageParam = 1 }) => getPopularSeries(pageParam),
+//       {
+//         getNextPageParam: (lastPage) => {
+//           return lastPage.page < lastPage.total_pages
+//             ? lastPage.page + 1
+//             : undefined;
+//         },
+//       }
+//     );
 
-    return {
-      props: {
-        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-});
+//     return {
+//       props: {
+//         dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// });
 
 export default Popular;

@@ -1,17 +1,12 @@
 import React from "react";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { Box, Grid, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
-import { withCSR } from "../../HOC/withCSR";
 import Poster from "../../components/Poster/Poster";
 import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
-import { getPopularMovies } from "../../api/movies.api";
-import { MovieQueryKey, usePopularMovies } from "../../hooks/movies.hooks";
+import { usePopularMovies } from "../../hooks/movies.hooks";
 import CustomHead from "../../components/CustomHead/CustomHead";
-
-type PopularProps = {};
 
 function Popular() {
   const {
@@ -62,34 +57,35 @@ function Popular() {
   );
 }
 
-export const getServerSideProps = withCSR(async () => {
-  const queryClient = new QueryClient();
+// Commented to Remove SSR
+// export const getServerSideProps = withCSR(async () => {
+//   const queryClient = new QueryClient();
 
-  try {
-    // fetching popular movies detail
-    await queryClient.prefetchInfiniteQuery(
-      [MovieQueryKey.PopularMovies],
-      ({ pageParam = 1 }) => getPopularMovies(pageParam),
-      {
-        getNextPageParam: (lastPage) => {
-          return lastPage.page < lastPage.total_pages
-            ? lastPage.page + 1
-            : undefined;
-        },
-      }
-    );
+//   try {
+//     // fetching popular movies detail
+//     await queryClient.prefetchInfiniteQuery(
+//       [MovieQueryKey.PopularMovies],
+//       ({ pageParam = 1 }) => getPopularMovies(pageParam),
+//       {
+//         getNextPageParam: (lastPage) => {
+//           return lastPage.page < lastPage.total_pages
+//             ? lastPage.page + 1
+//             : undefined;
+//         },
+//       }
+//     );
 
-    return {
-      props: {
-        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-});
+//     return {
+//       props: {
+//         dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// });
 
 export default Popular;

@@ -1,25 +1,19 @@
 import React, { useEffect } from "react";
-import { GetServerSidePropsContext } from "next";
-import CustomHead from "../../components/CustomHead/CustomHead";
-import {
-  QueryClient,
-  dehydrate,
-  useInfiniteQuery,
-} from "@tanstack/react-query";
-import { MovieQueryKey } from "../../hooks/movies.hooks";
 import { useRouter } from "next/router";
-import { getSearchQuery } from "../../api/search.api";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { LoadingButton } from "@mui/lab";
 import { Box, Typography, Grid } from "@mui/material";
+
+import CustomHead from "../../components/CustomHead/CustomHead";
+import { MovieQueryKey } from "../../hooks/movies.hooks";
+import { getSearchQuery } from "../../api/search.api";
 import Poster from "../../components/Poster/Poster";
 import { styles as classes } from "../../styles/styles";
 import { MediaType } from "../../types/apiResponses";
 import PersonPoster from "../../components/PersonPoster/PersonPoster";
 import TvPoster from "../../components/TvPoster/TvPoster";
 
-type SearchPageProps = {};
-
-function SearchPage({}: SearchPageProps) {
+function SearchPage() {
   const router = useRouter();
   const { q } = router.query;
 

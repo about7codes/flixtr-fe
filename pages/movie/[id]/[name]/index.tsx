@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { GetServerSidePropsContext } from "next";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
 import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
@@ -13,8 +12,7 @@ import ClipRoll from "../../../../components/ClipRoll/ClipRoll";
 import TileSlider from "../../../../components/TileSider/TileSlider";
 import { styles as classes } from "../../../../styles/movieInfo.styles";
 import { MovieResult } from "../../../../types/apiResponses";
-import { getMovieById } from "../../../../api/movies.api";
-import { MovieQueryKey, useMovieById } from "../../../../hooks/movies.hooks";
+import { useMovieById } from "../../../../hooks/movies.hooks";
 import {
   blurData,
   formatImgSrc,
@@ -31,9 +29,6 @@ import {
   useRemoveFromWatchlist,
 } from "../../../../hooks/watchlist.hooks";
 import { setNotify } from "../../../../redux/notifySlice";
-import { useDispatch } from "react-redux";
-
-type MovieInfoProps = {};
 
 // TODO: refactor this component page
 function MovieInfo() {
@@ -354,27 +349,28 @@ function MovieInfo() {
   );
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const queryClient = new QueryClient();
-  const { id } = ctx.query;
+// Commented to Remove SSR
+// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+//   const queryClient = new QueryClient();
+//   const { id } = ctx.query;
 
-  try {
-    // fetching single movie details
-    await queryClient.fetchQuery([MovieQueryKey.SingleMovieData, id], () =>
-      getMovieById(id)
-    );
+//   try {
+//     // fetching single movie details
+//     await queryClient.fetchQuery([MovieQueryKey.SingleMovieData, id], () =>
+//       getMovieById(id)
+//     );
 
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-}
+//     return {
+//       props: {
+//         dehydratedState: dehydrate(queryClient),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
 export default MovieInfo;

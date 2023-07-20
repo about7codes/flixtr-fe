@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { GetServerSidePropsContext } from "next";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { LinearProgress, Grid, Box, Typography, Collapse } from "@mui/material";
 
 import { styles as classes } from "../../../../styles/personInfo.styles";
-import { PeopleQueryKey, usePersonById } from "../../../../hooks/people.hooks";
-import { getPersonById } from "../../../../api/people.api";
+import { usePersonById } from "../../../../hooks/people.hooks";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
 import TvTileSlider from "../../../../components/TvTileSlider/TvTileSlider";
 import TileSlider from "../../../../components/TileSider/TileSlider";
@@ -16,8 +13,6 @@ import ProfileImgRoll from "../../../../components/ProfileImgRoll/ProfileImgRoll
 import { PeopleResult } from "../../../../types/apiResponses";
 import { blurData, formatImgSrc } from "../../../../utils/utils";
 import { useMaxHeight } from "../../../../hooks/app.hooks";
-
-type PersonInfoProps = {};
 
 function PersonInfo() {
   const router = useRouter();
@@ -33,7 +28,6 @@ function PersonInfo() {
   if (isLoading) return <LinearProgress />;
 
   const {
-    id,
     profile_path,
     name,
     biography,
@@ -224,27 +218,28 @@ function PersonInfo() {
   );
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const queryClient = new QueryClient();
-  const { id } = ctx.query;
+// Commented to Remove SSR
+// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+//   const queryClient = new QueryClient();
+//   const { id } = ctx.query;
 
-  try {
-    // fetching single person details
-    await queryClient.fetchQuery([PeopleQueryKey.SinglePersonData, id], () =>
-      getPersonById(id)
-    );
+//   try {
+//     // fetching single person details
+//     await queryClient.fetchQuery([PeopleQueryKey.SinglePersonData, id], () =>
+//       getPersonById(id)
+//     );
 
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-}
+//     return {
+//       props: {
+//         dehydratedState: dehydrate(queryClient),
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
 export default PersonInfo;

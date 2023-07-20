@@ -11,7 +11,6 @@ import {
   Typography,
   Button,
   IconButton,
-  Link as MuiLink,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -22,15 +21,11 @@ import { useFormik, FormikProps } from "formik";
 import * as Yup from "yup";
 
 import { styles as classes } from "../../styles/login.styles";
-// import { useLogin } from "../../hooks/auth.hooks";
-// import HeaderInfo from "../../components/HeaderInfo/HeaderInfo";
 import { useRouter } from "next/router";
 import CustomHead from "../../components/CustomHead/CustomHead";
 import { signIn, useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../redux/notifySlice";
-// import { parseCookies } from "nookies";
-// import { useCheckLogin } from "../../hooks/app.hooks";
 
 interface IFormValues {
   email: string;
@@ -38,7 +33,7 @@ interface IFormValues {
 }
 
 const Login = () => {
-  const { data: sessionData, status } = useSession();
+  const { status } = useSession();
   const dispatch = useDispatch();
   const router = useRouter();
   const { callbackUrl } = router.query;
@@ -48,14 +43,10 @@ const Login = () => {
 
   useEffect(() => {
     if (isLogged) {
-      // console.log("Lredirect to /all");
-      // router.push("/");
       router.push((callbackUrl as string) || "/");
       return;
     }
   }, [isLogged]);
-
-  // const { mutate: login, isLoading, error } = useLogin();
 
   const handleSubmit = async (values: IFormValues) => {
     console.log(values);
@@ -71,7 +62,6 @@ const Login = () => {
 
       if (result?.error) throw new Error(result.error);
 
-      // console.log("LoginResult: ", result);
       dispatch(
         setNotify({
           isOpen: true,
@@ -92,8 +82,6 @@ const Login = () => {
         })
       );
     }
-
-    // login({ email: values.email, password: values.password });
   };
   const formikSchema = Yup.object().shape({
     email: Yup.string()
@@ -207,7 +195,6 @@ const Login = () => {
               <LoadingButton
                 fullWidth
                 loading={isLoading}
-                // loading={status === "loading"}
                 sx={classes.submit}
                 variant="contained"
                 color="secondary"
