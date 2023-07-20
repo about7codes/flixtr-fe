@@ -1,4 +1,10 @@
 export const styles = {
+  main: {
+    padding: "0 24px",
+    "@media (max-width: 900px)": {
+      padding: "0 10px",
+    },
+  },
   top: {
     position: "relative",
     padding: "0px 20px",
@@ -11,7 +17,6 @@ export const styles = {
   },
   imageBox: {
     margin: "40px 0px",
-    // maxWidth: "300px",
     height: "450px",
     flex: "0 1 300px",
     position: "relative",

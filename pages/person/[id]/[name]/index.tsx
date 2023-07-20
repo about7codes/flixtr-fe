@@ -47,7 +47,7 @@ function PersonInfo() {
   return (
     <>
       <CustomHead title={name} media_type={"movie"} />
-      <Grid>
+      <Grid sx={classes.main}>
         <Grid item sx={classes.top}>
           <Box
             sx={classes.backgroundCover}

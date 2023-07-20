@@ -127,7 +127,7 @@ function MovieInfo() {
   return (
     <>
       <CustomHead title={title} media_type={"movie"} />
-      <Grid>
+      <Grid sx={classes.main}>
         <Grid item sx={classes.top}>
           <Box
             sx={classes.backgroundCover}

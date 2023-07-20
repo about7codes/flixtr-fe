@@ -81,10 +81,7 @@ function Watch() {
           <ButtonGroup
             variant="contained"
             aria-label="Media player list"
-            sx={{
-              width: "100%",
-              mt: "15px",
-            }}
+            sx={classes.btnGroup}
           >
             <Button
               fullWidth
@@ -144,7 +141,7 @@ function Watch() {
           { movieData: recommendations?.results, title: "Recommended for you" },
           { movieData: similar?.results, title: "Related movies" },
         ].map(({ movieData, title }) => (
-          <Grid item sx={{ p: "20px 0", width: "100%" }} key={title}>
+          <Grid item sx={classes.mustWatch} key={title}>
             <TileSlider title={title} movieData={movieData} />
           </Grid>
         ))}

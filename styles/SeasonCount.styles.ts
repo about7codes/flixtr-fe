@@ -1,5 +1,6 @@
 export const styles = {
   watchHead: {
+    padding: "0 24px",
     color: "secondary.main",
     marginTop: "20px",
     "& .backToInfo": {
@@ -11,6 +12,9 @@ export const styles = {
         color: "text.primary",
       },
     },
+    "@media (max-width: 900px)": {
+      padding: "0 10px",
+    },
   },
   backIco: {
     marginRight: "5px",
@@ -19,13 +23,11 @@ export const styles = {
   episodeBtns: {
     backgroundColor: "#000",
     borderRadius: "6px",
-    // display: "flex",
-    // flexWrap: "wrap",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(85px, 1fr) )",
     justifyItems: "center",
     width: "100%",
-    margin: "20px 0",
+    margin: "20px",
     maxHeight: "230px",
     overflow: "hidden",
     overflowY: "auto",
@@ -41,6 +43,9 @@ export const styles = {
     },
     "&::-webkit-scrollbar-thumb": {
       backgroundColor: "#616161",
+    },
+    "@media (max-width: 900px)": {
+      margin: "20px 10px",
     },
   },
   episodeBtnBox: {
@@ -63,11 +68,25 @@ export const styles = {
       height: "calc(90vh - 80px)",
       boxSizing: "borderBox",
       "@media (max-width: 600px)": {
-        // marginTop: "60px",
         width: "100%",
         height: "calc(35vh - 60px)",
         boxSizing: "border-box",
       },
+    },
+  },
+  btnGroup: {
+    width: "100%",
+    mt: "15px",
+    padding: "0 24px",
+    "@media (max-width: 900px)": {
+      padding: "0 10px",
+    },
+  },
+  mustWatch: {
+    width: "100%",
+    p: "20px",
+    "@media (max-width: 900px)": {
+      p: "10px",
     },
   },
 };

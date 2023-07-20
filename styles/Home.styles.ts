@@ -1,8 +1,10 @@
 export const styles = {
   sliderContainer: {
     m: "60px 0",
+    padding: "0 24px",
     "@media (max-width: 900px)": {
       m: "35px 0",
+      padding: "0 10px",
     },
   },
   headTxt: {

@@ -127,7 +127,7 @@ function TvShowInfo() {
   return (
     <>
       <CustomHead title={name} media_type="tv" />
-      <Grid>
+      <Grid sx={classes.main}>
         <Grid item sx={classes.top}>
           <Box
             sx={classes.backgroundCover}

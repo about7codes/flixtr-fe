@@ -1,4 +1,10 @@
 export const styles = {
+  main: {
+    padding: "0 24px",
+    "@media (max-width: 900px)": {
+      padding: "0 10px",
+    },
+  },
   top: {
     position: "relative",
     padding: "0px 20px",
