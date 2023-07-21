@@ -31,7 +31,7 @@ function Watch() {
       if (pNum === 2) setPlayer(pNum);
       if (pNum === 3) setPlayer(pNum);
     }
-  }, []);
+  }, [isLoading]);
 
   if (isLoading) return <LinearProgress />;
 

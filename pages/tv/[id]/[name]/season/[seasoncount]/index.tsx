@@ -42,7 +42,7 @@ function SeasonCount() {
       if (pNum === 2) setPlayer(pNum);
       if (pNum === 3) setPlayer(pNum);
     }
-  }, []);
+  }, [isShowLoading]);
 
   if (isSeasonLoading || isShowLoading) return <LinearProgress />;
 

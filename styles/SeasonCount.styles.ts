@@ -75,11 +75,11 @@ export const styles = {
     },
   },
   btnGroup: {
-    width: "100%",
-    mt: "15px",
-    padding: "0 24px",
+    width: "calc(100% - 48px)",
+    m: "15px 24px 0 24px",
     "@media (max-width: 900px)": {
-      padding: "0 10px",
+      width: "calc(100% - 20px)",
+      m: "15px 10px 0 10px",
     },
   },
   mustWatch: {
