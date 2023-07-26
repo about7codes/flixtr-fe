@@ -21,6 +21,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
+import AutoModeIcon from "@mui/icons-material/AutoMode";
+import InsightsIcon from "@mui/icons-material/Insights";
+import StarIcon from "@mui/icons-material/Star";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import Sidebar from "../Sidebar/Sidebar";
@@ -33,8 +36,6 @@ import { getSearchQuery } from "../../api/search.api";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/router";
 
-type NavbarProps = {};
-
 export const appRoutes = [
   {
     title: "Movies",
@@ -43,14 +44,17 @@ export const appRoutes = [
       {
         childTitle: "Popular",
         childPath: "/movie/popular",
+        childIcon: <InsightsIcon />,
       },
       {
         childTitle: "Recent",
         childPath: "/movie/recent",
+        childIcon: <AutoModeIcon />,
       },
       {
         childTitle: "Top rated",
         childPath: "/movie/top-rated",
+        childIcon: <StarIcon />,
       },
     ],
   },
@@ -61,14 +65,17 @@ export const appRoutes = [
       {
         childTitle: "Popular",
         childPath: "/tv/popular",
+        childIcon: <InsightsIcon />,
       },
       {
         childTitle: "Recent",
         childPath: "/tv/recent",
+        childIcon: <AutoModeIcon />,
       },
       {
         childTitle: "Top rated",
         childPath: "/tv/top-rated",
+        childIcon: <StarIcon />,
       },
     ],
   },

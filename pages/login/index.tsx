@@ -49,7 +49,7 @@ const Login = () => {
   }, [isLogged]);
 
   const handleSubmit = async (values: IFormValues) => {
-    console.log(values);
+    // console.log(values);
     try {
       setIsLoading(true);
       const result = await signIn("credentials", {

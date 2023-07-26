@@ -13,11 +13,10 @@ import {
   ButtonBase,
 } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import StarBorder from "@mui/icons-material/StarBorder";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -69,7 +68,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
 
             <Collapse in={isDropped == title} timeout="auto" unmountOnExit>
               {childRoutes &&
-                childRoutes.map(({ childTitle, childPath }) => (
+                childRoutes.map(({ childTitle, childPath, childIcon }) => (
                   <List component="div" disablePadding key={childPath}>
                     <ListItemButton
                       sx={{ pl: 4 }}
@@ -79,9 +78,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
                       }}
                       selected={router.asPath === childPath}
                     >
-                      <ListItemIcon>
-                        <StarBorder />
-                      </ListItemIcon>
+                      <ListItemIcon>{childIcon}</ListItemIcon>
                       <ListItemText primary={childTitle} />
                     </ListItemButton>
                   </List>
@@ -103,7 +100,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
               }}
             >
               <ListItemIcon>
-                <InboxIcon color="secondary" />
+                <LogoutIcon color="secondary" />
               </ListItemIcon>
               <ListItemText primary="Logout" />
             </ListItemButton>
@@ -116,7 +113,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
                 selected={router.pathname === "/login"}
               >
                 <ListItemIcon>
-                  <InboxIcon />
+                  <LoginIcon />
                 </ListItemIcon>
                 <ListItemText primary="Signin" />
               </ListItemButton>
@@ -130,7 +127,7 @@ const Sidebar = ({ sidebarOpen, handleCloseNavMenu }: SidebarProps) => {
                 selected={router.pathname === "/signup"}
               >
                 <ListItemIcon>
-                  <InboxIcon />
+                  <PersonAddIcon />
                 </ListItemIcon>
                 <ListItemText primary="Signup" />
               </ListItemButton>
