@@ -24,7 +24,7 @@ const TileSlider = ({ title, movieData }: TileSliderProps) => {
     speed: 500,
     // slidesToShow: 2,
     autoplay: true,
-    autoplaySpeed: 1800,
+    autoplaySpeed: 2800,
     slidesToScroll: 1,
     variableWidth: true,
     // centerPadding: "20px",

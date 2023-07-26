@@ -24,7 +24,7 @@ const TvTileSlider = ({ title, seriesData }: TvTileSliderProps) => {
     speed: 500,
     // slidesToShow: 2,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 2200,
     slidesToScroll: 1,
     variableWidth: true,
     // centerPadding: "20px",
