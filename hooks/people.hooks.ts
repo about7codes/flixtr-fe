@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPeople, getPersonById } from "../api/people.api";
+import { getPeople, getPersonById } from "../apis/people.api";
 
 export enum PeopleQueryKey {
   PeopleData = "PeopleData",
