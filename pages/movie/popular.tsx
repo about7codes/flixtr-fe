@@ -1,5 +1,14 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 import Poster from "../../components/Poster/Poster";
@@ -18,6 +27,12 @@ function Popular() {
   } = usePopularMovies();
   // console.log("popularMovies: ", popularMovies);
 
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
+  };
+
   if (isLoading) return <Loader />;
 
   return (
@@ -28,6 +43,51 @@ function Popular() {
         <Typography variant="h4" sx={classes.headTxt}>
           Popular movies
         </Typography>
+
+        <Box>
+          <FormControl fullWidth color="secondary">
+            <InputLabel color="secondary" id="demo-simple-select-label">
+              Age
+            </InputLabel>
+            <Select
+              color="secondary"
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Age"
+              onChange={handleChange}
+              sx={{
+                color: "#fff",
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "secondary.main",
+                  "& .Mui-focused": {
+                    borderColor: "#fff",
+                  },
+                },
+                ".MuiSvgIcon-root": {
+                  color: "secondary.main",
+                },
+              }}
+              MenuProps={{
+                sx: {
+                  "& .MuiMenu-list, & .MuiMenu-paper": {
+                    background: "#333",
+                  },
+                },
+              }}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem color="secondary" value={10}>
+                Ten
+              </MenuItem>
+              <MenuItem value={"en"}>America</MenuItem>
+              <MenuItem value={"hi"}>India</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
         <Grid container sx={classes.moviesContainer}>
           {popularMovies?.pages.map((page) =>
             page.results.map((movie) => (

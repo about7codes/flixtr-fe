@@ -60,9 +60,13 @@ const getMovieStreamable = async (
 
 export const getPopularMovies = async (pageNum: number): Promise<MovieData> => {
   // &with_original_language=hi
+  // &region=ae
+  // &include_adult=false
+  // &primary_release_date.gte=2020-01-01&primary_release_date.lte=2020-12-31
+
   try {
     const movieRes = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}&with_original_language=ar&region=sa`
     );
     const movieData: MovieData = await movieRes.json();
 
