@@ -5,7 +5,7 @@ import {
   getPopularMovies,
   getRecentMovies,
   getTopMovies,
-} from "../api/movies.api";
+} from "../apis/movies.api";
 
 export enum MovieQueryKey {
   MovieData = "MovieData",

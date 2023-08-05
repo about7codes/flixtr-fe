@@ -6,7 +6,7 @@ import { Box, Typography, Grid } from "@mui/material";
 
 import CustomHead from "../../components/CustomHead/CustomHead";
 import { MovieQueryKey } from "../../hooks/movies.hooks";
-import { getSearchQuery } from "../../api/search.api";
+import { getSearchQuery } from "../../apis/search.api";
 import Poster from "../../components/Poster/Poster";
 import { styles as classes } from "../../styles/styles";
 import { MediaType } from "../../types/apiResponses";

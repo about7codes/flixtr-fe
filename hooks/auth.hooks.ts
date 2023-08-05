@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import { setNotify } from "../redux/notifySlice";
-import { updateProfile } from "../api/auth.api";
+import { updateProfile } from "../apis/auth.api";
 
 export const useUpdateProfile = () => {
   const dispatch = useDispatch();

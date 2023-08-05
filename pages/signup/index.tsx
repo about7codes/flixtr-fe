@@ -26,7 +26,7 @@ import { styles as classes } from "../../styles/signup.styles";
 import CustomHead from "../../components/CustomHead/CustomHead";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../redux/notifySlice";
-import { signupRequest } from "../../api/auth.api";
+import { signupRequest } from "../../apis/auth.api";
 import AvatarSelector from "../../components/AvatarSelector/AvatarSelector";
 import { useCustomRedirect } from "../../hooks/app.hooks";
 import { useRouter } from "next/router";

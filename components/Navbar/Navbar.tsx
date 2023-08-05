@@ -32,7 +32,7 @@ import SearchAuto from "../SearchAuto/SearchAuto";
 import { styles as classes } from "./navbar.styles";
 import { useQuery } from "@tanstack/react-query";
 import { MovieQueryKey } from "../../hooks/movies.hooks";
-import { getSearchQuery } from "../../api/search.api";
+import { getSearchQuery } from "../../apis/search.api";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/router";
 

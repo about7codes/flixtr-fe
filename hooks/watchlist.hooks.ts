@@ -13,7 +13,7 @@ import {
   getWatchlist,
   getWatchlistById,
   removeFromWatchlist,
-} from "../api/watchlist.api";
+} from "../apis/watchlist.api";
 
 export enum WatchlistQueryKey {
   WatchlistAll = "WatchlistAll",

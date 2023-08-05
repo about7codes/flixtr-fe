@@ -6,7 +6,7 @@ import {
   getSeriesById,
   getSeriesSeasonById,
   getTopSeries,
-} from "../api/series.api";
+} from "../apis/series.api";
 
 export enum SeriesQueryKey {
   SeriesData = "SeriesData",
