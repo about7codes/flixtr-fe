@@ -1,4 +1,7 @@
+import { QueryFunctionContext } from "@tanstack/react-query";
 import { MovieData, MovieResult } from "../types/apiResponses";
+import { IConutry } from "../utils/filterUtils";
+import { MovieQueryKey } from "../hooks/movies.hooks";
 
 export const getMovies = async (): Promise<MovieResult[]> => {
   try {
@@ -58,15 +61,25 @@ const getMovieStreamable = async (
   }
 };
 
-export const getPopularMovies = async (pageNum: number): Promise<MovieData> => {
+export const getPopularMovies = async (
+  props: QueryFunctionContext<(IConutry | MovieQueryKey | undefined)[]>
+): Promise<MovieData> => {
+  console.log("PP", props);
   // &with_original_language=hi
   // &region=ae
   // &include_adult=false
   // &primary_release_date.gte=2020-01-01&primary_release_date.lte=2020-12-31
 
+  const pageNum = props.pageParam || 1;
+  const country = props.queryKey[1] as IConutry;
+
+  const countryQuery = country
+    ? `&with_original_language=${country.langCode}&region=${country.code}`
+    : "";
+
   try {
     const movieRes = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}&with_original_language=ar&region=sa`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}${countryQuery}`
     );
     const movieData: MovieData = await movieRes.json();
 
@@ -74,6 +87,38 @@ export const getPopularMovies = async (pageNum: number): Promise<MovieData> => {
       throw new Error("Api call failed, check console.");
 
     // console.log(movieData);
+    return movieData;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed, check console.");
+  }
+};
+
+export const getExploreMovies = async (
+  props: QueryFunctionContext<(IConutry | MovieQueryKey | undefined)[]>
+): Promise<MovieData> => {
+  console.log("PP", props);
+  // &with_original_language=hi
+  // &region=ae
+  // &include_adult=false
+  // &primary_release_date.gte=2020-01-01&primary_release_date.lte=2020-12-31
+
+  const pageNum = props.pageParam || 1;
+  const country = props.queryKey[1] as IConutry;
+
+  const countryQuery = country
+    ? `&with_original_language=${country.langCode}&region=${country.code}`
+    : "";
+
+  try {
+    const movieRes = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}${countryQuery}`
+    );
+    const movieData: MovieData = await movieRes.json();
+
+    if (movieData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
     return movieData;
   } catch (error) {
     console.log(error);

@@ -21,4 +21,24 @@ export const styles = {
     textAlign: "center",
     gap: "30px",
   },
+
+  selectMain: { m: "20px 0" },
+  selectLabel: { color: "secondary.main" },
+  select: {
+    color: "#fff",
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "secondary.main",
+      "& .Mui-focused": {
+        borderColor: "#fff",
+      },
+    },
+    ".MuiSvgIcon-root": {
+      color: "secondary.main",
+    },
+  },
+  selectMenu: {
+    "& .MuiMenu-list, & .MuiMenu-paper": {
+      background: "#333",
+    },
+  },
 };

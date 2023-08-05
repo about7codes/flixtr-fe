@@ -6,6 +6,7 @@ import {
   getRecentMovies,
   getTopMovies,
 } from "../apis/movies.api";
+import { IConutry } from "../utils/filterUtils";
 
 export enum MovieQueryKey {
   MovieData = "MovieData",
@@ -28,10 +29,11 @@ export const useMovieById = (movieId?: string | string[]) => {
   );
 };
 
-export const usePopularMovies = () => {
+export const usePopularMovies = (conutry?: IConutry) => {
+  // console.log(conutry);
   return useInfiniteQuery(
-    [MovieQueryKey.PopularMovies],
-    ({ pageParam = 1 }) => getPopularMovies(pageParam),
+    [MovieQueryKey.PopularMovies, conutry],
+    (props) => getPopularMovies(props),
     {
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;

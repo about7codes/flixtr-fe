@@ -16,24 +16,29 @@ import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
 import { usePopularMovies } from "../../hooks/movies.hooks";
 import CustomHead from "../../components/CustomHead/CustomHead";
+import { IConutry, countries } from "../../utils/filterUtils";
 
 function Popular() {
+  const [country, setCountry] = React.useState<IConutry | undefined>();
+
   const {
     data: popularMovies,
     isLoading,
     fetchNextPage,
     isFetching,
     hasNextPage,
-  } = usePopularMovies();
+  } = usePopularMovies(country);
   // console.log("popularMovies: ", popularMovies);
 
-  const [age, setAge] = React.useState("");
-
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    const selectedCountry = countries.find(
+      (country) => country.name === event.target.value
+    );
+
+    setCountry(selectedCountry);
   };
 
-  if (isLoading) return <Loader />;
+  // if (isLoading) return <Loader />;
 
   return (
     <>
@@ -45,72 +50,68 @@ function Popular() {
         </Typography>
 
         <Box>
-          <FormControl fullWidth color="secondary">
-            <InputLabel color="secondary" id="demo-simple-select-label">
-              Age
+          <FormControl
+            fullWidth
+            size="small"
+            color="secondary"
+            sx={classes.selectMain}
+          >
+            <InputLabel sx={classes.selectLabel} id="country-select-label">
+              Country
             </InputLabel>
             <Select
               color="secondary"
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              label="Age"
+              labelId="country-select-label"
+              id="country-select"
+              value={country?.name || ""}
+              label="Country"
               onChange={handleChange}
-              sx={{
-                color: "#fff",
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "secondary.main",
-                  "& .Mui-focused": {
-                    borderColor: "#fff",
-                  },
-                },
-                ".MuiSvgIcon-root": {
-                  color: "secondary.main",
-                },
-              }}
+              sx={classes.select}
               MenuProps={{
-                sx: {
-                  "& .MuiMenu-list, & .MuiMenu-paper": {
-                    background: "#333",
-                  },
-                },
+                sx: classes.selectMenu,
               }}
             >
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem color="secondary" value={10}>
-                Ten
-              </MenuItem>
-              <MenuItem value={"en"}>America</MenuItem>
-              <MenuItem value={"hi"}>India</MenuItem>
+              {countries.map(({ name, langCode }) => (
+                <MenuItem key={name} value={name}>
+                  {`${name} (${langCode})`}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
 
-        <Grid container sx={classes.moviesContainer}>
-          {popularMovies?.pages.map((page) =>
-            page.results.map((movie) => (
-              <Grid item key={movie.id}>
-                <Poster singleMovieData={movie} />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <Grid container sx={classes.moviesContainer}>
+              {popularMovies?.pages.map((page) =>
+                page.results.map((movie) => (
+                  <Grid item key={movie.id}>
+                    <Poster singleMovieData={movie} />
+                  </Grid>
+                ))
+              )}
+            </Grid>
+            {hasNextPage && (
+              <Grid container justifyContent="center">
+                <LoadingButton
+                  onClick={() => fetchNextPage()}
+                  loading={isFetching || isLoading}
+                  loadingIndicator="Loading…"
+                  color="secondary"
+                  variant="contained"
+                  size="large"
+                  sx={classes.loadBtn}
+                >
+                  show more
+                </LoadingButton>
               </Grid>
-            ))
-          )}
-        </Grid>
-        {hasNextPage && (
-          <Grid container justifyContent="center">
-            <LoadingButton
-              onClick={() => fetchNextPage()}
-              loading={isFetching || isLoading}
-              loadingIndicator="Loading…"
-              color="secondary"
-              variant="contained"
-              size="large"
-              sx={classes.loadBtn}
-            >
-              show more
-            </LoadingButton>
-          </Grid>
+            )}
+          </>
         )}
       </Box>
     </>
