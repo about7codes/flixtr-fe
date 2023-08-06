@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Box, Typography, Grid } from "@mui/material";
 
@@ -7,18 +7,23 @@ import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
 import { useRecentMovies } from "../../hooks/movies.hooks";
 import CustomHead from "../../components/CustomHead/CustomHead";
+import { IConutry } from "../../utils/filterUtils";
+import Filter from "../../components/Filter/Filter";
 
 function Recent() {
+  const [country, setCountry] = useState<IConutry | undefined>();
+  const [releaseYear, setReleaseYear] = useState<number | "">("");
+
   const {
     data: recentMovies,
     isLoading,
     fetchNextPage,
     isFetching,
     hasNextPage,
-  } = useRecentMovies();
+  } = useRecentMovies(releaseYear, country);
   // console.log('RecentMovies: ', recentMovies)
 
-  if (isLoading) return <Loader />;
+  // if (isLoading) return <Loader />;
 
   return (
     <>
@@ -27,29 +32,43 @@ function Recent() {
         <Typography variant="h4" sx={classes.headTxt}>
           Recent movies
         </Typography>
-        <Grid container sx={classes.moviesContainer}>
-          {recentMovies?.pages.map((page) =>
-            page.results.map((movie) => (
-              <Grid item key={movie.id}>
-                <Poster singleMovieData={movie} />
+
+        <Filter
+          country={country}
+          setCountry={setCountry}
+          releaseYear={releaseYear}
+          setReleaseYear={setReleaseYear}
+        />
+
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <Grid container sx={classes.moviesContainer}>
+              {recentMovies?.pages.map((page) =>
+                page.results.map((movie) => (
+                  <Grid item key={movie.id}>
+                    <Poster singleMovieData={movie} />
+                  </Grid>
+                ))
+              )}
+            </Grid>
+            {hasNextPage && (
+              <Grid container justifyContent="center">
+                <LoadingButton
+                  onClick={() => fetchNextPage()}
+                  loading={isFetching || isLoading}
+                  loadingIndicator="Loading…"
+                  color="secondary"
+                  variant="contained"
+                  size="large"
+                  sx={classes.loadBtn}
+                >
+                  show more
+                </LoadingButton>
               </Grid>
-            ))
-          )}
-        </Grid>
-        {hasNextPage && (
-          <Grid container justifyContent="center">
-            <LoadingButton
-              onClick={() => fetchNextPage()}
-              loading={isFetching || isLoading}
-              loadingIndicator="Loading…"
-              color="secondary"
-              variant="contained"
-              size="large"
-              sx={classes.loadBtn}
-            >
-              show more
-            </LoadingButton>
-          </Grid>
+            )}
+          </>
         )}
       </Box>
     </>

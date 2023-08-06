@@ -1,14 +1,5 @@
-import React from "react";
-import {
-  Box,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Typography,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Box, Grid, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 import Poster from "../../components/Poster/Poster";
@@ -16,12 +7,12 @@ import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
 import { usePopularMovies } from "../../hooks/movies.hooks";
 import CustomHead from "../../components/CustomHead/CustomHead";
-import { IConutry, countries, getYears } from "../../utils/filterUtils";
+import { IConutry } from "../../utils/filterUtils";
 import Filter from "../../components/Filter/Filter";
 
 function Popular() {
-  const [country, setCountry] = React.useState<IConutry | undefined>();
-  const [releaseYear, setReleaseYear] = React.useState<number | "">("");
+  const [country, setCountry] = useState<IConutry | undefined>();
+  const [releaseYear, setReleaseYear] = useState<number | "">("");
 
   const {
     data: popularMovies,

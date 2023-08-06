@@ -33,7 +33,6 @@ export const usePopularMovies = (
   releaseYear?: number | "",
   conutry?: IConutry
 ) => {
-  // console.log(conutry);
   return useInfiniteQuery(
     [MovieQueryKey.PopularMovies, conutry, releaseYear],
     (props) => getPopularMovies(props),
@@ -48,10 +47,13 @@ export const usePopularMovies = (
   );
 };
 
-export const useRecentMovies = () => {
+export const useRecentMovies = (
+  releaseYear?: number | "",
+  conutry?: IConutry
+) => {
   return useInfiniteQuery(
-    [MovieQueryKey.RecentMovies],
-    ({ pageParam = 1 }) => getRecentMovies(pageParam),
+    [MovieQueryKey.RecentMovies, conutry, releaseYear],
+    (props) => getRecentMovies(props),
     {
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
@@ -63,10 +65,10 @@ export const useRecentMovies = () => {
   );
 };
 
-export const useTopMovies = () => {
+export const useTopMovies = (releaseYear?: number | "", conutry?: IConutry) => {
   return useInfiniteQuery(
-    [MovieQueryKey.TopMovies],
-    ({ pageParam = 1 }) => getTopMovies(pageParam),
+    [MovieQueryKey.TopMovies, conutry, releaseYear],
+    (prop) => getTopMovies(prop),
     {
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
