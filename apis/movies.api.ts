@@ -3,6 +3,15 @@ import { MovieData, MovieResult } from "../types/apiResponses";
 import { IConutry } from "../utils/filterUtils";
 import { MovieQueryKey } from "../hooks/movies.hooks";
 
+// &with_original_language=hi
+// &region=ae
+// &include_adult=false&include_video=false
+// &primary_release_date.gte=2020-01-01&primary_release_date.lte=2020-12-31
+
+type Props = QueryFunctionContext<
+  (number | "" | IConutry | MovieQueryKey | undefined)[]
+>;
+
 export const getMovies = async (): Promise<MovieResult[]> => {
   try {
     const movieRes = await fetch(
@@ -61,25 +70,24 @@ const getMovieStreamable = async (
   }
 };
 
-export const getPopularMovies = async (
-  props: QueryFunctionContext<(IConutry | MovieQueryKey | undefined)[]>
-): Promise<MovieData> => {
-  console.log("PP", props);
-  // &with_original_language=hi
-  // &region=ae
-  // &include_adult=false
-  // &primary_release_date.gte=2020-01-01&primary_release_date.lte=2020-12-31
+export const getPopularMovies = async (props: Props): Promise<MovieData> => {
+  // console.log("PP", props);
 
   const pageNum = props.pageParam || 1;
   const country = props.queryKey[1] as IConutry;
+  const releaseYear = props.queryKey[2];
 
   const countryQuery = country
     ? `&with_original_language=${country.langCode}&region=${country.code}`
     : "";
 
+  const releaseYearQuery = releaseYear
+    ? `&primary_release_date.gte=${releaseYear}-01-01&primary_release_date.lte=${releaseYear}-12-31`
+    : "";
+
   try {
     const movieRes = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}${countryQuery}`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}${countryQuery}${releaseYearQuery}&include_adult=false&include_video=false`
     );
     const movieData: MovieData = await movieRes.json();
 

@@ -4,465 +4,331 @@ export interface IConutry {
   langCode: string;
 }
 
-export const countriesxxx: IConutry[] = [
+export const countries: IConutry[] = [
   {
-    name: "Dubai",
-    code: "AE",
-    langCode: "AR",
+    name: "America",
+    code: "US",
+    langCode: "en",
   },
-  {
-    name: "Albania",
-    code: "AL",
-    langCode: "EN",
-  },
-  {
-    name: "Armenia",
-    code: "AM",
-    langCode: "EN",
-  },
-  {
-    name: "Netherlands Antilles",
-    code: "AN",
-    langCode: "EN",
-  },
-
   {
     name: "Argentina",
     code: "AR",
-    langCode: "EN",
+    langCode: "es",
   },
   {
     name: "Austria",
     code: "AT",
-    langCode: "EN",
+    langCode: "de",
   },
   {
     name: "Australia",
     code: "AU",
-    langCode: "EN",
+    langCode: "en",
   },
-
   {
     name: "Azerbaijan",
     code: "AZ",
-    langCode: "EN",
+    langCode: "az",
   },
-
   {
     name: "Bangladesh",
     code: "BD",
-    langCode: "BN",
+    langCode: "bn",
   },
   {
     name: "Belgium",
     code: "BE",
-    langCode: "EN",
+    langCode: "nl",
   },
-
   {
     name: "Bolivia",
     code: "BO",
-    langCode: "EN",
+    langCode: "es",
   },
   {
     name: "Brazil",
     code: "BR",
-    langCode: "EN",
+    langCode: "pt",
   },
-
   {
     name: "Bhutan",
     code: "BT",
-    langCode: "EN",
+    langCode: "dz",
   },
-  {
-    name: "Burma",
-    code: "BU",
-    langCode: "EN",
-  },
-
   {
     name: "Canada",
     code: "CA",
-    langCode: "EN",
+    langCode: "en",
   },
-
-  {
-    name: "Switzerland",
-    code: "CH",
-    langCode: "EN",
-  },
-
   {
     name: "China",
     code: "CN",
-    langCode: "EN",
+    langCode: "zh",
   },
-
   {
     name: "Cuba",
     code: "CU",
-    langCode: "EN",
+    langCode: "es",
   },
-
   {
     name: "Czech Republic",
     code: "CZ",
-    langCode: "EN",
+    langCode: "cs",
   },
   {
-    name: "Germany",
-    code: "DE",
-    langCode: "EN",
+    name: "Dubai",
+    code: "AE",
+    langCode: "ar",
   },
-
   {
     name: "Denmark",
     code: "DK",
-    langCode: "EN",
+    langCode: "da",
   },
-
-  {
-    name: "Algeria",
-    code: "DZ",
-    langCode: "EN",
-  },
-
   {
     name: "Estonia",
     code: "EE",
-    langCode: "EN",
+    langCode: "et",
   },
   {
     name: "Egypt",
     code: "EG",
-    langCode: "EN",
-  },
-
-  {
-    name: "Spain",
-    code: "ES",
-    langCode: "EN",
+    langCode: "ar",
   },
 
   {
     name: "Finland",
     code: "FI",
-    langCode: "EN",
+    langCode: "fi",
   },
-
   {
     name: "France",
     code: "FR",
-    langCode: "EN",
+    langCode: "fr",
   },
-
   {
-    name: "United Kingdom",
-    code: "GB",
-    langCode: "EN",
+    name: "Germany",
+    code: "DE",
+    langCode: "de",
   },
-
   {
     name: "Hong Kong",
     code: "HK",
-    langCode: "EN",
+    langCode: "zh",
   },
-
   {
     name: "Hungary",
     code: "HU",
-    langCode: "EN",
+    langCode: "hu",
   },
   {
     name: "Indonesia",
     code: "ID",
-    langCode: "EN",
+    langCode: "id",
   },
   {
     name: "Ireland",
     code: "IE",
-    langCode: "EN",
+    langCode: "ga",
   },
   {
     name: "Israel",
     code: "IL",
-    langCode: "EN",
+    langCode: "he",
   },
-  {
-    name: "India",
-    code: "IN",
-    langCode: "EN",
-  },
-
-  {
-    name: "Iraq",
-    code: "IQ",
-    langCode: "EN",
-  },
-  {
-    name: "Iran",
-    code: "IR",
-    langCode: "EN",
-  },
-
-  {
-    name: "Italy",
-    code: "IT",
-    langCode: "EN",
-  },
-
-  {
-    name: "Japan",
-    code: "JP",
-    langCode: "EN",
-  },
-
-  {
-    name: "South Korea",
-    code: "KR",
-    langCode: "EN",
-  },
-
-  {
-    name: "Lebanon",
-    code: "LB",
-    langCode: "EN",
-  },
-
-  {
-    name: "Sri Lanka",
-    code: "LK",
-    langCode: "EN",
-  },
-
-  {
-    name: "Luxembourg",
-    code: "LU",
-    langCode: "EN",
-  },
-
-  {
-    name: "Morocco",
-    code: "MA",
-    langCode: "EN",
-  },
-
-  {
-    name: "Myanmar",
-    code: "MM",
-    langCode: "EN",
-  },
-
-  {
-    name: "Mexico",
-    code: "MX",
-    langCode: "EN",
-  },
-  {
-    name: "Malaysia",
-    code: "MY",
-    langCode: "EN",
-  },
-
-  {
-    name: "Netherlands",
-    code: "NL",
-    langCode: "EN",
-  },
-  {
-    name: "Norway",
-    code: "NO",
-    langCode: "EN",
-  },
-  {
-    name: "Nepal",
-    code: "NP",
-    langCode: "EN",
-  },
-
-  {
-    name: "New Zealand",
-    code: "NZ",
-    langCode: "EN",
-  },
-
-  {
-    name: "Philippines",
-    code: "PH",
-    langCode: "EN",
-  },
-  {
-    name: "Pakistan",
-    code: "PK",
-    langCode: "EN",
-  },
-  {
-    name: "Poland",
-    code: "PL",
-    langCode: "EN",
-  },
-
-  {
-    name: "Portugal",
-    code: "PT",
-    langCode: "EN",
-  },
-
-  {
-    name: "Romania",
-    code: "RO",
-    langCode: "EN",
-  },
-
-  {
-    name: "Russia",
-    code: "RU",
-    langCode: "EN",
-  },
-
-  {
-    name: "Saudi Arabia",
-    code: "SA",
-    langCode: "AR",
-  },
-
-  {
-    name: "Sweden",
-    code: "SE",
-    langCode: "EN",
-  },
-  {
-    name: "Singapore",
-    code: "SG",
-    langCode: "EN",
-  },
-
-  {
-    name: "El Salvador",
-    code: "SV",
-    langCode: "EN",
-  },
-
-  {
-    name: "Swaziland",
-    code: "SZ",
-    langCode: "EN",
-  },
-
-  {
-    name: "Thailand",
-    code: "TH",
-    langCode: "EN",
-  },
-
-  {
-    name: "Turkey",
-    code: "TR",
-    langCode: "EN",
-  },
-
-  {
-    name: "Taiwan",
-    code: "TW",
-    langCode: "EN",
-  },
-
-  {
-    name: "Ukraine",
-    code: "UA",
-    langCode: "EN",
-  },
-  {
-    name: "Uganda",
-    code: "UG",
-    langCode: "EN",
-  },
-
-  {
-    name: "America",
-    code: "US",
-    langCode: "EN",
-  },
-  {
-    name: "Uruguay",
-    code: "UY",
-    langCode: "EN",
-  },
-  {
-    name: "Uzbekistan",
-    code: "UZ",
-    langCode: "EN",
-  },
-
-  {
-    name: "Vietnam",
-    code: "VN",
-    langCode: "EN",
-  },
-
-  {
-    name: "South Africa",
-    code: "ZA",
-    langCode: "EN",
-  },
-];
-
-export const countries: IConutry[] = [
-  {
-    name: "America",
-    code: "US",
-    langCode: "EN",
-  },
-  {
-    name: "Australia",
-    code: "AU",
-    langCode: "EN",
-  },
-  {
-    name: "Austria",
-    code: "AT",
-    langCode: "DE",
-  },
-  {
-    name: "Argentina",
-    code: "AR",
-    langCode: "ES",
-  },
-  {
-    name: "Armenia",
-    code: "AM",
-    langCode: "HY",
-  },
-  {
-    name: "Bangladesh",
-    code: "BD",
-    langCode: "BN",
-  },
-  {
-    name: "Belgium",
-    code: "BE",
-    langCode: "NL",
-  },
-  {
-    name: "Brazil",
-    code: "BR",
-    langCode: "PT",
-  },
-  {
-    name: "xxxxxxx",
-    code: "xxxxxx",
-    langCode: "xxxxx",
-  },
-
   {
     name: "India",
     code: "IN",
     langCode: "hi",
   },
+
+  {
+    name: "Iraq",
+    code: "IQ",
+    langCode: "ar",
+  },
+  {
+    name: "Iran",
+    code: "IR",
+    langCode: "fa",
+  },
+
+  {
+    name: "Italy",
+    code: "IT",
+    langCode: "it",
+  },
+
+  {
+    name: "Japan",
+    code: "JP",
+    langCode: "ja",
+  },
+  {
+    name: "Lebanon",
+    code: "LB",
+    langCode: "ar",
+  },
+  {
+    name: "Luxembourg",
+    code: "LU",
+    langCode: "lb",
+  },
+  {
+    name: "Morocco",
+    code: "MA",
+    langCode: "ar",
+  },
+  {
+    name: "Mexico",
+    code: "MX",
+    langCode: "es",
+  },
+  {
+    name: "Malaysia",
+    code: "MY",
+    langCode: "ms",
+  },
+  {
+    name: "Netherlands",
+    code: "NL",
+    langCode: "nl",
+  },
+  {
+    name: "Norway",
+    code: "NO",
+    langCode: "no",
+  },
+  {
+    name: "Nepal",
+    code: "NP",
+    langCode: "ne",
+  },
+  {
+    name: "New Zealand",
+    code: "NZ",
+    langCode: "en",
+  },
+  {
+    name: "Philippines",
+    code: "PH",
+    langCode: "tl",
+  },
+  {
+    name: "Pakistan",
+    code: "PK",
+    langCode: "ur",
+  },
+  {
+    name: "Poland",
+    code: "PL",
+    langCode: "pl",
+  },
+  {
+    name: "Portugal",
+    code: "PT",
+    langCode: "pt",
+  },
+  {
+    name: "Romania",
+    code: "RO",
+    langCode: "ro",
+  },
+  {
+    name: "Russia",
+    code: "RU",
+    langCode: "ru",
+  },
+  {
+    name: "South Korea",
+    code: "KR",
+    langCode: "ko",
+  },
+  {
+    name: "Spain",
+    code: "ES",
+    langCode: "es",
+  },
+  {
+    name: "Switzerland",
+    code: "CH",
+    langCode: "de",
+  },
+  {
+    name: "Sri Lanka",
+    code: "LK",
+    langCode: "si",
+  },
   {
     name: "Saudi Arabia",
     code: "SA",
-    langCode: "AR",
+    langCode: "ar",
+  },
+  {
+    name: "Sweden",
+    code: "SE",
+    langCode: "sv",
+  },
+  {
+    name: "South Africa",
+    code: "ZA",
+    langCode: "en",
+  },
+  {
+    name: "Thailand",
+    code: "TH",
+    langCode: "th",
+  },
+  {
+    name: "Turkey",
+    code: "TR",
+    langCode: "tr",
+  },
+  {
+    name: "Taiwan",
+    code: "TW",
+    langCode: "zh",
+  },
+  {
+    name: "United Kingdom",
+    code: "GB",
+    langCode: "en",
+  },
+  {
+    name: "Ukraine",
+    code: "UA",
+    langCode: "uk",
+  },
+  {
+    name: "Uganda",
+    code: "UG",
+    langCode: "en",
+  },
+  {
+    name: "Uruguay",
+    code: "UY",
+    langCode: "es",
+  },
+  {
+    name: "Uzbekistan",
+    code: "UZ",
+    langCode: "uz",
+  },
+  {
+    name: "Vietnam",
+    code: "VN",
+    langCode: "vi",
   },
 ];
+
+export const getYears = () => {
+  const currentYear = new Date().getFullYear();
+  const startYear = 1950;
+  const yearsArray = [];
+
+  for (let year = currentYear; year >= startYear; year--) {
+    yearsArray.push(year);
+  }
+
+  return yearsArray;
+};

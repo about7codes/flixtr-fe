@@ -16,10 +16,12 @@ import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
 import { usePopularMovies } from "../../hooks/movies.hooks";
 import CustomHead from "../../components/CustomHead/CustomHead";
-import { IConutry, countries } from "../../utils/filterUtils";
+import { IConutry, countries, getYears } from "../../utils/filterUtils";
+import Filter from "../../components/Filter/Filter";
 
 function Popular() {
   const [country, setCountry] = React.useState<IConutry | undefined>();
+  const [releaseYear, setReleaseYear] = React.useState<number | "">("");
 
   const {
     data: popularMovies,
@@ -27,16 +29,8 @@ function Popular() {
     fetchNextPage,
     isFetching,
     hasNextPage,
-  } = usePopularMovies(country);
+  } = usePopularMovies(releaseYear, country);
   // console.log("popularMovies: ", popularMovies);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    const selectedCountry = countries.find(
-      (country) => country.name === event.target.value
-    );
-
-    setCountry(selectedCountry);
-  };
 
   // if (isLoading) return <Loader />;
 
@@ -49,39 +43,12 @@ function Popular() {
           Popular movies
         </Typography>
 
-        <Box>
-          <FormControl
-            fullWidth
-            size="small"
-            color="secondary"
-            sx={classes.selectMain}
-          >
-            <InputLabel sx={classes.selectLabel} id="country-select-label">
-              Country
-            </InputLabel>
-            <Select
-              color="secondary"
-              labelId="country-select-label"
-              id="country-select"
-              value={country?.name || ""}
-              label="Country"
-              onChange={handleChange}
-              sx={classes.select}
-              MenuProps={{
-                sx: classes.selectMenu,
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {countries.map(({ name, langCode }) => (
-                <MenuItem key={name} value={name}>
-                  {`${name} (${langCode})`}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
+        <Filter
+          country={country}
+          setCountry={setCountry}
+          releaseYear={releaseYear}
+          setReleaseYear={setReleaseYear}
+        />
 
         {isLoading ? (
           <Loader />

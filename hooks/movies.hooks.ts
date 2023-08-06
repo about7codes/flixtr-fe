@@ -29,10 +29,13 @@ export const useMovieById = (movieId?: string | string[]) => {
   );
 };
 
-export const usePopularMovies = (conutry?: IConutry) => {
+export const usePopularMovies = (
+  releaseYear?: number | "",
+  conutry?: IConutry
+) => {
   // console.log(conutry);
   return useInfiniteQuery(
-    [MovieQueryKey.PopularMovies, conutry],
+    [MovieQueryKey.PopularMovies, conutry, releaseYear],
     (props) => getPopularMovies(props),
     {
       getNextPageParam: ({ page, total_pages }) => {
