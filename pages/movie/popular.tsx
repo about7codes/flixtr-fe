@@ -18,7 +18,7 @@ function Popular() {
   } = usePopularMovies();
   // console.log("popularMovies: ", popularMovies);
 
-  if (isLoading) return <Loader />;
+  // if (isLoading) return <Loader />;
 
   return (
     <>
@@ -28,29 +28,36 @@ function Popular() {
         <Typography variant="h4" sx={classes.headTxt}>
           Popular movies
         </Typography>
-        <Grid container sx={classes.moviesContainer}>
-          {popularMovies?.pages.map((page) =>
-            page.results.map((movie) => (
-              <Grid item key={movie.id}>
-                <Poster singleMovieData={movie} />
+
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <Grid container sx={classes.moviesContainer}>
+              {popularMovies?.pages.map((page) =>
+                page.results.map((movie) => (
+                  <Grid item key={movie.id}>
+                    <Poster singleMovieData={movie} />
+                  </Grid>
+                ))
+              )}
+            </Grid>
+            {hasNextPage && (
+              <Grid container justifyContent="center">
+                <LoadingButton
+                  onClick={() => fetchNextPage()}
+                  loading={isFetching || isLoading}
+                  loadingIndicator="Loading…"
+                  color="secondary"
+                  variant="contained"
+                  size="large"
+                  sx={classes.loadBtn}
+                >
+                  show more
+                </LoadingButton>
               </Grid>
-            ))
-          )}
-        </Grid>
-        {hasNextPage && (
-          <Grid container justifyContent="center">
-            <LoadingButton
-              onClick={() => fetchNextPage()}
-              loading={isFetching || isLoading}
-              loadingIndicator="Loading…"
-              color="secondary"
-              variant="contained"
-              size="large"
-              sx={classes.loadBtn}
-            >
-              show more
-            </LoadingButton>
-          </Grid>
+            )}
+          </>
         )}
       </Box>
     </>

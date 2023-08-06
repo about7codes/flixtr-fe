@@ -5,7 +5,9 @@ import {
   getPopularMovies,
   getRecentMovies,
   getTopMovies,
+  getExploreMovies,
 } from "../apis/movies.api";
+import { IConutry } from "../utils/countries";
 
 export enum MovieQueryKey {
   MovieData = "MovieData",
@@ -14,6 +16,7 @@ export enum MovieQueryKey {
   PopularMovies = "PopularMovies",
   RecentMovies = "RecentMovies",
   TopMovies = "TopMovies",
+  ExploreMovies = "ExploreMovies",
   SearchQuery = "SearchQuery",
   SearchPageQuery = "SearchPageQuery",
 }
@@ -62,6 +65,22 @@ export const useTopMovies = () => {
   return useInfiniteQuery(
     [MovieQueryKey.TopMovies],
     ({ pageParam = 1 }) => getTopMovies(pageParam),
+    {
+      getNextPageParam: ({ page, total_pages }) => {
+        return page < total_pages ? page + 1 : undefined;
+      },
+      select: (data) => {
+        return data;
+      },
+    }
+  );
+};
+
+export const useExploreMovies = (conutry?: IConutry) => {
+  // console.log(conutry);
+  return useInfiniteQuery(
+    [MovieQueryKey.ExploreMovies, conutry],
+    (props) => getExploreMovies(props),
     {
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;

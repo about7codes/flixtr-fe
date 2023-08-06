@@ -1,4 +1,7 @@
+import { QueryFunctionContext } from "@tanstack/react-query";
 import { MovieData, MovieResult } from "../types/apiResponses";
+import { MovieQueryKey } from "../hooks/movies.hooks";
+import { IConutry } from "../utils/countries";
 
 export const getMovies = async (): Promise<MovieResult[]> => {
   try {
@@ -98,6 +101,38 @@ export const getTopMovies = async (pageNum: number): Promise<MovieData> => {
   try {
     const movieRes = await fetch(
       `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+    );
+    const movieData: MovieData = await movieRes.json();
+
+    if (movieData.hasOwnProperty("success"))
+      throw new Error("Api call failed, check console.");
+
+    return movieData;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Api call failed, check console.");
+  }
+};
+
+export const getExploreMovies = async (
+  props: QueryFunctionContext<(IConutry | MovieQueryKey | undefined)[]>
+): Promise<MovieData> => {
+  console.log("PP", props);
+  // &with_original_language=hi
+  // &region=ae
+  // &include_adult=false
+  // &primary_release_date.gte=2020-01-01&primary_release_date.lte=2020-12-31
+
+  const pageNum = props.pageParam || 1;
+  const country = props.queryKey[1] as IConutry;
+
+  const countryQuery = country
+    ? `&with_original_language=${country.langCode}&region=${country.code}`
+    : "";
+
+  try {
+    const movieRes = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}${countryQuery}&include_adult=false&include_video=false`
     );
     const movieData: MovieData = await movieRes.json();
 
