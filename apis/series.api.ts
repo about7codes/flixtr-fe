@@ -1,4 +1,16 @@
+import { QueryFunctionContext } from "@tanstack/react-query";
 import { SeriesResult, SeriesData, ShowSeason } from "../types/apiResponses";
+import { SeriesQueryKey } from "../hooks/series.hooks";
+import { IConutry } from "../utils/filterUtils";
+
+// &with_original_language=hi
+// &region=ae
+// &include_adult=false&include_video=false
+// &primary_release_date.gte=2020-01-01&primary_release_date.lte=2020-12-31
+
+type Props = QueryFunctionContext<
+  (number | "" | IConutry | SeriesQueryKey | undefined)[]
+>;
 
 export const getSeries = async (): Promise<SeriesResult[]> => {
   try {
@@ -79,12 +91,22 @@ export const getSeriesSeasonById = async (
   }
 };
 
-export const getPopularSeries = async (
-  pageNum: number
-): Promise<SeriesData> => {
+export const getPopularSeries = async (props: Props): Promise<SeriesData> => {
+  const pageNum = props.pageParam || 1;
+  const country = props.queryKey[1] as IConutry;
+  const releaseYear = props.queryKey[2];
+
+  const countryQuery = country
+    ? `&with_original_language=${country.langCode}&region=${country.code}&with_origin_country=${country.code}`
+    : "";
+
+  const releaseYearQuery = releaseYear
+    ? `&primary_release_date.gte=${releaseYear}-01-01&primary_release_date.lte=${releaseYear}-12-31`
+    : "";
+
   try {
     const seriesRes = await fetch(
-      `https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`
+      `https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}${countryQuery}${releaseYearQuery}&include_adult=false&include_video=false`
     );
     const seriesData: SeriesData = await seriesRes.json();
 
@@ -98,7 +120,19 @@ export const getPopularSeries = async (
   }
 };
 
-export const getRecentSeries = async (pageNum: number): Promise<SeriesData> => {
+export const getRecentSeries = async (props: Props): Promise<SeriesData> => {
+  const pageNum = props.pageParam || 1;
+  const country = props.queryKey[1] as IConutry;
+  const releaseYear = props.queryKey[2];
+
+  const countryQuery = country
+    ? `&with_original_language=${country.langCode}&region=${country.code}`
+    : "";
+
+  const releaseYearQuery = releaseYear
+    ? `&primary_release_date.gte=${releaseYear}-01-01&primary_release_date.lte=${releaseYear}-12-31`
+    : "";
+
   try {
     const seriesRes = await fetch(
       `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&with_original_language=en&page=${pageNum}`
@@ -115,7 +149,19 @@ export const getRecentSeries = async (pageNum: number): Promise<SeriesData> => {
   }
 };
 
-export const getTopSeries = async (pageNum: number): Promise<SeriesData> => {
+export const getTopSeries = async (props: Props): Promise<SeriesData> => {
+  const pageNum = props.pageParam || 1;
+  const country = props.queryKey[1] as IConutry;
+  const releaseYear = props.queryKey[2];
+
+  const countryQuery = country
+    ? `&with_original_language=${country.langCode}&region=${country.code}`
+    : "";
+
+  const releaseYearQuery = releaseYear
+    ? `&primary_release_date.gte=${releaseYear}-01-01&primary_release_date.lte=${releaseYear}-12-31`
+    : "";
+
   try {
     const seriesRes = await fetch(
       `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${pageNum}`

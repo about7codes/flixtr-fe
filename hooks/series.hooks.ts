@@ -7,6 +7,7 @@ import {
   getSeriesSeasonById,
   getTopSeries,
 } from "../apis/series.api";
+import { IConutry } from "../utils/filterUtils";
 
 export enum SeriesQueryKey {
   SeriesData = "SeriesData",
@@ -36,10 +37,13 @@ export const useSeriesSeasonById = (
   );
 };
 
-export const usePopularSeries = () => {
+export const usePopularSeries = (
+  releaseYear?: number | "",
+  conutry?: IConutry
+) => {
   return useInfiniteQuery(
-    [SeriesQueryKey.PopularSeries],
-    ({ pageParam = 1 }) => getPopularSeries(pageParam),
+    [SeriesQueryKey.PopularSeries, conutry, releaseYear],
+    (prop) => getPopularSeries(prop),
     {
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
@@ -51,10 +55,13 @@ export const usePopularSeries = () => {
   );
 };
 
-export const useRecentSeries = () => {
+export const useRecentSeries = (
+  releaseYear?: number | "",
+  conutry?: IConutry
+) => {
   return useInfiniteQuery(
-    [SeriesQueryKey.RecentSeries],
-    ({ pageParam = 1 }) => getRecentSeries(pageParam),
+    [SeriesQueryKey.RecentSeries, conutry, releaseYear],
+    (prop) => getRecentSeries(prop),
     {
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
@@ -66,10 +73,10 @@ export const useRecentSeries = () => {
   );
 };
 
-export const useTopSeries = () => {
+export const useTopSeries = (releaseYear?: number | "", conutry?: IConutry) => {
   return useInfiniteQuery(
-    [SeriesQueryKey.TopSeries],
-    ({ pageParam = 1 }) => getTopSeries(pageParam),
+    [SeriesQueryKey.TopSeries, conutry, releaseYear],
+    (prop) => getTopSeries(prop),
     {
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
