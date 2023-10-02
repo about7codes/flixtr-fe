@@ -87,7 +87,7 @@ export default class MyDocument extends Document {
             }}
           />
 
-          <script type="application/javascript" src="https://a.pemsrv.com/popunder1000.js"></script>
+          <script async type="application/javascript" src="https://a.pemsrv.com/popunder1000.js"></script>
 
 
         </body>
