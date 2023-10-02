@@ -70,6 +70,26 @@ export default class MyDocument extends Document {
               `,
             }}
           /> */}
+
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              var ad_idzone = "5088826",
+              ad_popup_fallback = false,
+              ad_popup_force = true,
+              ad_chrome_enabled = true,
+              ad_new_tab = true,
+              ad_frequency_period = 30,
+              ad_frequency_count = 3,
+              ad_trigger_method = 3,
+              ad_trigger_delay = 0;
+              `,
+            }}
+          />
+
+          <script type="application/javascript" src="https://a.pemsrv.com/popunder1000.js"></script>
+
+
         </body>
       </Html>
     );
