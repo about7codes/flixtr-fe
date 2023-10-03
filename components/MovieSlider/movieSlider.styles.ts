@@ -13,6 +13,7 @@ export const styles = {
   mediaItemImg: {
     position: "relative",
     height: "500px",
+    overflow: 'hidden',
     "@media (max-width: 1400px)": {
       height: "450px",
     },

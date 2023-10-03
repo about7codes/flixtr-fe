@@ -1,7 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { Box, CircularProgress, Typography } from "@mui/material";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { styles as classes } from "./poster.styles";
 import { MovieResult } from "../../types/apiResponses";
@@ -30,7 +32,7 @@ const Poster = ({ singleMovieData }: PosterProps) => {
         style={{ WebkitTapHighlightColor: "transparent" }}
       >
         <Box sx={classes.posterUp}>
-          <Image
+          {/* <Image
             fill
             placeholder="blur"
             className="poster-img"
@@ -45,7 +47,19 @@ const Poster = ({ singleMovieData }: PosterProps) => {
             )}
             style={{ objectFit: "cover", objectPosition: "top" }}
             alt={titleConverted}
+          /> */}
+
+          <LazyLoadImage
+            src={formatImgSrc(
+              "https://image.tmdb.org/t/p/w220_and_h330_face/",
+              poster_path
+            )}
+            style={{ objectFit: "cover", objectPosition: "top", width: '100%', height: '100%' }}
+            className="poster-img"
+            alt={titleConverted}
+            effect="blur"
           />
+
         </Box>
         <Box sx={classes.posterDown}>
           <Typography

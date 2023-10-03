@@ -1,9 +1,11 @@
 import React from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box, Button, Typography } from "@mui/material";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { styles as classes } from "./movieSlider.styles";
 import { MovieResult } from "../../types/apiResponses";
@@ -43,7 +45,7 @@ const MovieSlider = ({ movieData }: MovieSliderProps) => {
               <Box sx={classes.mediaItem}>
                 <Box sx={classes.mediaItemBanner}>
                   <Box sx={classes.mediaItemImg}>
-                    <Image
+                    {/* <Image
                       fill
                       placeholder="blur"
                       style={{ objectFit: "cover", objectPosition: "top" }}
@@ -57,7 +59,18 @@ const MovieSlider = ({ movieData }: MovieSliderProps) => {
                         backdrop_path
                       )}
                       alt={title}
+                    /> */}
+
+                    <LazyLoadImage
+                      src={formatImgSrc(
+                        "https://image.tmdb.org/t/p/original",
+                        backdrop_path
+                      )}
+                      style={{ objectFit: "cover", objectPosition: "top" }}
+                      alt={title}
+                      effect="blur"
                     />
+
                   </Box>
                 </Box>
 
