@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { disableAds } from "../utils/utils";
 
 export default class MyDocument extends Document {
   render(): JSX.Element {
@@ -87,7 +88,9 @@ export default class MyDocument extends Document {
             }}
           />
 
-          <script async type="application/javascript" src="https://a.pemsrv.com/popunder1000.js"></script>
+          {!disableAds && (
+            <script async type="application/javascript" src="https://a.pemsrv.com/popunder1000.js"></script>
+          )}
 
 
         </body>
