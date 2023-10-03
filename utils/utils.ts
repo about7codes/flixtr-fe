@@ -2,7 +2,6 @@ export const disableAds = process.env.NEXT_PUBLIC_DISABLE_ADS == 'true';
 
 export const removeSpecialCharacters = (phrase: string) => {
   return phrase.replace(/[&#,+()$~%'."!:*?<>{}\/\\]/g, "");
-  // return phrase.replace(/[&#,+()$~%'.":!*?<>{}]/g, "");
 };
 
 export const replaceSpacesWithDash = (phrase: string) => {

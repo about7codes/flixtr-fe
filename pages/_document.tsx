@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 import { disableAds } from "../utils/utils";
 
 export default class MyDocument extends Document {
@@ -72,7 +73,7 @@ export default class MyDocument extends Document {
             }}
           /> */}
 
-          <script
+          {/* <script
             dangerouslySetInnerHTML={{
               __html: `
               var ad_idzone = "5088826",
@@ -86,10 +87,10 @@ export default class MyDocument extends Document {
               ad_trigger_delay = 0;
               `,
             }}
-          />
+          /> */}
 
           {!disableAds && (
-            <script async type="application/javascript" src="https://a.pemsrv.com/popunder1000.js"></script>
+            <Script src="adScript.js" strategy="lazyOnload" />
           )}
 
 
