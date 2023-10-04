@@ -26,12 +26,18 @@ export const styles = {
     "@media (max-width: 576px)": {
       height: "220px",
     },
-    "& img": {
-      maxWidth: "100%",
-      margin: "0 auto",
-      marginBottom: "25px",
-      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.25)",
-      borderRadius: "0 0 6px 6px",
+    "& > span": {
+      width: "100%",
+      height: "100%",
+      "& img": {
+        // maxWidth: "100%",
+        width: "100%",
+        height: "100%",
+        margin: "0 auto",
+        // marginBottom: "25px",
+        boxShadow: "0 5px 15px rgba(0, 0, 0, 0.25)",
+        borderRadius: "0 0 6px 6px",
+      },
     },
     "&::after": {
       content: '""',
