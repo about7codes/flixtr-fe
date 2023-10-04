@@ -46,6 +46,10 @@ export const styles = {
     width: "inherit",
     height: "inherit",
     position: "relative",
+    "& span": {
+      width: "100%",
+      height: "100%",
+    },
   },
   ytLogo: {
     position: "absolute",
