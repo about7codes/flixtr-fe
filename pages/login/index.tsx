@@ -162,6 +162,7 @@ const Login = () => {
                       variant="standard"
                       value={formik.values.password}
                       onChange={formik.handleChange}
+                      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && formik.handleSubmit()}
                       error={
                         formik.touched.password &&
                         Boolean(formik.errors.password)
