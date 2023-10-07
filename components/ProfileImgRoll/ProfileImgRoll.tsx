@@ -36,6 +36,7 @@ const ImgRoll = ({ imageList }: ImgRollProps) => {
             /> */}
 
             <LazyLoadImage
+              placeholderSrc="/assets/flixtr-placeholder.svg"
               src={formatImgSrc(
                 "https://image.tmdb.org/t/p/w780",
                 imageItem.file_path

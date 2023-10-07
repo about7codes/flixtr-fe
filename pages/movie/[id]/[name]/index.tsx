@@ -156,6 +156,7 @@ function MovieInfo() {
               /> */}
 
             <LazyLoadImage
+              placeholderSrc="/assets/flixtr-placeholder.svg"
               src={formatImgSrc("https://image.tmdb.org/t/p/w780", poster_path)}
               style={{
                 objectFit: "cover",

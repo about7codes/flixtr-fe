@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { signIn, useSession } from "next-auth/react";
 import { LoadingButton } from "@mui/lab";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { styles as classes } from "../../styles/styles";
 import Loader from "../../components/Loader/Loader";
@@ -52,12 +52,13 @@ function Watchlist() {
             /> */}
 
             <LazyLoadImage
+              placeholderSrc="/assets/flixtr-placeholder.svg"
               effect="blur"
               src="/assets/alone.png"
-              style={{ width: '128px', height: '128px' }}
-              alt='empty'
+              style={{ width: "128px", height: "128px" }}
+              alt="empty"
             />
-            
+
             <Typography variant="h4" sx={classes.headTxt}>
               Nothing added to your watchlist yet.
             </Typography>

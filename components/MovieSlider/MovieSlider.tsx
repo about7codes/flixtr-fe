@@ -62,6 +62,7 @@ const MovieSlider = ({ movieData }: MovieSliderProps) => {
                     /> */}
 
                     <LazyLoadImage
+                      placeholderSrc="/assets/flixtr-placeholder.svg"
                       src={formatImgSrc(
                         "https://image.tmdb.org/t/p/original",
                         backdrop_path

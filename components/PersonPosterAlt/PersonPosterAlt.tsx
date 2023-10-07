@@ -40,6 +40,7 @@ const PersonPosterAlt = ({ singlePersonData }: PersonPosterAltProps) => {
           /> */}
 
           <LazyLoadImage
+            placeholderSrc="/assets/flixtr-placeholder.svg"
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               profile_path

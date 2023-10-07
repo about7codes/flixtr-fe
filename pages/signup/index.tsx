@@ -149,6 +149,7 @@ const Signup = () => {
             /> */}
 
             <LazyLoadImage
+              placeholderSrc="/assets/flixtr-placeholder.svg"
               effect="blur"
               src="/assets/flixtr.png"
               alt="Flixtr logo"

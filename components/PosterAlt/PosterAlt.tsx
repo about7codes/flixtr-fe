@@ -40,6 +40,7 @@ const PosterAlt = ({ singleMovieData }: PosterAltProps) => {
           /> */}
 
           <LazyLoadImage
+            placeholderSrc="/assets/flixtr-placeholder.svg"
             src={formatImgSrc(
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               poster_path

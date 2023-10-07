@@ -44,6 +44,7 @@ const ClipRoll = ({ clipList }: ClipRollProps) => {
                 /> */}
 
                 <LazyLoadImage
+                  placeholderSrc="/assets/flixtr-placeholder.svg"
                   src={"https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"}
                   style={{
                     objectFit: "cover",
