@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { useRouter } from "next/router";
 import { Grid, Box, Typography, Button, LinearProgress } from "@mui/material";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { SeriesResult } from "../../../../types/apiResponses";
 import { styles as classes } from "../../../../styles/tvShowInfo.styles";
@@ -13,7 +15,6 @@ import TvTileSlider from "../../../../components/TvTileSlider/TvTileSlider";
 import SeasonRoll from "../../../../components/SeasonRoll/SeasonRoll";
 import { useSeriesById } from "../../../../hooks/series.hooks";
 import {
-  blurData,
   formatImgSrc,
   formatMinutes,
   toUrlFriendly,
@@ -136,7 +137,7 @@ function TvShowInfo() {
             }}
           ></Box>
           <Box sx={classes.imageBox}>
-            <Image
+            {/* <Image
               fill
               className="poster-img"
               placeholder="blur"
@@ -151,6 +152,27 @@ function TvShowInfo() {
                 "https://image.tmdb.org/t/p/w780",
                 poster_path
               )}
+              alt={name}
+            /> */}
+
+            <LazyLoadImage
+              src={formatImgSrc("https://image.tmdb.org/t/p/w780", poster_path)}
+              style={
+                poster_path
+                  ? {
+                      objectFit: "cover",
+                      objectPosition: "top",
+                      width: "100%",
+                      height: "100%",
+                    }
+                  : {
+                      objectFit: "contain",
+                      objectPosition: "center",
+                      width: "100%",
+                      height: "100%",
+                    }
+              }
+              effect="blur"
               alt={name}
             />
           </Box>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 import {
   Box,
@@ -21,6 +21,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useFormik, FormikProps } from "formik";
 import * as Yup from "yup";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { styles as classes } from "../../styles/signup.styles";
 import CustomHead from "../../components/CustomHead/CustomHead";
@@ -138,11 +140,18 @@ const Signup = () => {
       <Fade in={true}>
         <Grid container sx={classes.signInner}>
           <Grid item justifyContent="center" display="flex">
-            <Image
+            {/* <Image
               src="/assets/flixtr.png"
               alt="Flixtr logo"
               width={36}
               height={36}
+              style={classes.logo}
+            /> */}
+
+            <LazyLoadImage
+              effect="blur"
+              src="/assets/flixtr.png"
+              alt="Flixtr logo"
               style={classes.logo}
             />
           </Grid>

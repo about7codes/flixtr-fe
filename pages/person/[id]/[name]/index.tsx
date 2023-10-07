@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { useRouter } from "next/router";
 import { LinearProgress, Grid, Box, Typography, Collapse } from "@mui/material";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { styles as classes } from "../../../../styles/personInfo.styles";
 import { usePersonById } from "../../../../hooks/people.hooks";
@@ -11,7 +13,7 @@ import TvTileSlider from "../../../../components/TvTileSlider/TvTileSlider";
 import TileSlider from "../../../../components/TileSider/TileSlider";
 import ProfileImgRoll from "../../../../components/ProfileImgRoll/ProfileImgRoll";
 import { PeopleResult } from "../../../../types/apiResponses";
-import { blurData, formatImgSrc } from "../../../../utils/utils";
+import { formatImgSrc } from "../../../../utils/utils";
 import { useMaxHeight } from "../../../../hooks/app.hooks";
 
 function PersonInfo() {
@@ -56,7 +58,7 @@ function PersonInfo() {
             }}
           ></Box>
           <Box sx={classes.imageBox}>
-            <Image
+            {/* <Image
               fill
               className="poster-img"
               placeholder="blur"
@@ -74,6 +76,30 @@ function PersonInfo() {
                 "https://image.tmdb.org/t/p/w780",
                 profile_path
               )}
+              alt={name}
+            /> */}
+
+            <LazyLoadImage
+              src={formatImgSrc(
+                "https://image.tmdb.org/t/p/w780",
+                profile_path
+              )}
+              style={
+                profile_path
+                  ? {
+                      objectFit: "cover",
+                      objectPosition: "top",
+                      width: "100%",
+                      height: "100%",
+                    }
+                  : {
+                      objectFit: "contain",
+                      objectPosition: "center",
+                      width: "100%",
+                      height: "100%",
+                    }
+              }
+              effect="blur"
               alt={name}
             />
           </Box>

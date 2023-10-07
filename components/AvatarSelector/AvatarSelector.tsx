@@ -27,7 +27,7 @@ const AvatarSelector = ({ avatarPic, setAvatarPic }: AvatarSelectorProps) => {
             <Avatar
               src={`/assets/${num}.png`}
               sx={classes.avatarIco}
-              alt="Remy Sharp"
+              alt="profile avatar"
             />
           </ButtonBase>
         </Grid>

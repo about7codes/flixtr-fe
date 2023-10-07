@@ -1,7 +1,6 @@
 import { Box, Typography, Grid, Link as MuiLink } from "@mui/material";
 import React from "react";
 import { styles as classes } from "./footer.styles";
-import { blurData } from "../../utils/utils";
 
 // type Props = {}
 

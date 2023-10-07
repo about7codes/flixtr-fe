@@ -4,12 +4,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box, Button, Typography } from "@mui/material";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { styles as classes } from "./movieSlider.styles";
 import { MovieResult } from "../../types/apiResponses";
-import { blurData, formatImgSrc, toUrlFriendly } from "../../utils/utils";
+import { formatImgSrc, toUrlFriendly } from "../../utils/utils";
 import Link from "next/link";
 import { useIsMobile } from "../../hooks/app.hooks";
 
@@ -70,7 +70,6 @@ const MovieSlider = ({ movieData }: MovieSliderProps) => {
                       alt={title}
                       effect="blur"
                     />
-
                   </Box>
                 </Box>
 

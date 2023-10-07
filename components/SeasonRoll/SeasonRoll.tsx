@@ -2,12 +2,12 @@ import React from "react";
 import Link from "next/link";
 // import Image from "next/image";
 import { Box, Typography, Grid } from "@mui/material";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { ShowSeason } from "../../types/apiResponses";
 import { styles as classes } from "./seasonRoll.styles";
-import { blurData, formatImgSrc, toUrlFriendly } from "../../utils/utils";
+import { formatImgSrc, toUrlFriendly } from "../../utils/utils";
 
 type SeasonRollProps = {
   seasonList: ShowSeason[];
@@ -28,8 +28,9 @@ const SeasonRoll = ({ seasonList, showId, showName }: SeasonRollProps) => {
               <Grid item sx={classes.seasonItem} key={index}>
                 <Link
                   style={{ WebkitTapHighlightColor: "transparent" }}
-                  href={`/tv/${showId}/${toUrlFriendly(showName)}/season/${season.season_number
-                    }`}
+                  href={`/tv/${showId}/${toUrlFriendly(showName)}/season/${
+                    season.season_number
+                  }`}
                 >
                   <Grid sx={classes.seasonImg}>
                     {/* <Image
@@ -53,8 +54,13 @@ const SeasonRoll = ({ seasonList, showId, showName }: SeasonRollProps) => {
                         "https://image.tmdb.org/t/p/w138_and_h175_face/",
                         season.poster_path
                       )}
-                      style={{ objectFit: "cover", objectPosition: "top", width: '100%', height: '100%' }}
-                      alt='seasons-cover'
+                      style={{
+                        objectFit: "cover",
+                        objectPosition: "top",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      alt="seasons-cover"
                       effect="blur"
                     />
 

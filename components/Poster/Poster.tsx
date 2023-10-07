@@ -2,17 +2,12 @@ import React from "react";
 import Link from "next/link";
 // import Image from "next/image";
 import { Box, CircularProgress, Typography } from "@mui/material";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { styles as classes } from "./poster.styles";
 import { MovieResult } from "../../types/apiResponses";
-import {
-  blurData,
-  formatImgSrc,
-  toPercent,
-  toUrlFriendly,
-} from "../../utils/utils";
+import { formatImgSrc, toPercent, toUrlFriendly } from "../../utils/utils";
 
 type PosterProps = {
   singleMovieData: MovieResult;
@@ -54,12 +49,16 @@ const Poster = ({ singleMovieData }: PosterProps) => {
               "https://image.tmdb.org/t/p/w220_and_h330_face/",
               poster_path
             )}
-            style={{ objectFit: "cover", objectPosition: "top", width: '100%', height: '100%' }}
+            style={{
+              objectFit: "cover",
+              objectPosition: "top",
+              width: "100%",
+              height: "100%",
+            }}
             className="poster-img"
             alt={titleConverted}
             effect="blur"
           />
-
         </Box>
         <Box sx={classes.posterDown}>
           <Typography

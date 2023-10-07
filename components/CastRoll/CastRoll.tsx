@@ -1,12 +1,12 @@
 import React from "react";
 // import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { styles as classes } from "./castRoll.styles";
 import { Cast } from "../../types/apiResponses";
-import { blurData, formatImgSrc, toUrlFriendly } from "../../utils/utils";
+import { formatImgSrc, toUrlFriendly } from "../../utils/utils";
 import Link from "next/link";
 
 type CastRollProps = {
@@ -54,11 +54,15 @@ const CastRoll = ({ castList }: CastRollProps) => {
                     "https://image.tmdb.org/t/p/w138_and_h175_face/",
                     cast.profile_path
                   )}
-                  style={{ objectFit: "cover", objectPosition: "top", width: '100%', height: '100%' }}
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "top",
+                    width: "100%",
+                    height: "100%",
+                  }}
                   alt={cast.name}
                   effect="blur"
                 />
-
               </Grid>
               <Grid sx={classes.castNames}>
                 <Typography sx={classes.realName}>{cast.name}</Typography>

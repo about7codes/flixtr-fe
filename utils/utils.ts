@@ -1,4 +1,4 @@
-export const disableAds = process.env.NEXT_PUBLIC_DISABLE_ADS == 'true';
+export const disableAds = process.env.NEXT_PUBLIC_DISABLE_ADS == "true";
 
 export const removeSpecialCharacters = (phrase: string) => {
   return phrase.replace(/[&#,+()$~%'."!:*?<>{}\/\\]/g, "");
@@ -52,8 +52,8 @@ export const formatImgSrc = (urlLink: string, path?: string): string => {
 
 export const toPercent = (num: number): number => Math.round(num * 10);
 
-export const blurData =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNce8f0KQAGoQKlpcmuHQAAAABJRU5ErkJggg==";
+// export const blurData =
+//   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNce8f0KQAGoQKlpcmuHQAAAABJRU5ErkJggg==";
 
 export const convertToNumber = (
   arg: string | string[] | undefined

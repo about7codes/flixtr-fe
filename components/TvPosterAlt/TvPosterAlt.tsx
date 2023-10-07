@@ -1,15 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 import { styles as classes } from "./tvPosterAlt.styles";
 import { SeriesResult } from "../../types/apiResponses";
-import {
-  blurData,
-  formatImgSrc,
-  toPercent,
-  toUrlFriendly,
-} from "../../utils/utils";
+import { formatImgSrc, toPercent, toUrlFriendly } from "../../utils/utils";
 
 type TvPosterAltProps = {
   singleShowData: SeriesResult;
@@ -24,7 +22,7 @@ const TvPosterAlt = ({ singleShowData }: TvPosterAltProps) => {
     <Link href={`/tv/${id}/${titleConverted}`} style={{ display: "block" }}>
       <Grid container sx={classes.posterAlt}>
         <Grid item sx={classes.posterImg}>
-          <Image
+          {/* <Image
             fill
             placeholder="blur"
             className="poster-img"
@@ -39,6 +37,21 @@ const TvPosterAlt = ({ singleShowData }: TvPosterAltProps) => {
             )}
             style={{ objectFit: "cover", objectPosition: "top" }}
             alt={titleConverted}
+          /> */}
+
+          <LazyLoadImage
+            src={formatImgSrc(
+              "https://image.tmdb.org/t/p/w220_and_h330_face/",
+              poster_path
+            )}
+            style={{
+              objectFit: "cover",
+              objectPosition: "top",
+              width: "100%",
+              height: "100%",
+            }}
+            alt={titleConverted}
+            effect="blur"
           />
         </Grid>
         <Grid item sx={classes.posterTxt}>

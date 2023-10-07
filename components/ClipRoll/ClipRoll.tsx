@@ -2,12 +2,11 @@ import React from "react";
 // import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { styles as classes } from "./clipRoll.styles";
 import { ClipResults } from "../../types/apiResponses";
-import { blurData } from "../../utils/utils";
 
 type ClipRollProps = {
   clipList: ClipResults[];
@@ -46,7 +45,12 @@ const ClipRoll = ({ clipList }: ClipRollProps) => {
 
                 <LazyLoadImage
                   src={"https://i.ytimg.com/vi/" + clip.key + "/hqdefault.jpg"}
-                  style={{ objectFit: "cover", objectPosition: "center", width: '100%', height: '100%' }}
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    width: "100%",
+                    height: "100%",
+                  }}
                   alt={clip.name}
                   effect="blur"
                 />
