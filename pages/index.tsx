@@ -12,6 +12,7 @@ import TvTileSlider from "../components/TvTileSlider/TvTileSlider";
 import CustomHead from "../components/CustomHead/CustomHead";
 import PersonTileSlider from "../components/PersonTileSlider/PersonTileSlider";
 import MovieSlider from "../components/MovieSlider/MovieSlider";
+import SkeletonSlider from "../components/SkeletonSlider/SkeletonSlider";
 
 type HomeProps = {};
 
@@ -86,7 +87,12 @@ const Home: NextPage<HomeProps> = () => {
               The most recent movies recommended by our community
             </Typography>
           </Box>
-          <TileSlider movieData={movieData} />
+          
+          {isMoviesLoading ? (
+            <SkeletonSlider />
+          ) : (
+            <TileSlider movieData={movieData} />
+          )}
         </Box>
 
         <Box sx={classes.sliderContainer}>
@@ -98,7 +104,12 @@ const Home: NextPage<HomeProps> = () => {
               The most recent shows recommended by our community
             </Typography>
           </Box>
-          <TvTileSlider seriesData={seriesData} />
+          
+          {isSeriesLoading ? (
+            <SkeletonSlider />
+            ) : (
+            <TvTileSlider seriesData={seriesData} />
+          )}
         </Box>
 
         <Box sx={{ display: "flex" }} ref={adRef}></Box>
@@ -112,7 +123,12 @@ const Home: NextPage<HomeProps> = () => {
               The top rated artists recommended by our community
             </Typography>
           </Box>
-          <PersonTileSlider peopleData={peopleData} />
+          
+          {isPeopleLoading ? (
+            <SkeletonSlider />
+            ) : (
+              <PersonTileSlider peopleData={peopleData} />
+          )}
         </Box>
       </div>
     </>
