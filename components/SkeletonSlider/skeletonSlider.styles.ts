@@ -1,6 +1,7 @@
 export const styles = {
     container: {
       display: 'flex',
+      justifyContent: 'center',
       overflow: 'hidden',
     },
     tile: {

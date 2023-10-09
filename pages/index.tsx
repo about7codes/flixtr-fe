@@ -13,6 +13,7 @@ import CustomHead from "../components/CustomHead/CustomHead";
 import PersonTileSlider from "../components/PersonTileSlider/PersonTileSlider";
 import MovieSlider from "../components/MovieSlider/MovieSlider";
 import SkeletonSlider from "../components/SkeletonSlider/SkeletonSlider";
+import SkeletonMovieSlider from "../components/SkeletonMovieSlider/SkeletonMovieSlider";
 
 type HomeProps = {};
 
@@ -75,7 +76,11 @@ const Home: NextPage<HomeProps> = () => {
           isPeopleLoading) && <LinearProgress />}
 
         <Box>
-          <MovieSlider movieData={popularMovies?.pages[0].results} />
+          {isPopularLoading ? (
+            <SkeletonMovieSlider />
+          ) : (
+            <MovieSlider movieData={popularMovies?.pages[0].results} />
+          )}
         </Box>
 
         <Box sx={{ ...classes.sliderContainer, m: "20px 0 60px 0" }}>
@@ -87,7 +92,7 @@ const Home: NextPage<HomeProps> = () => {
               The most recent movies recommended by our community
             </Typography>
           </Box>
-          
+
           {isMoviesLoading ? (
             <SkeletonSlider />
           ) : (
@@ -104,10 +109,10 @@ const Home: NextPage<HomeProps> = () => {
               The most recent shows recommended by our community
             </Typography>
           </Box>
-          
+
           {isSeriesLoading ? (
             <SkeletonSlider />
-            ) : (
+          ) : (
             <TvTileSlider seriesData={seriesData} />
           )}
         </Box>
@@ -123,11 +128,11 @@ const Home: NextPage<HomeProps> = () => {
               The top rated artists recommended by our community
             </Typography>
           </Box>
-          
+
           {isPeopleLoading ? (
             <SkeletonSlider />
-            ) : (
-              <PersonTileSlider peopleData={peopleData} />
+          ) : (
+            <PersonTileSlider peopleData={peopleData} />
           )}
         </Box>
       </div>
