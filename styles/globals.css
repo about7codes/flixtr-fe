@@ -36,7 +36,22 @@ a {
 }
 
 @media (max-width: 900px){
-  .main{
-    /* padding: 0 10px; */
+
+  .multi-slider .swiper-button-prev, .multi-slider .swiper-button-next {
+    top: 98px !important;
   }
+
+  .multi-slider .swiper-button-prev:after, .multi-slider .swiper-button-next:after {
+    font-size: 26px;
+  }
+}
+
+.multi-slider .swiper-button-prev, .multi-slider .swiper-button-next {
+  color: #addc35 !important;
+  background-color: #333;
+  border-radius: 6px;
+  top: 120px;
+  padding: 6px 8px;
+  width: auto;
+  height: auto;
 }
