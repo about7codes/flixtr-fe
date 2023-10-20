@@ -1,8 +1,9 @@
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Container, Typography, Box } from "@mui/material";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation } from "swiper/modules";
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 import { SeriesResult } from "../../types/apiResponses";
 import TvPoster from "../TvPoster/TvPoster";
@@ -17,17 +18,42 @@ const TvTileSlider = ({ title, seriesData }: TvTileSliderProps) => {
   if (!seriesData?.length) return null;
 
   // console.log("TileSlider", seriesData);
-  const settings = {
-    arrows: true,
-    dots: false,
-    infinite: true,
-    speed: 500,
-    // slidesToShow: 2,
-    autoplay: true,
-    autoplaySpeed: 2200,
-    slidesToScroll: 1,
-    variableWidth: true,
-    // centerPadding: "20px",
+  const sliderOptions = {
+    slidesPerView: 7,
+    pagination: false,
+    navigation: true,
+    loop: true,
+    autoplay: {
+      delay: 2200,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 3,
+      },
+      420: {
+        slidesPerView: 3,
+      },
+      550: {
+        slidesPerView: 4,
+      },
+      650: {
+        slidesPerView: 5,
+      },
+      786: {
+        slidesPerView: 6,
+      },
+      900: {
+        slidesPerView: 5,
+      },
+      1050: {
+        slidesPerView: 6,
+      },
+      1200: {
+        slidesPerView: 7,
+      }
+    }
   };
 
   return (
@@ -37,15 +63,20 @@ const TvTileSlider = ({ title, seriesData }: TvTileSliderProps) => {
           {title}
         </Typography>
       )}
-      <Box>
-        <Slider {...settings}>
+      
+      <Box className="multi-slider">
+        <Swiper
+          {...sliderOptions}
+          modules={[Autoplay, Navigation]}
+        >
           {seriesData?.map((singleShowData, index) => (
-            <div key={index}>
+            <SwiperSlide key={index} style={{ display: 'grid', placeContent: 'center' }}>
               <TvPoster singleShowData={singleShowData} />
-            </div>
+            </SwiperSlide>
           ))}
-        </Slider>
+        </Swiper>
       </Box>
+      
     </Container>
   );
 };

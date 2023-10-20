@@ -1,8 +1,9 @@
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Box, Container, Typography } from "@mui/material";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation } from "swiper/modules";
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 import PersonPoster from "../PersonPoster/PersonPoster";
 import { PeopleResult } from "../../types/apiResponses";
@@ -16,17 +17,42 @@ type TileSliderProps = {
 const TileSlider = ({ title, peopleData }: TileSliderProps) => {
   if (!peopleData?.length) return null;
 
-  const settings = {
-    arrows: true,
-    dots: false,
-    infinite: true,
-    speed: 500,
-    // slidesToShow: 2,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    slidesToScroll: 1,
-    variableWidth: true,
-    // centerPadding: "20px",
+  const sliderOptions = {
+    slidesPerView: 7,
+    pagination: false,
+    navigation: true,
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 3,
+      },
+      420: {
+        slidesPerView: 3,
+      },
+      550: {
+        slidesPerView: 4,
+      },
+      650: {
+        slidesPerView: 5,
+      },
+      786: {
+        slidesPerView: 6,
+      },
+      900: {
+        slidesPerView: 5,
+      },
+      1050: {
+        slidesPerView: 6,
+      },
+      1200: {
+        slidesPerView: 7,
+      }
+    }
   };
 
   return (
@@ -36,15 +62,20 @@ const TileSlider = ({ title, peopleData }: TileSliderProps) => {
           {title}
         </Typography>
       )}
-      <Box>
-        <Slider {...settings}>
+      
+      <Box className="multi-slider">
+        <Swiper
+          {...sliderOptions}
+          modules={[Autoplay, Navigation]}
+        >
           {peopleData?.map((singlePersonData, index) => (
-            <div key={index}>
+            <SwiperSlide key={index} style={{ display: 'grid', placeContent: 'center' }}>
               <PersonPoster singlePersonData={singlePersonData} />
-            </div>
+            </SwiperSlide>
           ))}
-        </Slider>
+        </Swiper>
       </Box>
+      
     </Container>
   );
 };
