@@ -6,7 +6,7 @@ export const styles = {
     right: 0,
     bgcolor: "primary.main",
     // bgcolor: "secondary.main",
-    zIndex: "1",
+    zIndex: "2",
     overflow: "hidden",
   },
 };
