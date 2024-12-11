@@ -106,7 +106,7 @@ const Login = () => {
 
   return (
     <Container sx={classes.sign}>
-      <CustomHead title="Login to Flixtr" media_type={"movie"} />
+      <CustomHead title="Login to Flixbaba" media_type={"movie"} />
       <Fade in={true}>
         <Grid container sx={classes.signInner}>
           <Grid item justifyContent="center" display="flex">
@@ -122,7 +122,7 @@ const Login = () => {
               placeholderSrc="/assets/flixtr-placeholder.svg"
               effect="blur"
               src="/assets/flixtr.png"
-              alt="Flixtr logo"
+              alt="Flixbaba logo"
               style={classes.logo}
             />
           </Grid>

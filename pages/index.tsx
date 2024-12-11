@@ -65,7 +65,7 @@ const Home: NextPage<HomeProps> = () => {
   return (
     <>
       <CustomHead
-        title="Flixtr - Watch Movies & TV Shows"
+        title="Flixbaba - Watch Movies & TV Shows"
         media_type={"movie"}
       />
 

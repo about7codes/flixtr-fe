@@ -171,7 +171,7 @@ const Navbar = () => {
               href="/"
               sx={classes.logoTxt}
             >
-              FLIXTR
+              FLIXBABA
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -202,7 +202,7 @@ const Navbar = () => {
               href="/"
               sx={classes.logoTxtMob}
             >
-              FLIXTR
+              FLIXBABA
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {/* desktop btn links */}

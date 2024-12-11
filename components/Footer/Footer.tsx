@@ -9,13 +9,13 @@ const Footer = () => {
     <Box sx={classes.footerMain}>
       <Box sx={classes.footerXD}>
         <Typography variant="h1" sx={classes.footerXDtxt}>
-          Flixtr
+          Flixbaba
         </Typography>
       </Box>
       <Box sx={classes.footerInner}>
         <Box sx={classes.footerTop}>
           <Typography variant="h4" sx={classes.footerTopHead}>
-            Your favorite movies on Flixtr
+            Your favorite movies on Flixbaba
           </Typography>
           <Grid container sx={classes.socials}>
             <Grid item>
@@ -130,7 +130,7 @@ const Footer = () => {
             </Grid>
             <Grid item sx={classes.footerCol}>
               <Typography variant="h6" sx={classes.footerColHead}>
-                Flixtr for Business
+                Flixbaba for Business
               </Typography>
               <Typography variant="subtitle1" sx={{ fontSize: "0.9rem" }}>
                 What we offer

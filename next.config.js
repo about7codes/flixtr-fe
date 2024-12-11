@@ -7,7 +7,12 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["image.tmdb.org", "i.ytimg.com", "flixtr.netlify.app"],
+    domains: [
+      "image.tmdb.org",
+      "i.ytimg.com",
+      "flixtr.netlify.app",
+      "www.flixbaba.com",
+    ],
   },
 };
 
