@@ -21,6 +21,14 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
+
+          which node
+          which npm
+          which pm2
+
+          # Ensure nvm is sourced
+          source /home/ubuntu/.nvm/nvm.sh
+
           cd /home/ubuntu/Desktop/flixtr-fe
           git pull origin main
           npm install
