@@ -21,7 +21,7 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
-          cd /Desktop/flixtr-fe
+          cd Desktop/flixtr-fe
           git pull origin main
           npm install
           echo "${{ secrets.PRODUCTION_ENV }}" > .env.production
