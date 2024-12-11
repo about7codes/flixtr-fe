@@ -17,8 +17,8 @@ export default class MyDocument extends Document {
           />
 
           <meta
-            name="exoclick-site-verification"
-            content="7282b61ce99ff60fa82adfd51862bc53"
+            name="6a97888e-site-verification"
+            content="5edf59ad050b91fad1b87fa4ac1dcea0"
           />
 
           <script
@@ -73,10 +73,7 @@ export default class MyDocument extends Document {
             }}
           /> */}
 
-          {!disableAds && (
-            <Script src="adScript.js" strategy="lazyOnload" />
-          )}
-
+          {!disableAds && <Script src="adScript.js" strategy="lazyOnload" />}
         </body>
       </Html>
     );
