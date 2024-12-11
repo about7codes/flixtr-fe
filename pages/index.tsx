@@ -42,12 +42,12 @@ const Home: NextPage<HomeProps> = () => {
       '(AdProvider = window.AdProvider || []).push({"serve": {}});';
 
     const adEl1 = document.createElement("ins");
-    adEl1.className = "eas6a97888ec52c042c679a36e919843cca";
-    adEl1.dataset.zoneid = "5018914";
+    adEl1.className = "eas6a97888e2";
+    adEl1.dataset.zoneid = "5494226";
 
     const adEl2 = document.createElement("ins");
-    adEl2.className = "eas6a97888ec52c042c679a36e919843cca";
-    adEl2.dataset.zoneid = "5019068";
+    adEl2.className = "eas6a97888e2";
+    adEl2.dataset.zoneid = "5494228";
 
     adRef.current?.appendChild(script1);
     adRef.current?.appendChild(adEl1);
