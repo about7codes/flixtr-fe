@@ -117,7 +117,10 @@ const Home: NextPage<HomeProps> = () => {
           )}
         </Box>
 
-        <Box sx={{ display: "flex" }} ref={adRef}></Box>
+        <Box
+          sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+          ref={adRef}
+        ></Box>
 
         <Box sx={classes.sliderContainer}>
           <Box sx={{ textAlign: "center" }}>
