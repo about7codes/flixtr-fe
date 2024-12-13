@@ -28,6 +28,7 @@ jobs:
           cd /home/ubuntu/Desktop/flixtr-fe-dev
           git pull origin dev
           npm install
+          rm .env
           echo "${{ secrets.DEV_ENV }}" > .env
           npm run build
           pm2 restart flixtr-dev
