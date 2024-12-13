@@ -159,9 +159,9 @@ function SeasonCount() {
             <iframe
               allowFullScreen
               id="watch-iframe3"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/tmdb/${id}-${
+              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${
                 seasoncount ? seasoncount : 1
-              }-${ep}`}
+              }/${ep}`}
             ></iframe>
           )}
         </Grid>

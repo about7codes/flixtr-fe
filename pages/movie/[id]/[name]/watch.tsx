@@ -132,7 +132,7 @@ function Watch() {
             <iframe
               allowFullScreen
               id="watch-iframe3"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/tmdb/${id}`}
+              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}`}
             ></iframe>
           )}
         </Grid>
