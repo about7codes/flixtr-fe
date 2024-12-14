@@ -33,7 +33,7 @@ const Home: NextPage<HomeProps> = () => {
     const script1 = document.createElement("script");
     script1.async = true;
     script1.type = "application/javascript";
-    script1.src = "https://a.exdynsrv.com/ad-provider.js";
+    script1.src = "https://a.magsrv.com/ad-provider.js";
 
     const script2 = document.createElement("script");
     script2.async = true;
