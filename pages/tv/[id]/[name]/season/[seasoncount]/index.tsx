@@ -19,7 +19,7 @@ import {
   useSeriesSeasonById,
 } from "../../../../../../hooks/series.hooks";
 import CustomHead from "../../../../../../components/CustomHead/CustomHead";
-import { convertToNumber } from "../../../../../../utils/utils";
+import { convertToNumber, disableAds } from "../../../../../../utils/utils";
 
 function SeasonCount() {
   const router = useRouter();
@@ -99,6 +99,31 @@ function SeasonCount() {
           </Typography>
         </Grid>
 
+        {!disableAds && (
+          <Grid sx={classes.con}>
+            <iframe
+              className="con1"
+              src="//a.magsrv.com/iframe.php?idzone=5495748&size=300x250"
+              width="300"
+              height="250"
+              scrolling="no"
+              marginWidth={0}
+              marginHeight={0}
+              frameBorder="0"
+            ></iframe>
+            <iframe
+              className="con2"
+              src="//a.magsrv.com/iframe.php?idzone=5495750&size=300x250"
+              width="300"
+              height="250"
+              scrolling="no"
+              marginWidth={0}
+              marginHeight={0}
+              frameBorder="0"
+            ></iframe>
+          </Grid>
+        )}
+
         <Grid item sx={classes.moviePlayer}>
           <ButtonGroup
             variant="contained"
@@ -127,13 +152,6 @@ function SeasonCount() {
               Player #3
             </Button>
           </ButtonGroup>
-          {/* <iframe
-            allowFullScreen
-            id="watch-iframe"
-            src={`${process.env.NEXT_PUBLIC_Player_URL}/tv?id=${id}&s=${
-              seasoncount ? seasoncount : 1
-            }&e=${ep}`}
-          ></iframe> */}
 
           {player === 1 && (
             <iframe
@@ -197,6 +215,32 @@ function SeasonCount() {
             </Box>
           ))}
         </Grid>
+
+        {!disableAds && (
+          <Grid sx={classes.con}>
+            <iframe
+              className="con3"
+              src="//a.magsrv.com/iframe.php?idzone=5495752&size=300x250"
+              width="300"
+              height="250"
+              scrolling="no"
+              marginWidth={0}
+              marginHeight={0}
+              frameBorder="0"
+            ></iframe>
+
+            <iframe
+              className="con4"
+              src="//a.magsrv.com/iframe.php?idzone=5495754&size=300x250"
+              width="300"
+              height="250"
+              scrolling="no"
+              marginWidth={0}
+              marginHeight={0}
+              frameBorder="0"
+            ></iframe>
+          </Grid>
+        )}
 
         {[
           { movieData: recommendations?.results, title: "Recommended for you" },

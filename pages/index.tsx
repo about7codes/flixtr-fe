@@ -14,6 +14,7 @@ import PersonTileSlider from "../components/PersonTileSlider/PersonTileSlider";
 import MovieSlider from "../components/MovieSlider/MovieSlider";
 import SkeletonSlider from "../components/SkeletonSlider/SkeletonSlider";
 import SkeletonMovieSlider from "../components/SkeletonMovieSlider/SkeletonMovieSlider";
+import { disableAds } from "../utils/utils";
 
 type HomeProps = {};
 
@@ -117,10 +118,12 @@ const Home: NextPage<HomeProps> = () => {
           )}
         </Box>
 
-        <Box
-          sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-          ref={adRef}
-        ></Box>
+        {!disableAds && (
+          <Box
+            sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+            ref={adRef}
+          ></Box>
+        )}
 
         <Box sx={classes.sliderContainer}>
           <Box sx={{ textAlign: "center" }}>

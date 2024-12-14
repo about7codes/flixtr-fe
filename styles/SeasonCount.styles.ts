@@ -3,6 +3,7 @@ export const styles = {
     padding: "0 24px",
     color: "secondary.main",
     marginTop: "20px",
+    marginBottom: "20px",
     "& .backToInfo": {
       display: "inline-flex",
       alignItems: "center",
@@ -71,6 +72,18 @@ export const styles = {
         width: "100%",
         height: "calc(35vh - 60px)",
         boxSizing: "border-box",
+      },
+    },
+  },
+  con: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    width: "100%",
+    padding: "20px 0",
+    "& .con2": {
+      "@media (max-width: 768px)": {
+        display: "none",
       },
     },
   },
