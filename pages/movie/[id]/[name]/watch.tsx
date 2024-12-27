@@ -16,6 +16,7 @@ import { MovieResult } from "../../../../types/apiResponses";
 import { useMovieById } from "../../../../hooks/movies.hooks";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../utils/utils";
+import Comments from "../../../../components/Comments/Comments";
 
 function Watch() {
   const router = useRouter();
@@ -182,6 +183,8 @@ function Watch() {
             ></iframe>
           </Grid>
         )}
+
+        <Comments title={title} />
 
         {[
           { movieData: recommendations?.results, title: "Recommended for you" },

@@ -20,6 +20,7 @@ import {
 } from "../../../../../../hooks/series.hooks";
 import CustomHead from "../../../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../../../utils/utils";
+import Comments from "../../../../../../components/Comments/Comments";
 
 function SeasonCount() {
   const router = useRouter();
@@ -241,6 +242,8 @@ function SeasonCount() {
             ></iframe>
           </Grid>
         )}
+
+        <Comments title={showTitle} />
 
         {[
           { movieData: recommendations?.results, title: "Recommended for you" },
