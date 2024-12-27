@@ -7,15 +7,15 @@ type CommentsProps = {
 };
 
 const Comments = ({ title }: CommentsProps) => {
-  const url = typeof window !== "undefined" ? window.location.href : "";
+  const pageUrl = typeof window !== "undefined" ? window.location.href : "";
 
   return (
     <Box sx={{ width: "90%", margin: "0 auto" }}>
       <DiscussionEmbed
         shortname="flixbaba"
         config={{
-          url: url,
-          identifier: url,
+          url: pageUrl,
+          identifier: pageUrl,
           title: title,
         }}
       />
