@@ -30,7 +30,7 @@ const SeasonRoll = ({ seasonList, showId, showName }: SeasonRollProps) => {
                   style={{ WebkitTapHighlightColor: "transparent" }}
                   href={`/tv/${showId}/${toUrlFriendly(showName)}/season/${
                     season.season_number
-                  }`}
+                  }?e=1&p=1`}
                 >
                   <Grid sx={classes.seasonImg}>
                     {/* <Image

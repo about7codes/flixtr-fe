@@ -75,3 +75,15 @@ export const convertToNumber = (
 
   return undefined;
 };
+
+export const cleanUrl = (url: string) => {
+  const urlObj = new URL(url);
+  const params = new URLSearchParams(urlObj.search);
+
+  if (params.get("p")) {
+    params.delete("p");
+  }
+
+  urlObj.search = params.toString();
+  return urlObj.toString();
+};
