@@ -58,8 +58,8 @@ const ResourceValidator = () => {
           blocker to continue using our site.
         </Typography>
         <Button
-          sx={classes.modalBtn}
           onClick={handleRefresh}
+          sx={classes.modalBtn}
           variant="contained"
           color="secondary"
           fullWidth
