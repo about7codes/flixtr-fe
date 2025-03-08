@@ -3,6 +3,7 @@ import { Box, Container, CssBaseline } from "@mui/material";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import Notify from "../Notify/Notify";
+import ResourceValidator from "../ResourceValidator/ResourceValidator";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
     <Container className="layout">
       <CssBaseline />
       <Notify />
+      <ResourceValidator />
       <Box className="layout-inner">
         <Box>
           <Navbar />

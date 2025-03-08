@@ -4,7 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    overflow: hidden auto;
+  overflow: hidden auto;
 }
 
 a {
@@ -16,17 +16,16 @@ a {
   box-sizing: border-box;
 }
 
-.layout{
+.layout {
   padding: 0 !important;
   max-width: 100% !important;
 }
 
-.layout-inner{
-  /* width: 100%; */
+.no-scroll {
+  overflow: hidden;
 }
 
-.main{
-  /* padding: 0 24px; */
+.main {
   min-height: 100vh;
 }
 
@@ -35,18 +34,20 @@ a {
   transition: opacity 1s ease 150ms;
 }
 
-@media (max-width: 900px){
-
-  .multi-slider .swiper-button-prev, .multi-slider .swiper-button-next {
+@media (max-width: 900px) {
+  .multi-slider .swiper-button-prev,
+  .multi-slider .swiper-button-next {
     top: 98px !important;
   }
 
-  .multi-slider .swiper-button-prev:after, .multi-slider .swiper-button-next:after {
+  .multi-slider .swiper-button-prev:after,
+  .multi-slider .swiper-button-next:after {
     font-size: 26px;
   }
 }
 
-.multi-slider .swiper-button-prev, .multi-slider .swiper-button-next {
+.multi-slider .swiper-button-prev,
+.multi-slider .swiper-button-next {
   color: #addc35 !important;
   background-color: #333;
   border-radius: 6px;
