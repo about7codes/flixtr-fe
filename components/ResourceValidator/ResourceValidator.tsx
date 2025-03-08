@@ -34,8 +34,7 @@ const ResourceValidator = () => {
       return;
     }
 
-    const isStillEnabled = useDetect();
-    if (!isStillEnabled) setOpen(false);
+    if (!detected) setOpen(false);
   };
 
   const handleRefresh = () => {
