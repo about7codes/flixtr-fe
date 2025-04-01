@@ -243,7 +243,7 @@ function SeasonCount() {
           </Grid>
         )}
 
-        <Comments title={showTitle} />
+        {/* <Comments title={showTitle} /> */}
 
         {[
           { movieData: recommendations?.results, title: "Recommended for you" },
