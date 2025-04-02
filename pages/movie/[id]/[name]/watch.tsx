@@ -184,7 +184,7 @@ function Watch() {
           </Grid>
         )}
 
-        <Comments title={title} />
+        {/* <Comments title={title} /> */}
 
         {[
           { movieData: recommendations?.results, title: "Recommended for you" },
