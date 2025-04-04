@@ -21,7 +21,7 @@ import Comments from "../../../../components/Comments/Comments";
 function Watch() {
   const router = useRouter();
   const { id, name, p } = router.query;
-  const [player, setPlayer] = useState<1 | 2 | 3>(1);
+  const [player, setPlayer] = useState<1 | 2 | 3 | 11>(11);
   const { data: singleMovieData, isLoading } = useMovieById(id);
 
   useEffect(() => {
@@ -184,7 +184,7 @@ function Watch() {
           </Grid>
         )}
 
-        {/* <Comments title={title} /> */}
+        <Comments title={title} />
 
         {[
           { movieData: recommendations?.results, title: "Recommended for you" },
