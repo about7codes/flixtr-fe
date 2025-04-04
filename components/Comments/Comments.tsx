@@ -28,7 +28,7 @@ const Comments = ({ title }: { title: string }) => {
     script.onload = () => {
       // Auto-login if session exists
       if (session?.user) {
-        fetch(`${commentoUrl}/api/oauth/sso`, {
+        fetch(`https://devbe.flixbaba.com/auth/sso`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
