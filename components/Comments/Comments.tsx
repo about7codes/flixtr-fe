@@ -14,20 +14,25 @@ const Comments = ({ title }: CommentsProps) => {
 
   useEffect(() => {
     let script: HTMLScriptElement | null = null;
+    const commentoUrl = "https://commentsdev.flixbaba.com";
 
     const setupCommento = async () => {
-      // 1. Ensure the commento div exists
+      // 1. Create container div if needed
+      const container = document.getElementById("commento-container");
+      if (!container) return;
+
       if (!document.getElementById("commento")) {
         const commentoDiv = document.createElement("div");
         commentoDiv.id = "commento";
         commentoDiv.setAttribute("data-page-id", pageUrl);
-        document.body.appendChild(commentoDiv);
+        container.appendChild(commentoDiv);
       }
 
-      // 2. Set auth token if logged in
+      // 2. Set auth token securely
       if (session?.user?.authToken) {
         try {
-          await fetch("https://devbe.flixbaba.com/auth/commento-token", {
+          await fetch(`${commentoUrl}/api/commento-token`, {
+            method: "POST",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
@@ -35,48 +40,52 @@ const Comments = ({ title }: CommentsProps) => {
             },
           });
         } catch (error) {
-          console.error("Failed to set Commento token:", error);
+          console.error("Commento token error:", error);
         }
       }
 
-      // 3. Check if script already exists
-      if (document.querySelector('script[src*="commento.js"]')) return;
-
-      // 4. Load script with error handling
-      script = document.createElement("script");
-      script.src = "https://commentsdev.flixbaba.com/js/commento.js";
-      script.async = true;
-      script.onerror = () => console.error("Commento script failed to load");
-
-      // 5. Temporary fix for initialization error
-      // @ts-ignore
-      if (!window.commento) {
-        // @ts-ignore
-        window.commento = {} as any;
+      // 3. Prevent duplicate script loading
+      if (
+        document.querySelector(`script[src^="${commentoUrl}/js/commento.js"]`)
+      ) {
+        return;
       }
+
+      // 4. Configure Commento before loading
+      // @ts-ignore
+      window.commento = {
+        apiUrl: `${commentoUrl}/api`,
+        cssUrl: `${commentoUrl}/css/commento.css`,
+        // @ts-ignore
+        ...window.commento,
+      };
+
+      // 5. Load script with cache busting
+      script = document.createElement("script");
+      script.src = `${commentoUrl}/js/commento.js?ts=${Date.now()}`;
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      script.onerror = () => console.error("Commento failed to load");
 
       document.body.appendChild(script);
     };
 
-    // Small delay to ensure DOM stability
-    const timer = setTimeout(setupCommento, 100);
+    const timer = setTimeout(setupCommento, 150);
 
     return () => {
       clearTimeout(timer);
-      if (script) document.body.removeChild(script);
-
-      const commentoDiv = document.getElementById("commento");
-      if (commentoDiv) document.body.removeChild(commentoDiv);
-
-      // Cleanup global commento object
-      // @ts-ignore
-      if (window.commento) delete window.commento;
+      if (script?.parentNode) {
+        document.body.removeChild(script);
+      }
+      const div = document.getElementById("commento");
+      if (div?.parentNode) {
+        div.parentNode.removeChild(div);
+      }
     };
   }, [session, pageUrl]);
 
   return (
     <Box sx={{ mt: 4 }}>
-      {/* Render placeholder div */}
       <div id="commento-container" data-testid="comments-section" />
     </Box>
   );
