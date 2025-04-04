@@ -29,15 +29,11 @@ const Comments = ({ title }: { title: string }) => {
       // Auto-login if session exists
       if (session?.user) {
         fetch(`https://devbe.flixbaba.com/auth/sso`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: session.user?.user?.email || "",
-            name: session.user?.user?.name || "",
-            avatar: session.user?.user?.propic
-              ? `${commentoUrl}/avatars/${session.user.user.propic}`
-              : "",
-          }),
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session?.user.authToken}`,
+          },
         });
       }
     };
