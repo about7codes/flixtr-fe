@@ -3,63 +3,59 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 
-declare global {
-  interface Window {
-    Commento?: {
-      setUser: (user: { email: string; name: string; avatar?: string }) => void;
-    };
-  }
-}
-
-type CommentsProps = {
-  title: string;
-};
-
-const Comments = ({ title }: CommentsProps) => {
+const Comments = ({ title }: { title: string }) => {
   const { data: session } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    // Initialize Commento only on client side
     if (typeof window === "undefined") return;
 
     const commentoUrl = "https://commentsdev.flixbaba.com";
 
-    // Cleanup previous instance
-    const existingScript = document.getElementById("commento-script");
-    if (existingScript) existingScript.remove();
-
+    // Remove any existing Commento instance
+    document.getElementById("commento")?.remove();
     const container = document.getElementById("commento-container");
-    if (container) container.innerHTML = '<div id="commento"></div>';
-
-    // Load Commento script
-    const script = document.createElement("script");
-    script.id = "commento-script";
-    script.src = `${commentoUrl}/js/commento.js`;
-    script.async = true;
-
-    // Auto-login if session exists
-    if (session?.user) {
-      script.onload = () => {
-        window.Commento?.setUser({
-          email: session.user?.user?.email || "",
-          name: session.user?.user.name || "",
-          avatar: session.user?.user?.propic + "" || "",
-        });
-      };
+    if (container) {
+      container.innerHTML = `<div id="commento" data-commento-root="${commentoUrl}"></div>`;
     }
 
+    // Create and append Commento script
+    const script = document.createElement("script");
+    script.src = `${commentoUrl}/js/commento.js`;
+    script.async = true;
     document.body.appendChild(script);
 
-    return () => {
-      document.getElementById("commento-script")?.remove();
+    script.onload = () => {
+      // Auto-login if session exists
+      if (session?.user) {
+        fetch(`${commentoUrl}/api/oauth/sso`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: session.user?.user?.email || "",
+            name: session.user?.user?.name || "",
+            avatar: session.user?.user?.propic
+              ? `${commentoUrl}/avatars/${session.user.user.propic}`
+              : "",
+          }),
+        });
+      }
     };
-  }, [session, router.asPath, title]); // Re-run when route or session changes
+
+    return () => {
+      // Proper cleanup on unmount
+      script.remove();
+      document.getElementById("commento")?.remove();
+    };
+  }, [session, router.asPath, title]); // Re-run when session or route changes
 
   return (
     <Box sx={{ width: "90%", margin: "0 auto" }}>
       <div id="commento-container">
-        <div id="commento"></div>
+        <div
+          id="commento"
+          data-commento-root="https://commentsdev.flixbaba.com"
+        ></div>
       </div>
     </Box>
   );
