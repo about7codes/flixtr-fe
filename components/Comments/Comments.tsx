@@ -1,58 +1,26 @@
+import React from "react";
 import { Box } from "@mui/material";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { DiscussionEmbed } from "disqus-react";
+import { cleanUrl } from "../../utils/utils";
 
-const Comments = ({ title }: { title: string }) => {
-  const { data: session } = useSession();
-  const router = useRouter();
+type CommentsProps = {
+  title: string;
+};
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const commentoUrl = "https://commentsdev.flixbaba.com";
-
-    // Remove any existing Commento instance
-    document.getElementById("commento")?.remove();
-    const container = document.getElementById("commento-container");
-    if (container) {
-      container.innerHTML = `<div id="commento" data-commento-root="${commentoUrl}"></div>`;
-    }
-
-    // Create and append Commento script
-    const script = document.createElement("script");
-    script.src = `${commentoUrl}/js/commento.js`;
-    script.async = true;
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      // Auto-login if session exists
-      if (session?.user) {
-        fetch(`https://devbe.flixbaba.com/auth/sso`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session?.user.authToken}`,
-          },
-        });
-      }
-    };
-
-    return () => {
-      // Proper cleanup on unmount
-      script.remove();
-      document.getElementById("commento")?.remove();
-    };
-  }, [session, router.asPath, title]); // Re-run when session or route changes
+const Comments = ({ title }: CommentsProps) => {
+  const pageUrl =
+    typeof window !== "undefined" ? cleanUrl(window.location.href) : "";
 
   return (
     <Box sx={{ width: "90%", margin: "0 auto" }}>
-      <div id="commento-container">
-        <div
-          id="commento"
-          data-commento-root="https://commentsdev.flixbaba.com"
-        ></div>
-      </div>
+      <DiscussionEmbed
+        shortname="flixbaba"
+        config={{
+          url: pageUrl,
+          identifier: pageUrl,
+          title: title,
+        }}
+      />
     </Box>
   );
 };
