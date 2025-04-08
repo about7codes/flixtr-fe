@@ -26,6 +26,10 @@ jobs:
           source /home/ubuntu/.nvm/nvm.sh
 
           cd /home/ubuntu/Desktop/flixtr-fe
+
+          # Discard local changes to package-lock.json or other files etc
+          git reset --hard HEAD
+
           git pull origin main
           npm install
           rm .env.production
