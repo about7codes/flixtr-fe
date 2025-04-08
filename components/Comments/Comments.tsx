@@ -174,8 +174,8 @@ export default function Comments({
           backgroundColor: "secondary.main",
         }}
       >
-        If you don't mind, please leave a comment and share your thoughts with
-        everyone—it will make the website even more lively! Many people are
+        If you don&apos;t mind, please leave a comment and share your thoughts
+        with everyone—it will make the website even more lively! Many people are
         eager to read your comments! 😁
       </Typography>
 
