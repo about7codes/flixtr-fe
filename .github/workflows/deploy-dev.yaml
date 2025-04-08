@@ -27,7 +27,7 @@ jobs:
 
           cd /home/ubuntu/Desktop/flixtr-fe-dev
 
-          # Discard local changes to package-lock.json or other files
+          # Discard local changes to package-lock.json or other files etc
           git reset --hard HEAD
 
           git pull origin dev
