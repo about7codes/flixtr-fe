@@ -207,3 +207,16 @@ export enum KnownForDepartment {
   Acting = "Acting",
   Directing = "Directing",
 }
+
+export interface CommentType {
+  _id: string;
+  content: string;
+  owner: {
+    _id: string;
+    name: string;
+    propic: number;
+  };
+  createdAt: string;
+  parentComment?: string;
+  replies?: CommentType[];
+}

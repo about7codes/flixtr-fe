@@ -243,7 +243,7 @@ function SeasonCount() {
           </Grid>
         )}
 
-        {/* <Comments title={showTitle} /> */}
+        <Comments media_type="tv" />
 
         {[
           { movieData: recommendations?.results, title: "Recommended for you" },
