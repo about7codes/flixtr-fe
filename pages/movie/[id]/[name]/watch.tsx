@@ -153,7 +153,7 @@ function Watch() {
             <iframe
               allowFullScreen
               id="watch-iframe3"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}`}
+              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}?color=addc35`}
             ></iframe>
           )}
         </Grid>
