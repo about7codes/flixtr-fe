@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { signIn, useSession } from "next-auth/react";
 import {
   Box,
   Button,
@@ -11,6 +12,7 @@ import {
 import axios from "axios";
 import CommentItem from "../CommentItem/CommentItem";
 import { CommentType } from "../../types/apiResponses";
+import { setNotify } from "../../redux/notifySlice";
 
 export default function Comments({
   media_type,
@@ -19,6 +21,7 @@ export default function Comments({
 }) {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const dispatch = useDispatch();
 
   const [comments, setComments] = useState<CommentType[]>([]);
   const [totalAllComments, setTotalAllComments] = useState(0);
@@ -61,7 +64,7 @@ export default function Comments({
     setComments((prev) =>
       reset ? data.comments : [...prev, ...data.comments]
     );
-    setTotalAllComments(data.totalAllComments || 0); // 🔧 store count
+    setTotalAllComments(data.totalAllComments || 0);
     setHasMore(currentPage * data.limit < data.totalAllComments);
     setPage(currentPage + 1);
     setLoading(false);
@@ -75,6 +78,17 @@ export default function Comments({
   }, [router.isReady, mediaId, seasonNumber, episodeNumber]);
 
   const postComment = async () => {
+    if (!session) {
+      dispatch(
+        setNotify({
+          isOpen: true,
+          message: "Login to post your comments.",
+          type: "warning",
+        })
+      );
+      return signIn();
+    }
+
     if (!newComment.trim() || !token) return;
 
     const payload: any = {
@@ -104,7 +118,16 @@ export default function Comments({
   };
 
   const handleReply = async (parentId: string, content: string) => {
-    if (!token) return;
+    if (!token) {
+      dispatch(
+        setNotify({
+          isOpen: true,
+          message: "Login to post your comments.",
+          type: "warning",
+        })
+      );
+      return;
+    }
 
     const payload: any = {
       tmdb_id: mediaId,
@@ -179,31 +202,23 @@ export default function Comments({
         eager to read your comments! 😁
       </Typography>
 
-      {session ? (
-        <>
-          <TextField
-            sx={{ backgroundColor: "primary.main" }}
-            placeholder="Write a comment..."
-            fullWidth
-            multiline
-            rows={2}
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-          />
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={postComment}
-            sx={{ mt: 1 }}
-          >
-            Post Comment
-          </Button>
-        </>
-      ) : (
-        <Typography variant="body2" sx={{ mt: 2 }}>
-          Sign in to post a comment.
-        </Typography>
-      )}
+      <TextField
+        sx={{ backgroundColor: "primary.main", borderRadius: "6px" }}
+        placeholder="Write a comment..."
+        fullWidth
+        multiline
+        rows={2}
+        value={newComment}
+        onChange={(e) => setNewComment(e.target.value)}
+      />
+      <Button
+        color="secondary"
+        variant="contained"
+        onClick={postComment}
+        sx={{ mt: 1 }}
+      >
+        Post Comment
+      </Button>
 
       <Box sx={{ mt: 3 }}>
         {comments.length === 0 ? (
