@@ -1,3 +1,14 @@
+import { v4 as uuidv4 } from "uuid";
+
+export function getOrCreateAnonymousId(): string {
+  let id = localStorage.getItem("anonymousId");
+  if (!id) {
+    id = uuidv4();
+    localStorage.setItem("anonymousId", id);
+  }
+  return id;
+}
+
 export const disableAds = process.env.NEXT_PUBLIC_DISABLE_ADS == "true";
 
 export const removeSpecialCharacters = (phrase: string) => {

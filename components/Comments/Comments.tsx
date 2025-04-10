@@ -13,6 +13,7 @@ import axios from "axios";
 import CommentItem from "../CommentItem/CommentItem";
 import { CommentType } from "../../types/apiResponses";
 import { setNotify } from "../../redux/notifySlice";
+import ReactionButtons from "../ReactionButtons/ReactionButtons";
 
 export default function Comments({
   media_type,
@@ -181,7 +182,18 @@ export default function Comments({
   if (status === "loading") return <CircularProgress />;
 
   return (
-    <Box sx={{ m: 3, width: "100%" }}>
+    <Box
+      sx={{
+        m: {
+          xs: 2,
+          sm: 3,
+          md: 3,
+        },
+        width: "100%",
+      }}
+    >
+      <ReactionButtons mediaType={media_type} />
+
       <Typography variant="h6" gutterBottom>
         Comments ({totalAllComments})
       </Typography>
