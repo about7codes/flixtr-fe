@@ -156,14 +156,14 @@ export default function ReactionButtons({ mediaType }: ReactionButtonsProps) {
           const count = counts[type] ?? 0;
 
           return (
-            <Tooltip title={reactionLabels[type]} key={type}>
+            <Tooltip title={reactionLabels[type]} key={type} placement="top">
               <span>
                 <IconButton
                   onClick={() => handleClick(type)}
                   disabled={isSelected || pendingReaction === type}
                   sx={{
                     fontSize: {
-                      xs: "1.2rem", // extra-small screens (mobile)
+                      xs: "3rem", // extra-small screens (mobile)
                       sm: "2rem", // small screens
                       md: "2.5rem", // medium and up
                     },
