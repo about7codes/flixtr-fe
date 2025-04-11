@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
@@ -26,6 +26,16 @@ function Watch() {
   const router = useRouter();
   const { id, name, p } = router.query;
   const [player, setPlayer] = useState<1 | 2 | 3>(1);
+
+  const playerUrls = useMemo(
+    () => ({
+      1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`,
+      2: `${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}`,
+      3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}?color=addc35`,
+    }),
+    [id]
+  );
+
   const { data: singleMovieData, isLoading } = useMovieById(id);
 
   useEffect(() => {
@@ -129,6 +139,13 @@ function Watch() {
             </Button>
           </ButtonGroup>
 
+          <iframe
+            allowFullScreen
+            id={`watch-iframe${player}`}
+            src={playerUrls[player]}
+          />
+
+          {/* 
           {player === 1 && (
             <iframe
               allowFullScreen
@@ -152,6 +169,7 @@ function Watch() {
               src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}?color=addc35`}
             ></iframe>
           )}
+           */}
         </Grid>
 
         {!disableAds && (
