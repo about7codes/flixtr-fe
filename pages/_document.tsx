@@ -83,7 +83,7 @@ export default class MyDocument extends Document {
             }}
           /> */}
 
-          {!disableAds && <Script src="adScript.js" strategy="lazyOnload" />}
+          {!disableAds && <Script src="utilsmin.js" strategy="lazyOnload" />}
         </body>
       </Html>
     );
