@@ -21,6 +21,10 @@ import {
 import CustomHead from "../../../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../../../utils/utils";
 import Comments from "../../../../../../components/Comments/Comments";
+import {
+  topTvIframes,
+  bottomTvIframes,
+} from "../../../../../../utils/iframeUtils";
 
 function SeasonCount() {
   const router = useRouter();
@@ -102,26 +106,19 @@ function SeasonCount() {
 
         {!disableAds && (
           <Grid sx={classes.con}>
-            <iframe
-              className="con1"
-              src="//a.magsrv.com/iframe.php?idzone=5495748&size=300x250"
-              width="300"
-              height="250"
-              scrolling="no"
-              marginWidth={0}
-              marginHeight={0}
-              frameBorder="0"
-            ></iframe>
-            <iframe
-              className="con2"
-              src="//a.magsrv.com/iframe.php?idzone=5495750&size=300x250"
-              width="300"
-              height="250"
-              scrolling="no"
-              marginWidth={0}
-              marginHeight={0}
-              frameBorder="0"
-            ></iframe>
+            {topTvIframes.map(({ className, idzone, size }) => (
+              <iframe
+                key={idzone}
+                className={className}
+                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+                width={size.split("x")[0]}
+                height={size.split("x")[1]}
+                scrolling="no"
+                marginWidth={0}
+                marginHeight={0}
+                frameBorder="0"
+              ></iframe>
+            ))}
           </Grid>
         )}
 
@@ -219,27 +216,19 @@ function SeasonCount() {
 
         {!disableAds && (
           <Grid sx={classes.con}>
-            <iframe
-              className="con3"
-              src="//a.magsrv.com/iframe.php?idzone=5495752&size=300x250"
-              width="300"
-              height="250"
-              scrolling="no"
-              marginWidth={0}
-              marginHeight={0}
-              frameBorder="0"
-            ></iframe>
-
-            <iframe
-              className="con4"
-              src="//a.magsrv.com/iframe.php?idzone=5495754&size=300x250"
-              width="300"
-              height="250"
-              scrolling="no"
-              marginWidth={0}
-              marginHeight={0}
-              frameBorder="0"
-            ></iframe>
+            {bottomTvIframes.map(({ className, idzone, size }) => (
+              <iframe
+                key={idzone}
+                className={className}
+                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+                width={size.split("x")[0]}
+                height={size.split("x")[1]}
+                scrolling="no"
+                marginWidth={0}
+                marginHeight={0}
+                frameBorder="0"
+              ></iframe>
+            ))}
           </Grid>
         )}
 

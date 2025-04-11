@@ -81,8 +81,23 @@ export const styles = {
     flexWrap: "wrap",
     width: "100%",
     padding: "20px 0",
-    "& .con2": {
+    "& .mob1, & .mob2": {
+      "@media (min-width: 769px)": {
+        display: "none",
+      },
+    },
+    "& .con1, & .con2": {
       "@media (max-width: 768px)": {
+        display: "none",
+      },
+    },
+    "& .con3": {
+      "@media (max-width: 950px)": {
+        display: "none",
+      },
+    },
+    "& .con4": {
+      "@media (max-width: 1240px)": {
         display: "none",
       },
     },
