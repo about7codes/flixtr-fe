@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
@@ -32,6 +32,21 @@ function SeasonCount() {
   const { id, name, seasoncount, e, p } = router.query;
   const [ep, setEp] = useState(1);
   const [player, setPlayer] = useState<1 | 2 | 3>(1);
+
+  const playerUrls = useMemo(
+    () => ({
+      1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${
+        seasoncount ?? 1
+      }-${ep}/color-ADDC35`,
+      2: `${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}&s=${
+        seasoncount ?? 1
+      }&e=${ep}`,
+      3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${
+        seasoncount ?? 1
+      }/${ep}?color=addc35`,
+    }),
+    [id, ep, seasoncount]
+  );
 
   const { data: tvShowSeasonData, isLoading: isSeasonLoading } =
     useSeriesSeasonById(id, seasoncount);
@@ -151,13 +166,18 @@ function SeasonCount() {
             </Button>
           </ButtonGroup>
 
+          <iframe
+            allowFullScreen
+            id={`watch-iframe${player}`}
+            src={playerUrls[player]}
+          />
+
+          {/* 
           {player === 1 && (
             <iframe
               allowFullScreen
               id="watch-iframe1"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${
-                seasoncount ? seasoncount : 1
-              }-${ep}/color-ADDC35`}
+              src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${seasoncount ? seasoncount : 1}-${ep}/color-ADDC35`}
             ></iframe>
           )}
 
@@ -165,9 +185,7 @@ function SeasonCount() {
             <iframe
               allowFullScreen
               id="watch-iframe2"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}&s=${
-                seasoncount ? seasoncount : 1
-              }&e=${ep}`}
+              src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}&s=${seasoncount ? seasoncount : 1}&e=${ep}`}
             ></iframe>
           )}
 
@@ -175,11 +193,9 @@ function SeasonCount() {
             <iframe
               allowFullScreen
               id="watch-iframe3"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${
-                seasoncount ? seasoncount : 1
-              }/${ep}?color=addc35`}
+              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${seasoncount ? seasoncount : 1}/${ep}?color=addc35`}
             ></iframe>
-          )}
+          )} */}
         </Grid>
 
         <Grid item sx={classes.episodeBtns}>
