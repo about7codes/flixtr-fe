@@ -31,6 +31,8 @@ const Home: NextPage<HomeProps> = () => {
   const adRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
+    const width = window.innerWidth;
+
     const script1 = document.createElement("script");
     script1.async = true;
     script1.type = "application/javascript";
@@ -50,16 +52,50 @@ const Home: NextPage<HomeProps> = () => {
     adEl2.className = "eas6a97888e2";
     adEl2.dataset.zoneid = "5494228";
 
+    const adEl3 = document.createElement("ins");
+    adEl3.className = "eas6a97888e2";
+    adEl3.dataset.zoneid = "5583506";
+
+    const adEl4 = document.createElement("ins");
+    adEl4.className = "eas6a97888e2";
+    adEl4.dataset.zoneid = "5583508";
+
+    const adEl5 = document.createElement("ins");
+    adEl5.className = "eas6a97888e10";
+    adEl5.dataset.zoneid = "5583404";
+
+    const adEl6 = document.createElement("ins");
+    adEl6.className = "eas6a97888e10";
+    adEl6.dataset.zoneid = "5583466";
+
     adRef.current?.appendChild(script1);
-    adRef.current?.appendChild(adEl1);
-    adRef.current?.appendChild(adEl2);
+
+    // Logic to append based on screen width
+    if (width >= 1241) {
+      adRef.current?.appendChild(adEl1);
+      adRef.current?.appendChild(adEl2);
+      adRef.current?.appendChild(adEl3);
+      adRef.current?.appendChild(adEl4);
+    } else if (width >= 768 && width <= 1240) {
+      adRef.current?.appendChild(adEl1);
+      adRef.current?.appendChild(adEl2);
+      if (width >= 950) {
+        adRef.current?.appendChild(adEl3);
+      }
+    } else {
+      adRef.current?.appendChild(adEl5);
+      adRef.current?.appendChild(adEl6);
+    }
+
     adRef.current?.appendChild(script2);
 
     return () => {
       adRef.current?.removeChild(script1);
-      adRef.current?.removeChild(adEl1);
-      adRef.current?.removeChild(adEl2);
-      adRef.current?.removeChild(script2);
+      [adEl1, adEl2, adEl3, adEl4, adEl5, adEl6, script2].forEach((el) => {
+        try {
+          adRef.current?.removeChild(el);
+        } catch (_) {}
+      });
     };
   }, []);
 
