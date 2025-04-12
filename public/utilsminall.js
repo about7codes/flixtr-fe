@@ -4,7 +4,7 @@
   var adConfig = {
     ads_host: "a.pemsrv.com",
     syndication_host: "s.pemsrv.com",
-    idzone: 5584210,
+    idzone: 5494212,
     popup_fallback: false,
     popup_force: true,
     chrome_enabled: true,
@@ -13,7 +13,7 @@
     frequency_count: 3,
     trigger_method: 1,
     trigger_class: "",
-    trigger_delay: 6,
+    trigger_delay: 10,
     capping_enabled: true,
     tcf_enabled: true,
     only_inline: false,
