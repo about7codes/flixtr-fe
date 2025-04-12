@@ -60,38 +60,28 @@ const Home: NextPage<HomeProps> = () => {
     adEl4.className = "eas6a97888e2";
     adEl4.dataset.zoneid = "5583508";
 
-    const adEl5 = document.createElement("ins");
-    adEl5.className = "eas6a97888e10";
-    adEl5.dataset.zoneid = "5583404";
-
-    const adEl6 = document.createElement("ins");
-    adEl6.className = "eas6a97888e10";
-    adEl6.dataset.zoneid = "5583466";
-
     adRef.current?.appendChild(script1);
 
-    // Logic to append based on screen width
     if (width >= 1241) {
       adRef.current?.appendChild(adEl1);
       adRef.current?.appendChild(adEl2);
       adRef.current?.appendChild(adEl3);
       adRef.current?.appendChild(adEl4);
-    } else if (width >= 768 && width <= 1240) {
+    } else if (width >= 950) {
       adRef.current?.appendChild(adEl1);
       adRef.current?.appendChild(adEl2);
-      if (width >= 950) {
-        adRef.current?.appendChild(adEl3);
-      }
+      adRef.current?.appendChild(adEl3);
+    } else if (width >= 620) {
+      adRef.current?.appendChild(adEl1);
+      adRef.current?.appendChild(adEl2);
     } else {
-      adRef.current?.appendChild(adEl5);
-      adRef.current?.appendChild(adEl6);
+      adRef.current?.appendChild(adEl1);
     }
 
     adRef.current?.appendChild(script2);
 
     return () => {
-      adRef.current?.removeChild(script1);
-      [adEl1, adEl2, adEl3, adEl4, adEl5, adEl6, script2].forEach((el) => {
+      [script1, adEl1, adEl2, adEl3, adEl4, script2].forEach((el) => {
         try {
           adRef.current?.removeChild(el);
         } catch (_) {}

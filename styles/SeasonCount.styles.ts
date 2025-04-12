@@ -81,13 +81,9 @@ export const styles = {
     flexWrap: "wrap",
     width: "100%",
     padding: "20px 0",
-    "& .mob1, & .mob2": {
-      "@media (min-width: 769px)": {
-        display: "none",
-      },
-    },
-    "& .con1, & .con2": {
-      "@media (max-width: 768px)": {
+
+    "& .con2": {
+      "@media (max-width: 620px)": {
         display: "none",
       },
     },
