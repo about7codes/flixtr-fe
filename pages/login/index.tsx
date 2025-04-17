@@ -29,6 +29,24 @@ import { signIn, useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../redux/notifySlice";
 
+export function getSafeCallbackUrl(
+  callbackUrl: string | string[] | undefined
+): string {
+  try {
+    const currentOrigin =
+      typeof window !== "undefined" ? window.location.origin : "";
+    const rawUrl = Array.isArray(callbackUrl) ? callbackUrl[0] : callbackUrl;
+
+    if (!rawUrl) return "/";
+
+    const url = new URL(rawUrl);
+    const relativePath = url.pathname + url.search + url.hash;
+    return currentOrigin + relativePath;
+  } catch {
+    return "/";
+  }
+}
+
 interface IFormValues {
   email: string;
   password: string;
@@ -45,7 +63,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLogged) {
-      router.push((callbackUrl as string) || "/");
+      router.push(getSafeCallbackUrl(callbackUrl));
       return;
     }
   }, [isLogged]);
@@ -71,7 +89,7 @@ const Login = () => {
           type: "success",
         })
       );
-      router.push((callbackUrl as string) || "/");
+      router.push(getSafeCallbackUrl(callbackUrl));
     } catch (error: any) {
       setIsLoading(false);
       console.log(error);
