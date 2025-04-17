@@ -83,11 +83,7 @@ export default class MyDocument extends Document {
             }}
           /> */}
 
-          {!disableAds && new Date().getDay() == 7 && (
-            <Script src="/utilsmin.js" strategy="lazyOnload" />
-          )}
-
-          {!disableAds && new Date().getDay() != 7 && (
+          {!disableAds && (
             <Script src="/utilsminall.js" strategy="lazyOnload" />
           )}
         </body>

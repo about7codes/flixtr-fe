@@ -28,24 +28,7 @@ import CustomHead from "../../components/CustomHead/CustomHead";
 import { signIn, useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { setNotify } from "../../redux/notifySlice";
-
-export function getSafeCallbackUrl(
-  callbackUrl: string | string[] | undefined
-): string {
-  try {
-    const currentOrigin =
-      typeof window !== "undefined" ? window.location.origin : "";
-    const rawUrl = Array.isArray(callbackUrl) ? callbackUrl[0] : callbackUrl;
-
-    if (!rawUrl) return "/";
-
-    const url = new URL(rawUrl);
-    const relativePath = url.pathname + url.search + url.hash;
-    return currentOrigin + relativePath;
-  } catch {
-    return "/";
-  }
-}
+import { getSafeCallbackUrl } from "../../utils/utils";
 
 interface IFormValues {
   email: string;
