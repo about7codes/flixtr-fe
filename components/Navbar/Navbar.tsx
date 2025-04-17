@@ -318,7 +318,11 @@ const Navbar = () => {
                     color="secondary"
                     variant="contained"
                     onClick={() =>
-                      router.pathname !== "/login" ? signIn() : null
+                      router.pathname !== "/login"
+                        ? signIn("credentials", {
+                            callbackUrl: window.location.href,
+                          })
+                        : null
                     }
                   >
                     Login
