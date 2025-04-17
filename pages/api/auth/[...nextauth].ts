@@ -1,3 +1,4 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -63,4 +64,18 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
-export default NextAuth(authOptions);
+
+export default function auth(req: NextApiRequest, res: NextApiResponse) {
+  // Get the host from the request headers
+  const host = req.headers.host;
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+
+  // Dynamically set NEXTAUTH_URL, but only if it's not already set
+  if (!process.env.NEXTAUTH_URL) {
+    process.env.NEXTAUTH_URL = `${protocol}://${host}`;
+  }
+
+  return NextAuth(req, res, authOptions);
+}
+
+// export default NextAuth(authOptions);
