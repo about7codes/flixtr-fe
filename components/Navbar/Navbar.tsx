@@ -111,10 +111,6 @@ const Navbar = () => {
     isError,
   } = useSearchQuery(searchVal ? searchVal : "");
 
-  // console.log("QueryErrorxx: ", error);
-  // console.log("isLoading: ", isLoading);
-  // console.log("isFetching: ", isFetching);
-
   const handleOpenNavMenu = () => {
     setSidebarOpen(!sidebarOpen);
   };
