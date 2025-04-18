@@ -73,7 +73,7 @@ const DomainChangeNotification = (): JSX.Element => {
           sx={{ display: "flex", alignItems: "center", mb: isMobile ? 1 : 0 }}
         >
           <Typography variant={isMobile ? "body2" : "body1"} component="span">
-            <strong>We've moved!</strong> FLIXBABA is now available at
+            <strong>We&apos;ve moved!</strong> FLIXBABA is now available at
             <Button
               color="inherit"
               onClick={handleVisitNewDomain}
@@ -124,10 +124,10 @@ const DomainChangeNotification = (): JSX.Element => {
           },
         }}
       >
-        <DialogTitle>We've moved to a new domain!</DialogTitle>
+        <DialogTitle>We&apos;ve moved to a new domain!</DialogTitle>
         <DialogContent>
           <Typography paragraph>
-            We're excited to announce that FLIXBABA is now available at{" "}
+            We&apos;re excited to announce that FLIXBABA is now available at{" "}
             <strong>{newDomain}</strong>. While {oldDomain} will continue to
             work for now, we encourage you to start using our new domain.
           </Typography>
