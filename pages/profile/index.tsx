@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { LoadingButton } from "@mui/lab";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -20,6 +21,7 @@ import { styles as classes } from "../../styles/profile.styles";
 import CustomHead from "../../components/CustomHead/CustomHead";
 import AvatarSelector from "../../components/AvatarSelector/AvatarSelector";
 import { useUpdateProfile } from "../../hooks/auth.hooks";
+import { getSafeCallbackUrl } from "../../utils/utils";
 
 interface IFormValues {
   name: string;
@@ -32,6 +34,7 @@ function ProfilePage() {
   const isNotLogged = status === "unauthenticated";
   const user = sessionData?.user.user;
 
+  const router = useRouter();
   const [avatarPic, setAvatarPic] = useState(user?.propic || 1);
   const [editable, setEditable] = useState(false);
   const { mutateAsync: updateProfile, isLoading: isLoadingProfileUpdate } =
@@ -39,7 +42,8 @@ function ProfilePage() {
 
   useEffect(() => {
     if (isNotLogged) {
-      signIn();
+      // signIn();
+      router.push(getSafeCallbackUrl("/login"));
       return;
     }
   }, [isNotLogged]);
@@ -60,7 +64,8 @@ function ProfilePage() {
 
       if (updateReq?.error) throw new Error(updateReq.error);
 
-      await signOut({ redirect: true, callbackUrl: "/login" });
+      await signOut({ redirect: false });
+      router.push(getSafeCallbackUrl("/login"));
     } catch (error: any) {
       console.log(error);
     }
