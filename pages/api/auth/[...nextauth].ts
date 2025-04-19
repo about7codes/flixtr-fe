@@ -57,7 +57,16 @@ export const authOptions: NextAuthOptions = {
       if (token) session.user = token.user;
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === "update" && session?.user) {
+        token.user = {
+          ...(typeof token.user === "object" && token.user !== null
+            ? token.user
+            : {}), // Keep existing token data
+          ...session.user, // Apply updates
+        };
+      }
+
       if (user) token.user = user;
       return token;
     },

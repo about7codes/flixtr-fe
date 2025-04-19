@@ -12,6 +12,7 @@ const nextConfig = {
       "i.ytimg.com",
       "flixtr.netlify.app",
       "www.flixbaba.com",
+      "www.flixbaba.net",
     ],
   },
 };

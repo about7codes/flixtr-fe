@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { LoadingButton } from "@mui/lab";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import EmailIcon from "@mui/icons-material/Email";
@@ -30,7 +30,7 @@ interface IFormValues {
 
 // TODO: refactor this component page
 function ProfilePage() {
-  const { data: sessionData, status } = useSession();
+  const { data: sessionData, status, update } = useSession();
   const isNotLogged = status === "unauthenticated";
   const user = sessionData?.user.user;
 
@@ -43,7 +43,13 @@ function ProfilePage() {
   useEffect(() => {
     if (isNotLogged) {
       // signIn();
-      router.push(getSafeCallbackUrl("/login"));
+      router.push(
+        getSafeCallbackUrl(
+          `${window.location.origin}/login?callbackUrl=${encodeURI(
+            window.location.origin
+          )}%2Fprofile`
+        )
+      );
       return;
     }
   }, [isNotLogged]);
@@ -64,8 +70,19 @@ function ProfilePage() {
 
       if (updateReq?.error) throw new Error(updateReq.error);
 
-      await signOut({ redirect: false });
-      router.push(getSafeCallbackUrl("/login"));
+      // Update session data
+      await update({
+        ...sessionData,
+        user: {
+          ...sessionData?.user,
+          user: {
+            ...sessionData?.user.user,
+            name: values.name,
+            email: values.email,
+            propic: avatarPic,
+          },
+        },
+      });
     } catch (error: any) {
       console.log(error);
     }

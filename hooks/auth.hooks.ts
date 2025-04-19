@@ -11,11 +11,10 @@ export const useUpdateProfile = () => {
       dispatch(
         setNotify({
           isOpen: true,
-          message: "Profile updated, please login.",
+          message: "Profile updated.",
           type: "success",
         })
       );
-      // console.log("Successdata", data);
     },
     onError: (error: any) => {
       dispatch(
