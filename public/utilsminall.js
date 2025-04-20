@@ -1,5 +1,5 @@
 (function () {
-  //version 6.0.0
+  //version 5.0.0
 
   var adConfig = {
     ads_host: "a.pemsrv.com",
@@ -10,10 +10,10 @@
     chrome_enabled: true,
     new_tab: true,
     frequency_period: 1,
-    frequency_count: 3,
+    frequency_count: 2,
     trigger_method: 1,
     trigger_class: "",
-    trigger_delay: 10,
+    trigger_delay: 12,
     capping_enabled: true,
     tcf_enabled: true,
     only_inline: false,
@@ -40,7 +40,7 @@
           return o;
         });
   var popMagic = {
-    version: 6,
+    version: 5,
     cookie_name: "",
     url: "",
     config: {},
@@ -100,7 +100,7 @@
           var i = this;
           this.checkTCFConsent(function () {
             "complete" === document.readyState
-              ? i.preparePopWait()
+              ? i.preparePop()
               : i.addEventToElement(window, "load", i.preparePop);
           });
         }
@@ -191,9 +191,6 @@
           e.setAttribute("data-exo-" + o, this.config[o]);
       var t = document.getElementsByTagName("body").item(0);
       t.firstChild ? t.insertBefore(e, t.firstChild) : t.appendChild(e);
-    },
-    preparePopWait: function () {
-      setTimeout(popMagic.preparePop, 400);
     },
     preparePop: function () {
       if (

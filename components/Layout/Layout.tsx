@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
     <Container className="layout">
       <CssBaseline />
       <Notify />
-      <ResourceValidator />
+      {/* <ResourceValidator /> */}
       <Box className="layout-inner">
         <Box>
           <DomainChangeNotification />
