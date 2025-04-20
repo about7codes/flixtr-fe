@@ -37,10 +37,11 @@ function SeasonCount() {
     () => ({
       1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/tv/${id}/${
         seasoncount ?? 1
-      }/${ep}`,
-      2: `${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}&s=${
+      }/${ep}?autoPlay=false`,
+      2: `${process.env.NEXT_PUBLIC_Player_URL_SE}/tv/${id}/${
         seasoncount ?? 1
-      }&e=${ep}`,
+      }/${ep}`,
+
       3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${
         seasoncount ?? 1
       }/${ep}?color=addc35`,
