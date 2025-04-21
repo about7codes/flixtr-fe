@@ -35,13 +35,12 @@ function SeasonCount() {
 
   const playerUrls = useMemo(
     () => ({
-      1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/tv/${id}/${
+      1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${
         seasoncount ?? 1
-      }/${ep}?autoPlay=false`,
+      }-${ep}/color-ADDC35`,
       2: `${process.env.NEXT_PUBLIC_Player_URL_SE}/tv/${id}/${
         seasoncount ?? 1
       }/${ep}`,
-
       3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${
         seasoncount ?? 1
       }/${ep}?color=addc35`,
