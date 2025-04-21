@@ -162,18 +162,18 @@ function SeasonCount() {
             </Button>
           </ButtonGroup>
 
-          <iframe
+          {/* <iframe
             allowFullScreen
             id={`watch-iframe${player}`}
             src={playerUrls[player]}
-          />
+          /> */}
 
-          {/* 
           {player === 1 && (
             <iframe
               allowFullScreen
               id="watch-iframe1"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${seasoncount ? seasoncount : 1}-${ep}/color-ADDC35`}
+              // src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${seasoncount ? seasoncount : 1}-${ep}/color-ADDC35`}
+              src={playerUrls[player]}
             ></iframe>
           )}
 
@@ -181,7 +181,8 @@ function SeasonCount() {
             <iframe
               allowFullScreen
               id="watch-iframe2"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}&s=${seasoncount ? seasoncount : 1}&e=${ep}`}
+              // src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}&s=${seasoncount ? seasoncount : 1}&e=${ep}`}
+              src={playerUrls[player]}
             ></iframe>
           )}
 
@@ -189,9 +190,10 @@ function SeasonCount() {
             <iframe
               allowFullScreen
               id="watch-iframe3"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${seasoncount ? seasoncount : 1}/${ep}?color=addc35`}
+              // src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${seasoncount ? seasoncount : 1}/${ep}?color=addc35`}
+              src={playerUrls[player]}
             ></iframe>
-          )} */}
+          )}
         </Grid>
 
         <Grid item sx={classes.episodeBtns}>

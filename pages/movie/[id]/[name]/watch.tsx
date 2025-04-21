@@ -27,7 +27,6 @@ function Watch() {
   const { id, name, p } = router.query;
   const [player, setPlayer] = useState<1 | 2 | 3>(1);
 
-  //
   const playerUrls = useMemo(
     () => ({
       1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`,
@@ -140,18 +139,18 @@ function Watch() {
             </Button>
           </ButtonGroup>
 
-          <iframe
+          {/* <iframe
             allowFullScreen
             id={`watch-iframe${player}`}
             src={playerUrls[player]}
-          />
+          /> */}
 
-          {/* 
           {player === 1 && (
             <iframe
               allowFullScreen
               id="watch-iframe1"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`}
+              // src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`}
+              src={playerUrls[player]}
             ></iframe>
           )}
 
@@ -159,7 +158,8 @@ function Watch() {
             <iframe
               allowFullScreen
               id="watch-iframe2"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}`}
+              // src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}`}
+              src={playerUrls[player]}
             ></iframe>
           )}
 
@@ -167,10 +167,10 @@ function Watch() {
             <iframe
               allowFullScreen
               id="watch-iframe3"
-              src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}?color=addc35`}
+              // src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}?color=addc35`}
+              src={playerUrls[player]}
             ></iframe>
           )}
-           */}
         </Grid>
 
         {!disableAds && (
