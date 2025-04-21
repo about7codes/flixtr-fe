@@ -72,10 +72,6 @@ function SeasonCount() {
     name: showTitle,
   } = tvShowData as SeriesResult;
 
-  // console.log(router.query);
-  // console.log("tvShowData", tvShowData);
-  // console.log('tvShowSeasonData', tvShowSeasonData)
-
   const changePlayer = (playerId: typeof player) => {
     setPlayer((prevPlayerId) => {
       if (prevPlayerId === playerId) return prevPlayerId;
