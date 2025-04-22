@@ -162,12 +162,6 @@ function SeasonCount() {
             </Button>
           </ButtonGroup>
 
-          {/* <iframe
-            allowFullScreen
-            id={`watch-iframe${player}`}
-            src={playerUrls[player]}
-          /> */}
-
           {player === 1 && (
             <iframe
               allowFullScreen
