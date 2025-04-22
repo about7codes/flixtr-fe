@@ -66,7 +66,7 @@ export const styles = {
   },
   moviePlayer: {
     width: "100%",
-    "& #watch-iframe1": {
+    "& #watch-iframe1, & #watch-iframe2": {
       backgroundColor: "primary.main",
     },
     "& iframe": {

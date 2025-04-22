@@ -40,7 +40,7 @@ function SeasonCount() {
       }-${ep}/color-ADDC35`,
       2: `${process.env.NEXT_PUBLIC_Player_URL_SE}/tv/${id}/${
         seasoncount ?? 1
-      }/${ep}`,
+      }/${ep}?adFree=true`,
       3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${
         seasoncount ?? 1
       }/${ep}?color=addc35`,
