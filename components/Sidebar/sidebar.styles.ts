@@ -28,7 +28,7 @@ export const styles = {
     bgcolor: "secondary.main",
     width: 100,
     height: 100,
-    p: 2,
+    p: 0,
     fontSize: "50px",
   },
 };
