@@ -50,7 +50,7 @@ export default function CommentItem({
   };
 
   return (
-    <Box sx={{ mb: 2, ml: comment.parentComment ? 4 : 0 }}>
+    <Box id={comment._id} sx={{ mb: 2, ml: comment.parentComment ? 4 : 0 }}>
       <Box display="flex" alignItems="center" gap={1}>
         <Avatar src={`/assets/${comment.owner.propic}.png`} />
         <Typography variant="subtitle2" textTransform="capitalize">

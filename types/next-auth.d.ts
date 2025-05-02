@@ -8,6 +8,7 @@ declare module "next-auth" {
         name: string;
         email: string;
         propic: number;
+        isAdmin: boolean;
         _id: string;
         createdAt: Date;
         updatedAt: Date;
