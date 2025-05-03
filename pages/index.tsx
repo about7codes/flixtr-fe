@@ -144,6 +144,25 @@ const Home: NextPage<HomeProps> = () => {
           )}
         </Box>
 
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              atOptions = {
+                'key' : 'e87c2a05f39dbb4773d9fd6fa68da029',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            `,
+          }}
+        ></script>
+        <script
+          type="text/javascript"
+          src="//www.highperformanceformat.com/e87c2a05f39dbb4773d9fd6fa68da029/invoke.js"
+        ></script>
+
         {!disableAds && (
           <Box
             sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
