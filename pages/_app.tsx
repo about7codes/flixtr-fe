@@ -41,21 +41,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     };
   }, [router.events]);
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    // script.src = "//pl26532115.profitableratecpm.com/98/2a/a8/982aa8536c1400fdec4f8f995c0448c6.js";
-    script.src =
-      "https://pl26542163.profitableratecpm.com/13/9f/db/139fdb515caf3f72e63728c75deb5094.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      // Optional cleanup if script is removed on unmount
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>

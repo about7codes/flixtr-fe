@@ -15,7 +15,6 @@ import MovieSlider from "../components/MovieSlider/MovieSlider";
 import SkeletonSlider from "../components/SkeletonSlider/SkeletonSlider";
 import SkeletonMovieSlider from "../components/SkeletonMovieSlider/SkeletonMovieSlider";
 import { disableAds } from "../utils/utils";
-import Script from "next/script";
 
 type HomeProps = {};
 
@@ -144,24 +143,6 @@ const Home: NextPage<HomeProps> = () => {
             <TvTileSlider seriesData={seriesData} />
           )}
         </Box>
-
-        <>
-          <Script id="highperformance-config" strategy="afterInteractive">
-            {`
-              atOptions = {
-                'key' : 'e87c2a05f39dbb4773d9fd6fa68da029',
-                'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
-                'params' : {}
-              };
-            `}
-          </Script>
-          <Script
-            src="https://www.highperformanceformat.com/e87c2a05f39dbb4773d9fd6fa68da029/invoke.js"
-            strategy="afterInteractive"
-          />
-        </>
 
         {!disableAds && (
           <Box
