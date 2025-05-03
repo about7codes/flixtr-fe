@@ -54,7 +54,7 @@ export default class MyDocument extends Document {
             `,
             }}
           />
-
+          {/* 
           <script
             type="text/javascript"
             data-cfasync="false"
@@ -63,7 +63,7 @@ export default class MyDocument extends Document {
       (function(){var w=window,f="d90f92c639eb9d862f40bf5856c17060",z=[["siteId",829+396-409+5195756],["minBid",0],["popundersPerIP","0"],["delayBetween",12],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],k=["d3d3LmFudGlhZGJsb2Nrc3lzdGVtcy5jb20vYnN1cnZleS5rby5taW4uY3Nz","ZDNjb2Q4MHRobjdxbmQuY2xvdWRmcm9udC5uZXQvZkROVEgvY2NhbnZhcy1uZXN0Lmpz"],d=-1,p,n,v=function(){clearTimeout(n);d++;if(k[d]&&!(1772188249000<(new Date).getTime()&&1<d)){p=w.document.createElement("script");p.type="text/javascript";p.async=!0;var u=w.document.getElementsByTagName("script")[0];p.src="https://"+atob(k[d]);p.crossOrigin="anonymous";p.onerror=v;p.onload=function(){clearTimeout(n);w[f.slice(0,16)+f.slice(0,16)]||v()};n=setTimeout(v,5E3);u.parentNode.insertBefore(p,u)}};if(!w[f]){try{Object.freeze(w[f]=z)}catch(e){}v()}})();
     `,
             }}
-          ></script>
+          ></script> */}
         </Head>
         <body>
           {/* <script
@@ -94,8 +94,15 @@ export default class MyDocument extends Document {
           /> */}
 
           {!disableAds && (
-            <></>
-            // <Script src="/utilsminall.js" strategy="lazyOnload" />
+            <>
+              <Script src="/utilsminall.js" strategy="lazyOnload" />
+              <script
+                src="//madurird.com/tag.min.js"
+                data-zone="9289837"
+                data-cfasync="false"
+                async
+              ></script>
+            </>
           )}
         </body>
       </Html>
