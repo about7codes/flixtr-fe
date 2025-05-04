@@ -29,8 +29,8 @@ function Watch() {
 
   const playerUrls = useMemo(
     () => ({
-      1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`,
-      2: `${process.env.NEXT_PUBLIC_Player_URL_SE}/movie/${id}?adFree=true`,
+      1: `${process.env.NEXT_PUBLIC_Player_URL_SE}/movie/${id}?adFree=true`,
+      2: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`,
       3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}?color=addc35`,
     }),
     [id]

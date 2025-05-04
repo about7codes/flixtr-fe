@@ -84,7 +84,8 @@ export default class MyDocument extends Document {
           /> */}
 
           {!disableAds && (
-            <Script src="/utilsminall.js" strategy="lazyOnload" />
+            <></>
+            // <Script src="/utilsminall.js" strategy="lazyOnload" />
           )}
         </body>
       </Html>
