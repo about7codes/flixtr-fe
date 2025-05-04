@@ -21,11 +21,13 @@ import {
   topMovieIframes,
   bottomMovieIframes,
 } from "../../../../utils/iframeUtils";
+import ShareButtons from "../../../../components/ShareButtons/ShareButtons";
 
 function Watch() {
   const router = useRouter();
   const { id, name, p } = router.query;
   const [player, setPlayer] = useState<1 | 2 | 3>(1);
+  const [shareUrl, setShareUrl] = useState("");
 
   const playerUrls = useMemo(
     () => ({
@@ -37,6 +39,12 @@ function Watch() {
   );
 
   const { data: singleMovieData, isLoading } = useMovieById(id);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setShareUrl(window.location.href);
+    }
+  }, []);
 
   useEffect(() => {
     const pNum = convertToNumber(p);
@@ -191,6 +199,7 @@ function Watch() {
           </Grid>
         )}
 
+        <ShareButtons url={shareUrl} title={title} />
         <Comments media_type="movie" />
 
         {[
