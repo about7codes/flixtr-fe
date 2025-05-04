@@ -54,16 +54,6 @@ export default class MyDocument extends Document {
             `,
             }}
           />
-
-          {/* <script
-            type="text/javascript"
-            src="//pl26532115.profitableratecpm.com/98/2a/a8/982aa8536c1400fdec4f8f995c0448c6.js"
-          ></script> */}
-
-          {/* <Script
-            src="//pl26532115.profitableratecpm.com/98/2a/a8/982aa8536c1400fdec4f8f995c0448c6.js"
-            strategy="lazyOnload"
-          /> */}
         </Head>
         <body>
           {/* <script
@@ -94,8 +84,7 @@ export default class MyDocument extends Document {
           /> */}
 
           {!disableAds && (
-            <></>
-            // <Script src="/utilsminall.js" strategy="lazyOnload" />
+            <Script src="/utilsminall.js" strategy="lazyOnload" />
           )}
         </body>
       </Html>
