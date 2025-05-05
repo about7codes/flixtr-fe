@@ -41,6 +41,20 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     };
   }, [router.events]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hostname = window.location.hostname;
+      console.log(hostname);
+
+      if (!hostname.endsWith(".net")) {
+        const script = document.createElement("script");
+        script.src = "/utilsminall.js";
+        script.defer = true;
+        document.body.appendChild(script);
+      }
+    }
+  }, []);
+
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>

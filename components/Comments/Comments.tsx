@@ -189,6 +189,11 @@ export default function Comments({
           sm: 3,
           md: 3,
         },
+        mt: {
+          xs: 0,
+          sm: 0,
+          md: 0,
+        },
         width: "100%",
       }}
     >

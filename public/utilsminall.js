@@ -1,5 +1,5 @@
 (function () {
-  //version 5.0.0
+  //version 6.0.0
 
   var adConfig = {
     ads_host: "a.pemsrv.com",
@@ -40,7 +40,7 @@
           return o;
         });
   var popMagic = {
-    version: 5,
+    version: 6,
     cookie_name: "",
     url: "",
     config: {},
@@ -100,7 +100,7 @@
           var i = this;
           this.checkTCFConsent(function () {
             "complete" === document.readyState
-              ? i.preparePop()
+              ? i.preparePopWait()
               : i.addEventToElement(window, "load", i.preparePop);
           });
         }
@@ -191,6 +191,9 @@
           e.setAttribute("data-exo-" + o, this.config[o]);
       var t = document.getElementsByTagName("body").item(0);
       t.firstChild ? t.insertBefore(e, t.firstChild) : t.appendChild(e);
+    },
+    preparePopWait: function () {
+      setTimeout(popMagic.preparePop, 400);
     },
     preparePop: function () {
       if (

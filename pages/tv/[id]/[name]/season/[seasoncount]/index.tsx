@@ -25,6 +25,7 @@ import {
   topTvIframes,
   bottomTvIframes,
 } from "../../../../../../utils/iframeUtils";
+import ShareButtons from "../../../../../../components/ShareButtons/ShareButtons";
 
 function SeasonCount() {
   const router = useRouter();
@@ -32,15 +33,16 @@ function SeasonCount() {
   const { id, name, seasoncount, e, p } = router.query;
   const [ep, setEp] = useState(1);
   const [player, setPlayer] = useState<1 | 2 | 3>(1);
+  const [shareUrl, setShareUrl] = useState("");
 
   const playerUrls = useMemo(
     () => ({
-      1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${
-        seasoncount ?? 1
-      }-${ep}/color-ADDC35`,
-      2: `${process.env.NEXT_PUBLIC_Player_URL_SE}/tv/${id}/${
+      1: `${process.env.NEXT_PUBLIC_Player_URL_SE}/tv/${id}/${
         seasoncount ?? 1
       }/${ep}?adFree=true`,
+      2: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${
+        seasoncount ?? 1
+      }-${ep}/color-ADDC35`,
       3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${
         seasoncount ?? 1
       }/${ep}?color=addc35`,
@@ -51,6 +53,12 @@ function SeasonCount() {
   const { data: tvShowSeasonData, isLoading: isSeasonLoading } =
     useSeriesSeasonById(id, seasoncount);
   const { data: tvShowData, isLoading: isShowLoading } = useSeriesById(id);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setShareUrl(window.location.href);
+    }
+  }, []);
 
   useEffect(() => {
     const eNum = convertToNumber(e);
@@ -240,6 +248,10 @@ function SeasonCount() {
           </Grid>
         )}
 
+        <ShareButtons
+          url={shareUrl}
+          title={`Watch ${showTitle} - S${seasoncount}E${ep}`}
+        />
         <Comments media_type="tv" />
 
         {[
