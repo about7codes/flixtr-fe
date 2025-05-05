@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
         // Method 2: Alternative if you need to ensure loading order
         // script.async = false;
-        // script.defer = true;
+        script.defer = true;
 
         document.head.appendChild(script);
       }
