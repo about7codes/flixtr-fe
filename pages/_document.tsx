@@ -54,6 +54,12 @@ export default class MyDocument extends Document {
             `,
             }}
           />
+
+          {/* <Script
+            id="pa-script"
+            strategy="beforeInteractive"
+            src="./utilsminall.js"
+          /> */}
         </Head>
         <body>
           {/* <script
