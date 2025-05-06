@@ -58,7 +58,7 @@ function SeasonCount() {
     if (typeof window !== "undefined") {
       setShareUrl(window.location.href);
     }
-  }, []);
+  }, [e, p]);
 
   useEffect(() => {
     const eNum = convertToNumber(e);
@@ -251,6 +251,7 @@ function SeasonCount() {
         <ShareButtons
           url={shareUrl}
           title={`Watch ${showTitle} - S${seasoncount}E${ep}`}
+          header="Like this episode? Share it with your friends!"
         />
         <Comments media_type="tv" />
 

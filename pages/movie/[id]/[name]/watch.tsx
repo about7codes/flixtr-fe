@@ -44,7 +44,7 @@ function Watch() {
     if (typeof window !== "undefined") {
       setShareUrl(window.location.href);
     }
-  }, []);
+  }, [p]);
 
   useEffect(() => {
     const pNum = convertToNumber(p);
@@ -199,7 +199,11 @@ function Watch() {
           </Grid>
         )}
 
-        <ShareButtons url={shareUrl} title={title} />
+        <ShareButtons
+          title={title}
+          url={shareUrl}
+          header="Like this movie? Share it with your friends!"
+        />
         <Comments media_type="movie" />
 
         {[
