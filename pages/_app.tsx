@@ -58,12 +58,20 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         script.dataset.cfasync = "false";
 
         script.src = "/utilsminall.js";
-
-        // Method 2: Alternative if you need to ensure loading order
-        // script.async = false;
         script.defer = true;
 
         document.head.appendChild(script);
+      } else {
+        console.log("Loaded for .net");
+
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.dataset.cfasync = "false";
+
+        script.src = "/utilsminallnet.js";
+        script.defer = true;
+
+        // document.head.appendChild(script);
       }
     }
   }, []);
