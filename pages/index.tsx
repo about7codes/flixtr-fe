@@ -147,8 +147,8 @@ const Home: NextPage<HomeProps> = () => {
 
         <Box sx={classes.shareContainer}>
           <Typography variant="h4" sx={classes.shareHead}>
-            Thanks for visiting — if you think others might like this, sharing
-            is always appreciated.
+            Enjoying the site? Feel free to share it with others — every bit
+            helps!
           </Typography>
           <ShareButtons title={"Flixbaba - Watch Movies & TV Shows"} />
         </Box>

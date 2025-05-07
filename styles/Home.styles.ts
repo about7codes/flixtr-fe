@@ -18,7 +18,7 @@ export const styles = {
     },
   },
   shareContainer: {
-    maxWidth: "80%",
+    maxWidth: { xs: "90%", sm: "80%", md: "80%" },
     width: "100%",
     m: "0 auto",
     mb: { xs: 4, sm: 4, md: 8 },

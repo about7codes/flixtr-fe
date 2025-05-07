@@ -15,6 +15,7 @@ export const styles = {
   header: {
     mb: "16px",
     fontSize: { xs: "1rem", sm: "1.1rem", md: "1.25rem" },
+    textAlign: "center",
   },
   copyButton: {
     display: "inline-block",

@@ -96,7 +96,12 @@ export default function ShareButtons({
         </Typography>
       )}
 
-      <Box display="flex" flexWrap="wrap" justifyContent="center" gap={1}>
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="center"
+        gap={{ xs: 0.5, sm: 1 }}
+      >
         {buttons.map(({ name, Button, Icon, Count, props }) => (
           <Box key={name} textAlign="center" width="52px" whiteSpace="nowrap">
             <Tooltip title={name} arrow>
