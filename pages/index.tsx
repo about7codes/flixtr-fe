@@ -14,6 +14,7 @@ import PersonTileSlider from "../components/PersonTileSlider/PersonTileSlider";
 import MovieSlider from "../components/MovieSlider/MovieSlider";
 import SkeletonSlider from "../components/SkeletonSlider/SkeletonSlider";
 import SkeletonMovieSlider from "../components/SkeletonMovieSlider/SkeletonMovieSlider";
+import ShareButtons from "../components/ShareButtons/ShareButtons";
 import { disableAds } from "../utils/utils";
 
 type HomeProps = {};
@@ -142,6 +143,14 @@ const Home: NextPage<HomeProps> = () => {
           ) : (
             <TvTileSlider seriesData={seriesData} />
           )}
+        </Box>
+
+        <Box sx={classes.shareContainer}>
+          <Typography variant="h4" sx={classes.shareHead}>
+            Enjoying the site? Feel free to share it with others — every bit
+            helps!
+          </Typography>
+          <ShareButtons title={"Flixbaba - Watch Movies & TV Shows"} />
         </Box>
 
         {!disableAds && (
