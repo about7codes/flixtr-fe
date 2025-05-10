@@ -21,6 +21,42 @@ export const styles = {
     marginRight: "5px",
     fontSize: "14px",
   },
+  seasonSwitcher: {
+    margin: { xs: "16px 20px 0 20px", sm: "16px 32px 0 32px" },
+    maxWidth: { xs: "100%", sm: "300px" },
+    width: "100%",
+  },
+  seasonSelect: {
+    width: "100%",
+    "& .MuiInputBase-root, & .MuiInputBase-root:hover, & .Mui-focused": {
+      backgroundColor: "rgba(255,255,255, 0.1)",
+    },
+    "& .MuiSelect-select": {
+      fontSize: "14px",
+    },
+    "& .MuiFormLabel-root, & .MuiFormLabel-root.Mui-focused": {
+      color: "secondary.main",
+      background: "none",
+      fontSize: "14px",
+      top: "3px",
+    },
+    "& .MuiSvgIcon-root": {
+      color: "secondary.main",
+    },
+  },
+  seasonSelectItem: {
+    "&.MuiMenuItem-root:hover": {
+      backgroundColor: "rgba(0, 0, 0, 0.2)",
+    },
+    "&.MuiMenuItem-root.Mui-selected": {
+      backgroundColor: "secondary.main",
+      color: "secondary.contrastText",
+    },
+    "&.Mui-selected, &.Mui-selected:hover": {
+      backgroundColor: "secondary.main",
+      color: "secondary.contrastText",
+    },
+  },
   episodeBtns: {
     backgroundColor: "#000",
     borderRadius: "6px",
@@ -29,6 +65,7 @@ export const styles = {
     justifyItems: "center",
     width: "100%",
     margin: "20px",
+    mt: 0,
     maxHeight: "230px",
     overflow: "hidden",
     overflowY: "auto",
@@ -47,6 +84,7 @@ export const styles = {
     },
     "@media (max-width: 900px)": {
       margin: "20px 10px",
+      mt: 0,
     },
   },
   episodeBtnBox: {
@@ -96,6 +134,16 @@ export const styles = {
       "@media (max-width: 1240px)": {
         display: "none",
       },
+    },
+  },
+  alertBar: {
+    backgroundColor: "#addc3512",
+    color: "secondary.main",
+    padding: "0 10px",
+    m: "0 24px 0 24px",
+    "@media (max-width: 900px)": {
+      width: "calc(100% - 20px)",
+      m: "0px 10px 0 10px",
     },
   },
   btnGroup: {

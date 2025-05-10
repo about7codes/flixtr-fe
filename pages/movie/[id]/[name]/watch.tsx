@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
+  Alert,
   Button,
   ButtonGroup,
   Grid,
@@ -31,8 +32,8 @@ function Watch() {
 
   const playerUrls = useMemo(
     () => ({
-      1: `${process.env.NEXT_PUBLIC_Player_URL_SE}/movie/${id}?adFree=true`,
-      2: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`,
+      1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`,
+      2: `${process.env.NEXT_PUBLIC_Player_URL_SE}/movie/${id}?adFree=true`,
       3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}?color=addc35`,
     }),
     [id]
@@ -117,6 +118,10 @@ function Watch() {
             ))}
           </Grid>
         )}
+
+        <Alert severity="info" sx={classes.alertBar} color="success">
+          Video not playing? Please switch to another player.
+        </Alert>
 
         <Grid item sx={classes.moviePlayer}>
           <ButtonGroup

@@ -17,13 +17,23 @@ export enum SeriesQueryKey {
   TopSeries = "TopSeries",
 }
 
+const options = {
+  staleTime: 10 * 60 * 1000, // 10 minutes
+  cacheTime: 30 * 60 * 1000, // 30 minutes
+  refetchOnWindowFocus: false,
+  refetchInterval: false as false,
+  keepPreviousData: true,
+};
+
 export const useSeries = () => {
-  return useQuery([SeriesQueryKey.SeriesData], getSeries);
+  return useQuery([SeriesQueryKey.SeriesData], getSeries, options);
 };
 
 export const useSeriesById = (seriesId?: string | string[]) => {
-  return useQuery([SeriesQueryKey.SingleShowData, seriesId], () =>
-    getSeriesById(seriesId)
+  return useQuery(
+    [SeriesQueryKey.SingleShowData, seriesId],
+    () => getSeriesById(seriesId),
+    options
   );
 };
 
@@ -31,8 +41,10 @@ export const useSeriesSeasonById = (
   seriesId: string | string[] | undefined,
   seasonCount: string | string[] | undefined
 ) => {
-  return useQuery([SeriesQueryKey.TvShowSeasonData, seriesId], () =>
-    getSeriesSeasonById(seriesId, seasonCount)
+  return useQuery(
+    [SeriesQueryKey.TvShowSeasonData, seriesId, seasonCount],
+    () => getSeriesSeasonById(seriesId, seasonCount),
+    options
   );
 };
 
@@ -41,6 +53,7 @@ export const usePopularSeries = () => {
     [SeriesQueryKey.PopularSeries],
     ({ pageParam = 1 }) => getPopularSeries(pageParam),
     {
+      ...options,
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
       },
@@ -56,6 +69,7 @@ export const useRecentSeries = () => {
     [SeriesQueryKey.RecentSeries],
     ({ pageParam = 1 }) => getRecentSeries(pageParam),
     {
+      ...options,
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
       },
@@ -71,6 +85,7 @@ export const useTopSeries = () => {
     [SeriesQueryKey.TopSeries],
     ({ pageParam = 1 }) => getTopSeries(pageParam),
     {
+      ...options,
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
       },

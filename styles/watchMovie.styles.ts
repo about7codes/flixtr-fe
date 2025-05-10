@@ -52,6 +52,16 @@ export const styles = {
       },
     },
   },
+  alertBar: {
+    backgroundColor: "#addc3512",
+    color: "secondary.main",
+    padding: "0 10px",
+    m: "0 24px 0 24px",
+    "@media (max-width: 900px)": {
+      width: "calc(100% - 20px)",
+      m: "0px 10px 0 10px",
+    },
+  },
   btnGroup: {
     width: "calc(100% - 48px)",
     m: "15px 24px 0 24px",

@@ -19,13 +19,23 @@ export enum MovieQueryKey {
   SearchPageQuery = "SearchPageQuery",
 }
 
+const options = {
+  staleTime: 10 * 60 * 1000, // 10 minutes
+  cacheTime: 30 * 60 * 1000, // 30 minutes
+  refetchOnWindowFocus: false,
+  refetchInterval: false as false,
+  keepPreviousData: true,
+};
+
 export const useMovies = () => {
-  return useQuery([MovieQueryKey.MovieData], getMovies);
+  return useQuery([MovieQueryKey.MovieData], getMovies, options);
 };
 
 export const useMovieById = (movieId?: string | string[]) => {
-  return useQuery([MovieQueryKey.SingleMovieData, movieId], () =>
-    getMovieById(movieId)
+  return useQuery(
+    [MovieQueryKey.SingleMovieData, movieId],
+    () => getMovieById(movieId),
+    options
   );
 };
 
@@ -37,6 +47,7 @@ export const usePopularMovies = (
     [MovieQueryKey.PopularMovies, conutry, releaseYear],
     (props) => getPopularMovies(props),
     {
+      ...options,
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
       },
@@ -55,6 +66,7 @@ export const useRecentMovies = (
     [MovieQueryKey.RecentMovies, conutry, releaseYear],
     (props) => getRecentMovies(props),
     {
+      ...options,
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
       },
@@ -70,6 +82,7 @@ export const useTopMovies = (releaseYear?: number | "", conutry?: IConutry) => {
     [MovieQueryKey.TopMovies, conutry, releaseYear],
     (prop) => getTopMovies(prop),
     {
+      ...options,
       getNextPageParam: ({ page, total_pages }) => {
         return page < total_pages ? page + 1 : undefined;
       },
