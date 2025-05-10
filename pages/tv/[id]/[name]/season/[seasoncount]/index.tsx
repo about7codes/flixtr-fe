@@ -2,11 +2,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
+  Alert,
   Box,
   Button,
   ButtonGroup,
+  FormControl,
   Grid,
+  InputLabel,
   LinearProgress,
+  MenuItem,
+  Select,
   Typography,
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -30,29 +35,29 @@ import ShareButtons from "../../../../../../components/ShareButtons/ShareButtons
 function SeasonCount() {
   const router = useRouter();
 
-  const { id, name, seasoncount, e, p } = router.query;
+  const { id, name, seasoncount = "1", e, p } = router.query;
+
   const [ep, setEp] = useState(1);
   const [player, setPlayer] = useState<1 | 2 | 3>(1);
   const [shareUrl, setShareUrl] = useState("");
 
+  const [selectedSeason, setSelectedSeason] = useState(seasoncount);
+
   const playerUrls = useMemo(
     () => ({
-      1: `${process.env.NEXT_PUBLIC_Player_URL_SE}/tv/${id}/${
-        seasoncount ?? 1
-      }/${ep}?adFree=true`,
-      2: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${
-        seasoncount ?? 1
-      }-${ep}/color-ADDC35`,
-      3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${
-        seasoncount ?? 1
-      }/${ep}?color=addc35`,
+      1: `${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${selectedSeason}-${ep}/color-ADDC35`,
+      2: `${process.env.NEXT_PUBLIC_Player_URL_SE}/tv/${id}/${selectedSeason}/${ep}?adFree=true`,
+      3: `${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${selectedSeason}/${ep}?color=addc35`,
     }),
-    [id, ep, seasoncount]
+    [id, ep, selectedSeason]
   );
 
   const { data: tvShowSeasonData, isLoading: isSeasonLoading } =
-    useSeriesSeasonById(id, seasoncount);
+    useSeriesSeasonById(id, selectedSeason);
+
   const { data: tvShowData, isLoading: isShowLoading } = useSeriesById(id);
+  // console.log("tvShowData", tvShowData);
+  // console.log("tvShowSeasonData: " + selectedSeason, tvShowSeasonData);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -66,11 +71,15 @@ function SeasonCount() {
 
     if (eNum) setEp(eNum);
     if (pNum) {
-      if (pNum === 1) setPlayer(pNum);
-      if (pNum === 2) setPlayer(pNum);
-      if (pNum === 3) setPlayer(pNum);
+      if (pNum === 1 || pNum === 2 || pNum === 3) setPlayer(pNum);
     }
   }, [isShowLoading]);
+
+  useEffect(() => {
+    if (seasoncount) {
+      setSelectedSeason(seasoncount.toString());
+    }
+  }, [seasoncount]);
 
   if (isSeasonLoading || isShowLoading) return <LinearProgress />;
 
@@ -102,7 +111,7 @@ function SeasonCount() {
   return (
     <>
       <CustomHead
-        title={`Watching season ${seasoncount} episode ${ep} of ${showTitle}`}
+        title={`Watching season ${selectedSeason} episode ${ep} of ${showTitle}`}
         media_type="tv"
       />
       <Grid container>
@@ -118,7 +127,7 @@ function SeasonCount() {
             </Button>
           </Link>
           <Typography sx={{ textTransform: "capitalize", paddingLeft: "10px" }}>
-            Watching season {seasoncount} episode {ep} of{" "}
+            Watching season {selectedSeason} episode {ep} of{" "}
             {typeof name === "string" && name?.replaceAll("-", " ")}
           </Typography>
         </Grid>
@@ -141,7 +150,11 @@ function SeasonCount() {
           </Grid>
         )}
 
-        <Grid item sx={classes.moviePlayer}>
+        <Alert severity="info" sx={classes.alertBar} color="success">
+          Video not playing? Please switch to another player.
+        </Alert>
+
+        <Grid item sx={classes.moviePlayer} id="players">
           <ButtonGroup
             variant="contained"
             aria-label="Media player list"
@@ -198,6 +211,60 @@ function SeasonCount() {
           )}
         </Grid>
 
+        {/* Season Switcher */}
+        {tvShowData?.seasons && tvShowData?.seasons?.length > 0 && (
+          <Box sx={classes.seasonSwitcher}>
+            <FormControl
+              sx={classes.seasonSelect}
+              variant="filled"
+              size="small"
+              color="secondary"
+            >
+              <InputLabel id="season-select-label">Season</InputLabel>
+              <Select
+                labelId="season-select-label"
+                value={selectedSeason}
+                label="Season"
+                onChange={(e) => {
+                  const newSeason = e.target.value;
+                  setSelectedSeason(newSeason);
+                  setEp(1);
+                  router
+                    .push({
+                      pathname: `/tv/${id}/${name}/season/${newSeason}`,
+                      query: { e: 1, p: player },
+                    })
+                    .then(() => {
+                      const el = document.getElementById("players");
+                      if (el) {
+                        el.scrollIntoView({ behavior: "smooth" });
+                      }
+                    });
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      "& .MuiList-root": {
+                        backgroundColor: "primary.main",
+                      },
+                    },
+                  },
+                }}
+              >
+                {tvShowData.seasons.map((season) => (
+                  <MenuItem
+                    key={season.id}
+                    value={season.season_number}
+                    sx={classes.seasonSelectItem}
+                  >
+                    {season.name || `Season ${season.season_number}`}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        )}
+
         <Grid item sx={classes.episodeBtns}>
           {tvShowSeasonData?.episodes?.map(({ episode_number }) => (
             <Box sx={classes.episodeBtnBox} key={episode_number}>
@@ -212,12 +279,13 @@ function SeasonCount() {
                     router.replace(
                       {
                         pathname: router.asPath.split("?")[0],
-                        query: { e: episode_number, p: player },
+                        query: {
+                          e: episode_number,
+                          p: player,
+                        },
                       },
                       undefined,
-                      {
-                        shallow: true,
-                      }
+                      { shallow: true }
                     );
 
                     return episode_number;
@@ -250,7 +318,7 @@ function SeasonCount() {
 
         <ShareButtons
           url={shareUrl}
-          title={`Watch ${showTitle} - S${seasoncount}E${ep}`}
+          title={`Watch ${showTitle} - S${selectedSeason}E${ep}`}
           header="Like this episode? Share it with your friends!"
         />
         <Comments media_type="tv" />

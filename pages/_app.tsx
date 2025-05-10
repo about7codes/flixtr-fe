@@ -71,7 +71,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         script.src = "/utilsminallnet.js";
         script.defer = true;
 
-        // document.head.appendChild(script);
+        document.head.appendChild(script);
       }
     }
   }, []);
