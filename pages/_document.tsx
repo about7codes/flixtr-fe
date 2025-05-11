@@ -16,11 +16,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
 
-          <meta
-            name="7cc0620cc4cccc00edbbbd5d61e8e0e00c243737"
-            content="7cc0620cc4cccc00edbbbd5d61e8e0e00c243737"
-          />
-
           <meta name="referrer" content="no-referrer-when-downgrade" />
 
           <script
