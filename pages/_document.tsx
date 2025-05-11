@@ -20,14 +20,6 @@ export default class MyDocument extends Document {
             name="7cc0620cc4cccc00edbbbd5d61e8e0e00c243737"
             content="7cc0620cc4cccc00edbbbd5d61e8e0e00c243737"
           />
-          <meta
-            name="64c4f99197614795aaa2cb9ef8f4dff234bfc8c7"
-            content="64c4f99197614795aaa2cb9ef8f4dff234bfc8c7"
-          />
-          <meta
-            name="5f737ef822071e4cdef909eaeef37b63b5560385"
-            content="5f737ef822071e4cdef909eaeef37b63b5560385"
-          />
 
           <meta name="referrer" content="no-referrer-when-downgrade" />
 
