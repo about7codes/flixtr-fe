@@ -29,64 +29,116 @@ const Home: NextPage<HomeProps> = () => {
   // console.log("MovieDATA", toPercent(movieData[1].vote_average || 0));
   // console.log("seriesDATA", seriesData);
 
-  const adRef = useRef<HTMLDivElement>();
+  // const adRef = useRef<HTMLDivElement>();
+
+  // useEffect(() => {
+  //   const width = window.innerWidth;
+
+  //   const script1 = document.createElement("script");
+  //   script1.async = true;
+  //   script1.type = "application/javascript";
+  //   script1.src = "https://a.magsrv.com/ad-provider.js";
+
+  //   const script2 = document.createElement("script");
+  //   script2.async = true;
+  //   script2.type = "application/javascript";
+  //   script2.innerHTML =
+  //     '(AdProvider = window.AdProvider || []).push({"serve": {}});';
+
+  //   const adEl1 = document.createElement("ins");
+  //   adEl1.className = "eas6a97888e2";
+  //   adEl1.dataset.zoneid = "5494226";
+
+  //   const adEl2 = document.createElement("ins");
+  //   adEl2.className = "eas6a97888e2";
+  //   adEl2.dataset.zoneid = "5494228";
+
+  //   const adEl3 = document.createElement("ins");
+  //   adEl3.className = "eas6a97888e2";
+  //   adEl3.dataset.zoneid = "5583506";
+
+  //   const adEl4 = document.createElement("ins");
+  //   adEl4.className = "eas6a97888e2";
+  //   adEl4.dataset.zoneid = "5583508";
+
+  //   adRef.current?.appendChild(script1);
+
+  //   if (width >= 1241) {
+  //     adRef.current?.appendChild(adEl1);
+  //     adRef.current?.appendChild(adEl2);
+  //     adRef.current?.appendChild(adEl3);
+  //     adRef.current?.appendChild(adEl4);
+  //   } else if (width >= 950) {
+  //     adRef.current?.appendChild(adEl1);
+  //     adRef.current?.appendChild(adEl2);
+  //     adRef.current?.appendChild(adEl3);
+  //   } else if (width >= 620) {
+  //     adRef.current?.appendChild(adEl1);
+  //     adRef.current?.appendChild(adEl2);
+  //   } else {
+  //     adRef.current?.appendChild(adEl1);
+  //   }
+
+  //   adRef.current?.appendChild(script2);
+
+  //   return () => {
+  //     [script1, adEl1, adEl2, adEl3, adEl4, script2].forEach((el) => {
+  //       try {
+  //         adRef.current?.removeChild(el);
+  //       } catch (_) {}
+  //     });
+  //   };
+  // }, []);
+
+  const rmzRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const width = window.innerWidth;
+    // const rmzContainer = document.getElementById("bsxzz");
 
-    const script1 = document.createElement("script");
-    script1.async = true;
-    script1.type = "application/javascript";
-    script1.src = "https://a.magsrv.com/ad-provider.js";
+    const rmzContainer = rmzRef.current;
+    if (!rmzContainer) return;
 
-    const script2 = document.createElement("script");
-    script2.async = true;
-    script2.type = "application/javascript";
-    script2.innerHTML =
-      '(AdProvider = window.AdProvider || []).push({"serve": {}});';
+    rmzContainer.innerHTML = "";
 
-    const adEl1 = document.createElement("ins");
-    adEl1.className = "eas6a97888e2";
-    adEl1.dataset.zoneid = "5494226";
+    const rmzIds = ["1448732", "1448786", "1448787", "1448788"];
 
-    const adEl2 = document.createElement("ins");
-    adEl2.className = "eas6a97888e2";
-    adEl2.dataset.zoneid = "5494228";
-
-    const adEl3 = document.createElement("ins");
-    adEl3.className = "eas6a97888e2";
-    adEl3.dataset.zoneid = "5583506";
-
-    const adEl4 = document.createElement("ins");
-    adEl4.className = "eas6a97888e2";
-    adEl4.dataset.zoneid = "5583508";
-
-    adRef.current?.appendChild(script1);
+    let rmzToShow = 1;
 
     if (width >= 1241) {
-      adRef.current?.appendChild(adEl1);
-      adRef.current?.appendChild(adEl2);
-      adRef.current?.appendChild(adEl3);
-      adRef.current?.appendChild(adEl4);
+      rmzToShow = 4;
     } else if (width >= 950) {
-      adRef.current?.appendChild(adEl1);
-      adRef.current?.appendChild(adEl2);
-      adRef.current?.appendChild(adEl3);
+      rmzToShow = 3;
     } else if (width >= 620) {
-      adRef.current?.appendChild(adEl1);
-      adRef.current?.appendChild(adEl2);
-    } else {
-      adRef.current?.appendChild(adEl1);
+      rmzToShow = 2;
     }
 
-    adRef.current?.appendChild(script2);
+    for (let i = 0; i < rmzToShow; i++) {
+      const div = document.createElement("div");
+      div.setAttribute("data-banner-id", rmzIds[i]);
+      rmzContainer.appendChild(div);
+
+      try {
+        window.gtag?.("event", "banner_rendered", {
+          banner_id: rmzIds[i],
+          banner_name: `Home Banner ${i + 1}`,
+          screen_width: width,
+          page_location: window.location.href,
+        });
+      } catch (_) {
+        console.error("Error sending gtag event:", _);
+      }
+    }
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://js.wpadmngr.com/static/adManager.js";
+    script.setAttribute("data-admpid", "328007");
+
+    document.body.appendChild(script);
 
     return () => {
-      [script1, adEl1, adEl2, adEl3, adEl4, script2].forEach((el) => {
-        try {
-          adRef.current?.removeChild(el);
-        } catch (_) {}
-      });
+      script.remove();
     };
   }, []);
 
@@ -155,8 +207,9 @@ const Home: NextPage<HomeProps> = () => {
 
         {!disableAds && (
           <Box
+            id="bsxzz"
+            ref={rmzRef}
             sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-            ref={adRef}
           ></Box>
         )}
 
