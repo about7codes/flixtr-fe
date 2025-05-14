@@ -266,6 +266,18 @@ function SeasonCount() {
               Back to show details
             </Button>
           </Link>
+
+          <Button
+            aria-label="Center video"
+            title="Center video"
+            color="secondary"
+            variant="contained"
+            onClick={scrollToPlayer}
+            sx={{ p: "3px 0", m: "0 0 10px 10px" }}
+          >
+            <FitScreenIcon />
+          </Button>
+
           <Typography sx={{ textTransform: "capitalize", paddingLeft: "10px" }}>
             Watching season {selectedSeason} episode {ep} of{" "}
             {typeof name === "string" && name?.replaceAll("-", " ")}
