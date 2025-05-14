@@ -21,9 +21,89 @@ export const styles = {
     marginRight: "5px",
     fontSize: "14px",
   },
+  tvconsole: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    flexWrap: "wrap-reverse",
+    width: "100%",
+    padding: "16px 32px 0 32px",
+    flexDirection: "row",
+    "@media (max-width: 900px)": {
+      flexDirection: "column-reverse",
+      padding: "16px 25px 0 25px",
+      alignItems: "center",
+    },
+  },
+  tvconsoleTop: {
+    display: "flex",
+    flex: 1,
+    gap: 1,
+    paddingRight: "10px",
+    "@media (max-width: 988px)": {
+      paddingRight: 0,
+      justifyContent: "space-between",
+      width: "100%",
+    },
+  },
+  tvconsoleBottom: {
+    display: "flex",
+    alignItems: "center",
+    bgcolor: "primary.main",
+    borderRadius: "4px 4px 0 0",
+    p: "0px 8px 0px 8px",
+  },
+  navButtons: {
+    width: "100%",
+    maxWidth: "400px",
+    "& .MuiButtonGroup-root": {
+      width: "100%",
+    },
+    "@media (max-width: 988px)": {
+      maxWidth: "100%",
+      mb: "20px",
+    },
+  },
+  navButton: {
+    borderRadius: 0,
+    color: "secondary.main",
+    "& .MuiTypography-root": {
+      color: "inherit",
+    },
+    "&.Mui-disabled": {
+      backgroundColor: "#212121",
+      color: "#424242",
+    },
+    "@media (max-width: 988px)": {
+      borderRadius: "4px",
+    },
+  },
+  floatMode: {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    width: "100%",
+  },
+  textContainer: {
+    flex: "1",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    mx: 1,
+  },
+  text1: {
+    fontWeight: "bold",
+    fontSize: { xs: "12px", sm: "14px" },
+  },
+  text2: {
+    display: "block",
+    lineHeight: 1.1,
+    fontSize: { xs: "10px", sm: "12px" },
+  },
   seasonSwitcher: {
-    margin: { xs: "16px 20px 0 20px", sm: "16px 32px 0 32px" },
-    maxWidth: { xs: "100%", sm: "300px" },
+    maxWidth: { sm: "100%", md: "300px" },
     width: "100%",
   },
   seasonSelect: {

@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import FitScreenIcon from "@mui/icons-material/FitScreen";
 
 import TileSlider from "../../../../components/TileSider/TileSlider";
 import { styles as classes } from "../../../../styles/watchMovie.styles";
@@ -40,6 +41,13 @@ function Watch() {
   );
 
   const { data: singleMovieData, isLoading } = useMovieById(id);
+
+  const scrollToPlayer = () => {
+    const el = document.getElementById("players");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -96,6 +104,17 @@ function Watch() {
             </Button>
           </Link>
 
+          <Button
+            aria-label="Center video"
+            title="Center video"
+            color="secondary"
+            variant="contained"
+            onClick={scrollToPlayer}
+            sx={{ p: "3px 0", m: "0 0 10px 10px" }}
+          >
+            <FitScreenIcon />
+          </Button>
+
           <Typography sx={{ textTransform: "capitalize", paddingLeft: "10px" }}>
             Watching {typeof name === "string" && name?.replaceAll("-", " ")}
           </Typography>
@@ -123,7 +142,7 @@ function Watch() {
           Video not playing? Please switch to another player.
         </Alert>
 
-        <Grid item sx={classes.moviePlayer}>
+        <Grid item sx={classes.moviePlayer} id="players">
           <ButtonGroup
             variant="contained"
             aria-label="Media player list"
@@ -152,17 +171,10 @@ function Watch() {
             </Button>
           </ButtonGroup>
 
-          {/* <iframe
-            allowFullScreen
-            id={`watch-iframe${player}`}
-            src={playerUrls[player]}
-          /> */}
-
           {player === 1 && (
             <iframe
               allowFullScreen
               id="watch-iframe1"
-              // src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/color-ADDC35`}
               src={playerUrls[player]}
             ></iframe>
           )}
@@ -171,7 +183,6 @@ function Watch() {
             <iframe
               allowFullScreen
               id="watch-iframe2"
-              // src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}`}
               src={playerUrls[player]}
             ></iframe>
           )}
@@ -180,11 +191,21 @@ function Watch() {
             <iframe
               allowFullScreen
               id="watch-iframe3"
-              // src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/movie/${id}?color=addc35`}
               src={playerUrls[player]}
             ></iframe>
           )}
         </Grid>
+
+        <Button
+          aria-label="Center video"
+          title="Center video"
+          color="secondary"
+          variant="contained"
+          onClick={scrollToPlayer}
+          sx={{ m: "5px 18px 0px 18px", maxWidth: "100px", width: "100%" }}
+        >
+          <FitScreenIcon />
+        </Button>
 
         {!disableAds && (
           <Grid sx={classes.con}>
