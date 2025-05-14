@@ -1,25 +1,32 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Alert,
   Box,
   Button,
   ButtonGroup,
   FormControl,
+  FormControlLabel,
+  FormGroup,
   Grid,
   InputLabel,
   LinearProgress,
   MenuItem,
   Select,
+  Switch,
   Typography,
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import FitScreenIcon from "@mui/icons-material/FitScreen";
 
 import { SeriesResult } from "../../../../../../types/apiResponses";
 import { styles as classes } from "../../../../../../styles/SeasonCount.styles";
 import TvTileSlider from "../../../../../../components/TvTileSlider/TvTileSlider";
 import {
+  SeriesQueryKey,
   useSeriesById,
   useSeriesSeasonById,
 } from "../../../../../../hooks/series.hooks";
@@ -31,15 +38,18 @@ import {
   bottomTvIframes,
 } from "../../../../../../utils/iframeUtils";
 import ShareButtons from "../../../../../../components/ShareButtons/ShareButtons";
+import { getSeriesSeasonById } from "../../../../../../apis/series.api";
 
 function SeasonCount() {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { id, name, seasoncount = "1", e, p } = router.query;
 
   const [ep, setEp] = useState(1);
   const [player, setPlayer] = useState<1 | 2 | 3>(1);
   const [shareUrl, setShareUrl] = useState("");
+  const [floatMode, setFloatMode] = useState(false);
 
   const [selectedSeason, setSelectedSeason] = useState(seasoncount);
 
@@ -58,6 +68,136 @@ function SeasonCount() {
   const { data: tvShowData, isLoading: isShowLoading } = useSeriesById(id);
   // console.log("tvShowData", tvShowData);
   // console.log("tvShowSeasonData: " + selectedSeason, tvShowSeasonData);
+
+  const scrollToPlayer = () => {
+    const el = document.getElementById("players");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleFloatToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.checked;
+    setFloatMode(newValue);
+    localStorage.setItem("floatMode", newValue.toString());
+  };
+
+  // [NEW] Navigation helpers
+  const hasNextEpisode = useMemo(() => {
+    if (tvShowSeasonData?.episodes && ep < tvShowSeasonData.episodes.length) {
+      return true;
+    }
+    if (tvShowData?.seasons) {
+      const currentSeasonIndex = tvShowData.seasons.findIndex(
+        (season) => season.season_number === Number(selectedSeason)
+      );
+      return currentSeasonIndex < tvShowData.seasons.length - 1;
+    }
+    return false;
+  }, [ep, selectedSeason, tvShowSeasonData?.episodes, tvShowData?.seasons]);
+
+  const hasPrevEpisode = useMemo(() => {
+    if (ep > 1) return true;
+    if (tvShowData?.seasons) {
+      const currentSeasonIndex = tvShowData.seasons.findIndex(
+        (season) => season.season_number === Number(selectedSeason)
+      );
+      return currentSeasonIndex > 0;
+    }
+    return false;
+  }, [ep, selectedSeason, tvShowData?.seasons]);
+
+  // [NEW] Enhanced navigation handler
+  const handleEpisodeNavigation = async (direction: "prev" | "next") => {
+    if (direction === "next") {
+      // Next episode in current season
+      if (tvShowSeasonData?.episodes && ep < tvShowSeasonData.episodes.length) {
+        const newEp = ep + 1;
+        setEp(newEp);
+        router.replace(
+          {
+            pathname: router.asPath.split("?")[0],
+            query: { e: newEp, p: player },
+          },
+          undefined,
+          { shallow: true }
+        );
+      }
+      // Move to next season
+      else if (tvShowData?.seasons) {
+        const currentSeasonIndex = tvShowData.seasons.findIndex(
+          (season) => season.season_number === Number(selectedSeason)
+        );
+
+        if (currentSeasonIndex < tvShowData.seasons.length - 1) {
+          const nextSeason =
+            tvShowData.seasons[currentSeasonIndex + 1].season_number;
+
+          // Prefetch next season data
+          await queryClient.prefetchQuery(
+            [SeriesQueryKey.TvShowSeasonData, id, nextSeason],
+            () => getSeriesSeasonById(id, nextSeason.toString())
+          );
+
+          setEp(1);
+
+          router
+            .push({
+              pathname: `/tv/${id}/${name}/season/${nextSeason}`,
+              query: { e: 1, p: player },
+            })
+            .then(scrollToPlayer);
+        }
+      }
+    } else {
+      // Previous episode in current season
+      if (ep > 1) {
+        const newEp = ep - 1;
+        setEp(newEp);
+        router.replace(
+          {
+            pathname: router.asPath.split("?")[0],
+            query: { e: newEp, p: player },
+          },
+          undefined,
+          { shallow: true }
+        );
+      }
+      // Move to previous season
+      else if (tvShowData?.seasons) {
+        const currentSeasonIndex = tvShowData.seasons.findIndex(
+          (season) => season.season_number === Number(selectedSeason)
+        );
+
+        if (currentSeasonIndex > 0) {
+          const prevSeason =
+            tvShowData.seasons[currentSeasonIndex - 1].season_number;
+
+          // Prefetch previous season data
+          const prevSeasonData = await queryClient.fetchQuery(
+            [SeriesQueryKey.TvShowSeasonData, id, prevSeason],
+            () => getSeriesSeasonById(id, prevSeason.toString())
+          );
+
+          const lastEp = prevSeasonData?.episodes?.length || 1;
+
+          setEp(lastEp);
+
+          router
+            .push({
+              pathname: `/tv/${id}/${name}/season/${prevSeason}`,
+              query: { e: lastEp, p: player },
+            })
+            .then(scrollToPlayer);
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    const storedFloat = localStorage.getItem("floatMode");
+    setFloatMode(storedFloat === "true");
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -187,7 +327,6 @@ function SeasonCount() {
             <iframe
               allowFullScreen
               id="watch-iframe1"
-              // src={`${process.env.NEXT_PUBLIC_Player_URL_VS}/${id}/${seasoncount ? seasoncount : 1}-${ep}/color-ADDC35`}
               src={playerUrls[player]}
             ></iframe>
           )}
@@ -196,7 +335,6 @@ function SeasonCount() {
             <iframe
               allowFullScreen
               id="watch-iframe2"
-              // src={`${process.env.NEXT_PUBLIC_Player_URL_SE}video_id=${id}&s=${seasoncount ? seasoncount : 1}&e=${ep}`}
               src={playerUrls[player]}
             ></iframe>
           )}
@@ -205,65 +343,166 @@ function SeasonCount() {
             <iframe
               allowFullScreen
               id="watch-iframe3"
-              // src={`${process.env.NEXT_PUBLIC_Player_URL_AE}/tv/${id}/${seasoncount ? seasoncount : 1}/${ep}?color=addc35`}
               src={playerUrls[player]}
             ></iframe>
           )}
         </Grid>
 
-        {/* Season Switcher */}
-        {tvShowData?.seasons && tvShowData?.seasons?.length > 0 && (
-          <Box sx={classes.seasonSwitcher}>
-            <FormControl
-              sx={classes.seasonSelect}
-              variant="filled"
-              size="small"
-              color="secondary"
-            >
-              <InputLabel id="season-select-label">Season</InputLabel>
-              <Select
-                labelId="season-select-label"
-                value={selectedSeason}
-                label="Season"
-                onChange={(e) => {
-                  const newSeason = e.target.value;
-                  setSelectedSeason(newSeason);
-                  setEp(1);
-                  router
-                    .push({
-                      pathname: `/tv/${id}/${name}/season/${newSeason}`,
-                      query: { e: 1, p: player },
-                    })
-                    .then(() => {
-                      const el = document.getElementById("players");
-                      if (el) {
-                        el.scrollIntoView({ behavior: "smooth" });
-                      }
-                    });
-                }}
-                MenuProps={{
-                  PaperProps: {
-                    sx: {
-                      "& .MuiList-root": {
-                        backgroundColor: "primary.main",
+        <Box sx={classes.tvconsole}>
+          <Box sx={classes.tvconsoleTop}>
+            {/* Season Switcher */}
+            {tvShowData?.seasons && tvShowData?.seasons?.length > 0 && (
+              <Box sx={classes.seasonSwitcher}>
+                <FormControl
+                  sx={classes.seasonSelect}
+                  variant="filled"
+                  size="small"
+                  color="secondary"
+                >
+                  <InputLabel id="season-select-label">Season</InputLabel>
+                  <Select
+                    labelId="season-select-label"
+                    value={selectedSeason}
+                    label="Season"
+                    onChange={(e) => {
+                      const newSeason = e.target.value;
+                      setSelectedSeason(newSeason);
+                      setEp(1);
+                      router
+                        .push({
+                          pathname: `/tv/${id}/${name}/season/${newSeason}`,
+                          query: { e: 1, p: player },
+                        })
+                        .then(scrollToPlayer);
+                    }}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          "& .MuiList-root": {
+                            backgroundColor: "primary.main",
+                          },
+                        },
                       },
-                    },
-                  },
+                    }}
+                  >
+                    {tvShowData.seasons.map((season) => (
+                      <MenuItem
+                        key={season.id}
+                        value={season.season_number}
+                        sx={classes.seasonSelectItem}
+                      >
+                        {season.name || `Season ${season.season_number}`}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+            )}
+
+            <Box sx={classes.tvconsoleBottom}>
+              <Button
+                aria-label="Center video"
+                title="Center video"
+                color="secondary"
+                variant="contained"
+                onClick={scrollToPlayer}
+                sx={{ m: "6px 0" }}
+              >
+                <FitScreenIcon />
+              </Button>
+
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      color="secondary"
+                      checked={floatMode}
+                      onChange={handleFloatToggle}
+                    />
+                  }
+                  sx={{ whiteSpace: "nowrap" }}
+                  label="Float mode"
+                  labelPlacement="start"
+                />
+              </FormGroup>
+            </Box>
+          </Box>
+
+          {/* [NEW] Navigation Buttons */}
+          <Box sx={classes.navButtons}>
+            <ButtonGroup
+              variant="contained"
+              aria-label="Navigation buttons"
+              fullWidth
+              sx={floatMode ? classes.floatMode : undefined}
+            >
+              <Button
+                onClick={() => handleEpisodeNavigation("prev")}
+                disabled={!hasPrevEpisode}
+                startIcon={<ArrowBackIosNewIcon />}
+                sx={{
+                  ...classes.navButton,
+                  borderTopLeftRadius: { md: "4px" },
                 }}
               >
-                {tvShowData.seasons.map((season) => (
-                  <MenuItem
-                    key={season.id}
-                    value={season.season_number}
-                    sx={classes.seasonSelectItem}
-                  >
-                    {season.name || `Season ${season.season_number}`}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                <Box sx={classes.textContainer}>
+                  {ep === 1 && tvShowData?.seasons ? (
+                    <>
+                      <Typography variant="body2" sx={classes.text1}>
+                        Previous Season
+                      </Typography>
+                      <Typography variant="caption" sx={classes.text2}>
+                        Season {Number(selectedSeason) - 1}, Last Episode
+                      </Typography>
+                    </>
+                  ) : (
+                    <>
+                      <Typography variant="body2" sx={classes.text1}>
+                        Previous
+                      </Typography>
+                      <Typography variant="caption" sx={classes.text2}>
+                        Ep {ep - 1}
+                      </Typography>
+                    </>
+                  )}
+                </Box>
+              </Button>
+              <Button
+                onClick={() => handleEpisodeNavigation("next")}
+                disabled={!hasNextEpisode}
+                endIcon={<ArrowForwardIosIcon />}
+                sx={{
+                  ...classes.navButton,
+                  borderTopRightRadius: { md: "4px" },
+                }}
+              >
+                <Box sx={classes.textContainer}>
+                  {tvShowSeasonData?.episodes &&
+                  ep === tvShowSeasonData.episodes.length &&
+                  tvShowData?.seasons ? (
+                    <>
+                      <Typography variant="body2" sx={classes.text1}>
+                        Next Season
+                      </Typography>
+                      <Typography variant="caption" sx={classes.text2}>
+                        Season {Number(selectedSeason) + 1}, Episode 1
+                      </Typography>
+                    </>
+                  ) : (
+                    <>
+                      <Typography variant="body2" sx={classes.text1}>
+                        Next
+                      </Typography>
+                      <Typography variant="caption" sx={classes.text2}>
+                        Ep {ep + 1}
+                      </Typography>
+                    </>
+                  )}
+                </Box>
+              </Button>
+            </ButtonGroup>
           </Box>
-        )}
+        </Box>
 
         <Grid item sx={classes.episodeBtns}>
           {tvShowSeasonData?.episodes?.map(({ episode_number }) => (
