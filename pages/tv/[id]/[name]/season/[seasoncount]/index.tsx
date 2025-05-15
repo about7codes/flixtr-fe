@@ -438,7 +438,10 @@ function SeasonCount() {
                       onChange={handleFloatToggle}
                     />
                   }
-                  sx={{ whiteSpace: "nowrap" }}
+                  sx={{
+                    whiteSpace: "nowrap",
+                    "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                  }}
                   label="Float mode"
                   labelPlacement="start"
                 />

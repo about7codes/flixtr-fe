@@ -34,6 +34,11 @@ export const styles = {
       padding: "16px 25px 0 25px",
       alignItems: "center",
     },
+    "@media (max-width: 768px)": {
+      flexDirection: "column-reverse",
+      padding: "8px 15px 0 15px",
+      alignItems: "center",
+    },
   },
   tvconsoleTop: {
     display: "flex",
@@ -49,7 +54,7 @@ export const styles = {
   tvconsoleBottom: {
     display: "flex",
     alignItems: "center",
-    bgcolor: "primary.main",
+    bgcolor: "#2b2b2b",
     borderRadius: "4px 4px 0 0",
     p: "0px 8px 0px 8px",
   },
@@ -63,15 +68,20 @@ export const styles = {
       maxWidth: "100%",
       mb: "20px",
     },
+    "@media (max-width: 768px)": {
+      mb: "15px",
+    },
   },
   navButton: {
     borderRadius: 0,
     color: "secondary.main",
+    backgroundColor: "#2b2b2b",
     "& .MuiTypography-root": {
       color: "inherit",
     },
     "&.Mui-disabled": {
-      backgroundColor: "#212121",
+      backgroundColor: "#2b2b2b",
+      // backgroundColor: "#212121",
       color: "#424242",
     },
     "@media (max-width: 988px)": {
@@ -109,7 +119,8 @@ export const styles = {
   seasonSelect: {
     width: "100%",
     "& .MuiInputBase-root, & .MuiInputBase-root:hover, & .Mui-focused": {
-      backgroundColor: "rgba(255,255,255, 0.1)",
+      // backgroundColor: "rgba(255,255,255, 0.1)",
+      backgroundColor: "#2b2b2b",
     },
     "& .MuiSelect-select": {
       fontSize: "14px",
