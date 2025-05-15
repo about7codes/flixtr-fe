@@ -39,6 +39,7 @@ import {
 } from "../../../../../../utils/iframeUtils";
 import ShareButtons from "../../../../../../components/ShareButtons/ShareButtons";
 import { getSeriesSeasonById } from "../../../../../../apis/series.api";
+import RmzGroup from "../../../../../../components/RmzGroup/RmzGroup";
 
 function SeasonCount() {
   const router = useRouter();
@@ -285,21 +286,25 @@ function SeasonCount() {
         </Grid>
 
         {!disableAds && (
-          <Grid sx={classes.con}>
-            {topTvIframes.map(({ className, idzone, size }) => (
-              <iframe
-                key={idzone}
-                className={className}
-                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-                width={size.split("x")[0]}
-                height={size.split("x")[1]}
-                scrolling="no"
-                marginWidth={0}
-                marginHeight={0}
-                frameBorder="0"
-              ></iframe>
-            ))}
-          </Grid>
+          // <Grid sx={classes.con}>
+          //   {topTvIframes.map(({ className, idzone, size }) => (
+          //     <iframe
+          //       key={idzone}
+          //       className={className}
+          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+          //       width={size.split("x")[0]}
+          //       height={size.split("x")[1]}
+          //       scrolling="no"
+          //       marginWidth={0}
+          //       marginHeight={0}
+          //       frameBorder="0"
+          //     ></iframe>
+          //   ))}
+          // </Grid>
+          <RmzGroup
+            bannerIds={["1449228", "1449229", "1449230", "1449231"]}
+            ampId="329485"
+          />
         )}
 
         <Alert severity="info" sx={classes.alertBar} color="success">
@@ -550,21 +555,25 @@ function SeasonCount() {
         </Grid>
 
         {!disableAds && (
-          <Grid sx={classes.con}>
-            {bottomTvIframes.map(({ className, idzone, size }) => (
-              <iframe
-                key={idzone}
-                className={className}
-                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-                width={size.split("x")[0]}
-                height={size.split("x")[1]}
-                scrolling="no"
-                marginWidth={0}
-                marginHeight={0}
-                frameBorder="0"
-              ></iframe>
-            ))}
-          </Grid>
+          // <Grid sx={classes.con}>
+          //   {bottomTvIframes.map(({ className, idzone, size }) => (
+          //     <iframe
+          //       key={idzone}
+          //       className={className}
+          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+          //       width={size.split("x")[0]}
+          //       height={size.split("x")[1]}
+          //       scrolling="no"
+          //       marginWidth={0}
+          //       marginHeight={0}
+          //       frameBorder="0"
+          //     ></iframe>
+          //   ))}
+          // </Grid>
+          <RmzGroup
+            bannerIds={["1449232", "1449233", "1449234", "1449235"]}
+            ampId="329485"
+          />
         )}
 
         <ShareButtons

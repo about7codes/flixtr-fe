@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
@@ -19,11 +19,8 @@ import { useMovieById } from "../../../../hooks/movies.hooks";
 import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../utils/utils";
 import Comments from "../../../../components/Comments/Comments";
-import {
-  topMovieIframes,
-  bottomMovieIframes,
-} from "../../../../utils/iframeUtils";
 import ShareButtons from "../../../../components/ShareButtons/ShareButtons";
+import RmzGroup from "../../../../components/RmzGroup/RmzGroup";
 
 function Watch() {
   const router = useRouter();
@@ -121,21 +118,25 @@ function Watch() {
         </Grid>
 
         {!disableAds && (
-          <Grid sx={classes.con}>
-            {topMovieIframes.map(({ className, idzone, size }) => (
-              <iframe
-                key={idzone}
-                className={className}
-                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-                width={size.split("x")[0]}
-                height={size.split("x")[1]}
-                scrolling="no"
-                marginWidth={0}
-                marginHeight={0}
-                frameBorder="0"
-              ></iframe>
-            ))}
-          </Grid>
+          // <Grid sx={classes.con}>
+          //   {topMovieIframes.map(({ className, idzone, size }) => (
+          //     <iframe
+          //       key={idzone}
+          //       className={className}
+          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+          //       width={size.split("x")[0]}
+          //       height={size.split("x")[1]}
+          //       scrolling="no"
+          //       marginWidth={0}
+          //       marginHeight={0}
+          //       frameBorder="0"
+          //     ></iframe>
+          //   ))}
+          // </Grid>
+          <RmzGroup
+            bannerIds={["1449065", "1449066", "1449067", "1449068"]}
+            ampId="329031"
+          />
         )}
 
         <Alert severity="info" sx={classes.alertBar} color="success">
@@ -208,21 +209,25 @@ function Watch() {
         </Button>
 
         {!disableAds && (
-          <Grid sx={classes.con}>
-            {bottomMovieIframes.map(({ className, idzone, size }) => (
-              <iframe
-                key={idzone}
-                className={className}
-                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-                width={size.split("x")[0]}
-                height={size.split("x")[1]}
-                scrolling="no"
-                marginWidth={0}
-                marginHeight={0}
-                frameBorder="0"
-              ></iframe>
-            ))}
-          </Grid>
+          // <Grid sx={classes.con}>
+          //   {bottomMovieIframes.map(({ className, idzone, size }) => (
+          //     <iframe
+          //       key={idzone}
+          //       className={className}
+          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+          //       width={size.split("x")[0]}
+          //       height={size.split("x")[1]}
+          //       scrolling="no"
+          //       marginWidth={0}
+          //       marginHeight={0}
+          //       frameBorder="0"
+          //     ></iframe>
+          //   ))}
+          // </Grid>
+          <RmzGroup
+            bannerIds={["1449223", "1449224", "1449225", "1449226"]}
+            ampId="329031"
+          />
         )}
 
         <ShareButtons
