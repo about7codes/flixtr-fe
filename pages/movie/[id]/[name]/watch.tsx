@@ -136,6 +136,7 @@ function Watch() {
           <RmzGroup
             bannerIds={["1449065", "1449066", "1449067", "1449068"]}
             ampId="329031"
+            pageName="WatchMovie"
           />
         )}
 
@@ -227,6 +228,7 @@ function Watch() {
           <RmzGroup
             bannerIds={["1449223", "1449224", "1449225", "1449226"]}
             ampId="329031"
+            pageName="WatchMovie"
           />
         )}
 

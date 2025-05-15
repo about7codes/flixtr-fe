@@ -162,6 +162,7 @@ const Home: NextPage<HomeProps> = () => {
           <RmzGroup
             bannerIds={["1448732", "1448786", "1448787", "1448788"]}
             ampId="328007"
+            pageName="Home"
           />
         )}
 
