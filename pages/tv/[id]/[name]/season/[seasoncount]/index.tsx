@@ -304,6 +304,7 @@ function SeasonCount() {
           <RmzGroup
             bannerIds={["1449228", "1449229", "1449230", "1449231"]}
             ampId="329485"
+            pageName="WatchShow"
           />
         )}
 
@@ -573,6 +574,7 @@ function SeasonCount() {
           <RmzGroup
             bannerIds={["1449232", "1449233", "1449234", "1449235"]}
             ampId="329485"
+            pageName="WatchShow"
           />
         )}
 

@@ -4,9 +4,10 @@ import { useEffect, useRef } from "react";
 interface RmzGroupProps {
   bannerIds: string[]; // Up to 4
   ampId: string;
+  pageName: string;
 }
 
-const RmzGroup: React.FC<RmzGroupProps> = ({ bannerIds, ampId }) => {
+const RmzGroup: React.FC<RmzGroupProps> = ({ bannerIds, ampId, pageName }) => {
   const rmzRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const RmzGroup: React.FC<RmzGroupProps> = ({ bannerIds, ampId }) => {
       container.appendChild(div);
 
       try {
-        window.gtag?.("event", `banner ${bannerIds[i]}`, {
+        window.gtag?.("event", `${pageName}${i + 1} banner ${bannerIds[i]}`, {
           banner_id: bannerIds[i],
           banner_name: `Banner ${i + 1}`,
           screen_width: width,
