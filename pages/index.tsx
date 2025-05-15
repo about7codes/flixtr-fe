@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import { useEffect, useRef } from "react";
 import { Box, LinearProgress, Typography } from "@mui/material";
 
 import styles from "../styles/Home.module.css";
@@ -16,6 +15,7 @@ import SkeletonSlider from "../components/SkeletonSlider/SkeletonSlider";
 import SkeletonMovieSlider from "../components/SkeletonMovieSlider/SkeletonMovieSlider";
 import ShareButtons from "../components/ShareButtons/ShareButtons";
 import { disableAds } from "../utils/utils";
+import RmzGroup from "../components/RmzGroup/RmzGroup";
 
 type HomeProps = {};
 
@@ -90,58 +90,6 @@ const Home: NextPage<HomeProps> = () => {
   //   };
   // }, []);
 
-  const rmzRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const width = window.innerWidth;
-    // const rmzContainer = document.getElementById("bsxzz");
-
-    const rmzContainer = rmzRef.current;
-    if (!rmzContainer) return;
-
-    rmzContainer.innerHTML = "";
-
-    const rmzIds = ["1448732", "1448786", "1448787", "1448788"];
-
-    let rmzToShow = 1;
-
-    if (width >= 1241) {
-      rmzToShow = 4;
-    } else if (width >= 950) {
-      rmzToShow = 3;
-    } else if (width >= 620) {
-      rmzToShow = 2;
-    }
-
-    for (let i = 0; i < rmzToShow; i++) {
-      const div = document.createElement("div");
-      div.setAttribute("data-banner-id", rmzIds[i]);
-      rmzContainer.appendChild(div);
-
-      try {
-        window.gtag?.("event", "banner_rendered", {
-          banner_id: rmzIds[i],
-          banner_name: `Home Banner ${i + 1}`,
-          screen_width: width,
-          page_location: window.location.href,
-        });
-      } catch (_) {
-        console.error("Error sending gtag event:", _);
-      }
-    }
-
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://js.wpadmngr.com/static/adManager.js";
-    script.setAttribute("data-admpid", "328007");
-
-    document.body.appendChild(script);
-
-    return () => {
-      script.remove();
-    };
-  }, []);
-
   return (
     <>
       <CustomHead
@@ -206,11 +154,15 @@ const Home: NextPage<HomeProps> = () => {
         </Box>
 
         {!disableAds && (
-          <Box
-            id="bsxzz"
-            ref={rmzRef}
-            sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-          ></Box>
+          // <Box
+          //   id="bsxzz"
+          //   ref={rmzRef}
+          //   sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+          // ></Box>
+          <RmzGroup
+            bannerIds={["1448732", "1448786", "1448787", "1448788"]}
+            ampId="328007"
+          />
         )}
 
         <Box sx={classes.sliderContainer}>
