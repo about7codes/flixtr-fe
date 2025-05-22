@@ -3,6 +3,8 @@ services:
   app:
     build: .
     container_name: flixtr-prod
+    ports:
+      - "3000:3000"  # Prod port
     restart: unless-stopped
     networks:
       - nginx-proxy
