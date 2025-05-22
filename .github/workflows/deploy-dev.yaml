@@ -21,19 +21,9 @@ jobs:
       - name: Deploy to Dev server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
-
-          # Ensure nvm is sourced
-          source /home/ubuntu/.nvm/nvm.sh
-
           cd /home/ubuntu/Desktop/flixtr-fe-dev
-
-          # Discard local changes to package-lock.json or other files etc
-          git reset --hard HEAD
-
           git pull origin dev
-          npm install
-          rm .env
-          echo "${{ secrets.DEV_ENV }}" > .env
-          npm run build
-          pm2 restart flixtr-dev
+          echo "${{ secrets.DEV_ENV }}" > .env.dev
+          docker compose -f docker-compose.dev.yml down && docker compose -f docker-compose.dev.yml up -d --build
+          docker system prune -f
           EOF

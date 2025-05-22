@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: flixtr-dev
+    ports:
+      - "3001:3000"  # Dev port
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env.dev
+    command: npm run dev
+    networks:
+      - nginx-proxy
+
+networks:
+  nginx-proxy:
+    external: true
