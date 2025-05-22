@@ -28,6 +28,6 @@ jobs:
 
           git pull origin dev
           echo "${{ secrets.DEV_ENV }}" > .env.dev
-          docker compose -f docker-compose.dev.yml down && docker compose -f docker-compose.dev.yml up -d --build
+          docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up -d --build
           docker system prune -f
           EOF
