@@ -22,6 +22,10 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
           cd /home/ubuntu/Desktop/flixtr-fe-dev
+
+          # Discard local changes to package-lock.json or other files etc
+          git reset --hard HEAD
+
           git pull origin dev
           echo "${{ secrets.DEV_ENV }}" > .env.dev
           docker compose -f docker-compose.dev.yml down && docker compose -f docker-compose.dev.yml up -d --build
