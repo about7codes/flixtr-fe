@@ -33,13 +33,11 @@ import {
 import CustomHead from "../../../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../../../utils/utils";
 import Comments from "../../../../../../components/Comments/Comments";
-import {
-  topTvIframes,
-  bottomTvIframes,
-} from "../../../../../../utils/iframeUtils";
+// import { topTvIframes, bottomTvIframes, } from "../../../../../../utils/iframeUtils";
 import ShareButtons from "../../../../../../components/ShareButtons/ShareButtons";
 import { getSeriesSeasonById } from "../../../../../../apis/series.api";
-import RmzGroup from "../../../../../../components/RmzGroup/RmzGroup";
+// import RmzGroup from "../../../../../../components/RmzGroup/RmzGroup";
+import RmzLite from "../../../../../../components/RmzLite/RmzLite";
 
 function SeasonCount() {
   const router = useRouter();
@@ -301,10 +299,14 @@ function SeasonCount() {
           //     ></iframe>
           //   ))}
           // </Grid>
-          <RmzGroup
-            bannerIds={["1449228", "1449229", "1449230", "1449231"]}
-            ampId="329485"
+          // <RmzGroup
+          //   bannerIds={["1449228", "1449229", "1449230", "1449231"]}
+          //   ampId="329485"
+          //   pageName="WatchShow"
+          // />
+          <RmzLite
             pageName="WatchShow"
+            spotIds={["1450819", "1450820", "1450821", "1450822"]}
           />
         )}
 
@@ -574,10 +576,14 @@ function SeasonCount() {
           //     ></iframe>
           //   ))}
           // </Grid>
-          <RmzGroup
-            bannerIds={["1449232", "1449233", "1449234", "1449235"]}
-            ampId="329485"
+          // <RmzGroup
+          //   bannerIds={["1449232", "1449233", "1449234", "1449235"]}
+          //   ampId="329485"
+          //   pageName="WatchShow"
+          // />
+          <RmzLite
             pageName="WatchShow"
+            spotIds={["1450823", "1450824", "1450825", "1450826"]}
           />
         )}
 

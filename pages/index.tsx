@@ -15,7 +15,8 @@ import SkeletonSlider from "../components/SkeletonSlider/SkeletonSlider";
 import SkeletonMovieSlider from "../components/SkeletonMovieSlider/SkeletonMovieSlider";
 import ShareButtons from "../components/ShareButtons/ShareButtons";
 import { disableAds } from "../utils/utils";
-import RmzGroup from "../components/RmzGroup/RmzGroup";
+// import RmzGroup from "../components/RmzGroup/RmzGroup";
+import RmzLite from "../components/RmzLite/RmzLite";
 
 type HomeProps = {};
 
@@ -159,10 +160,15 @@ const Home: NextPage<HomeProps> = () => {
           //   ref={rmzRef}
           //   sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
           // ></Box>
-          <RmzGroup
-            bannerIds={["1448732", "1448786", "1448787", "1448788"]}
-            ampId="328007"
+
+          // <RmzGroup
+          //   bannerIds={["1448732", "1448786", "1448787", "1448788"]}
+          //   ampId="328007"
+          //   pageName="Home"
+          // />
+          <RmzLite
             pageName="Home"
+            spotIds={["1450767", "1450768", "1450769", "1450770"]}
           />
         )}
 

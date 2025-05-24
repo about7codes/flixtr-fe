@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import Script from "next/script";
+// import Script from "next/script";
 import { disableAds } from "../utils/utils";
 
 export default class MyDocument extends Document {
@@ -52,6 +52,14 @@ export default class MyDocument extends Document {
             strategy="beforeInteractive"
             src="./utilsminall.js"
           /> */}
+
+          {!disableAds && (
+            <script
+              async
+              data-admpid-banner="333307"
+              src="https://js.wpadmngr.com/banner/click-banner.m.js"
+            />
+          )}
         </Head>
         <body>
           {/* <script
@@ -62,16 +70,6 @@ export default class MyDocument extends Document {
 
           <Main />
           <NextScript />
-
-          {/* <ins
-            className="eas6a97888ec52c042c679a36e919843cca"
-            data-zoneid="5018914"
-          ></ins>
-
-          <ins
-            className="eas6a97888ec52c042c679a36e919843cca"
-            data-zoneid="5019068"
-          ></ins> */}
 
           {/* <script
             dangerouslySetInnerHTML={{
