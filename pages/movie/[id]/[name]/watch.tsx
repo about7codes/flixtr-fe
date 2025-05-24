@@ -20,7 +20,8 @@ import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../utils/utils";
 import Comments from "../../../../components/Comments/Comments";
 import ShareButtons from "../../../../components/ShareButtons/ShareButtons";
-import RmzGroup from "../../../../components/RmzGroup/RmzGroup";
+// import RmzGroup from "../../../../components/RmzGroup/RmzGroup";
+import RmzLite from "../../../../components/RmzLite/RmzLite";
 
 function Watch() {
   const router = useRouter();
@@ -133,10 +134,14 @@ function Watch() {
           //     ></iframe>
           //   ))}
           // </Grid>
-          <RmzGroup
-            bannerIds={["1449065", "1449066", "1449067", "1449068"]}
-            ampId="329031"
+          // <RmzGroup
+          //   bannerIds={["1449065", "1449066", "1449067", "1449068"]}
+          //   ampId="329031"
+          //   pageName="WatchMovie"
+          // />
+          <RmzLite
             pageName="WatchMovie"
+            spotIds={["1450809", "1450810", "1450811", "1450812"]}
           />
         )}
 
@@ -225,10 +230,14 @@ function Watch() {
           //     ></iframe>
           //   ))}
           // </Grid>
-          <RmzGroup
-            bannerIds={["1449223", "1449224", "1449225", "1449226"]}
-            ampId="329031"
+          // <RmzGroup
+          //   bannerIds={["1449223", "1449224", "1449225", "1449226"]}
+          //   ampId="329031"
+          //   pageName="WatchMovie"
+          // />
+          <RmzLite
             pageName="WatchMovie"
+            spotIds={["1450814", "1450815", "1450816", "1450817"]}
           />
         )}
 
