@@ -168,7 +168,7 @@ const Home: NextPage<HomeProps> = () => {
           // />
 
           <RmzGroup
-            zoneIds={["9989718", "9989710", "9989702", "9989686"]}
+            zoneIds={["9989842", "9989834", "9989826", "9989818"]}
             pageName="Home"
           />
 
