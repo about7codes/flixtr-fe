@@ -17,10 +17,10 @@ interface RmzGroupProps {
 const RmzGroup: React.FC<RmzGroupProps> = ({ zoneIds, pageName }) => {
   const [visibleZones, setVisibleZones] = useState<string[]>([]);
 
+  // Determine how many banners to show based on screen width
   useEffect(() => {
     const width = window.innerWidth;
     let count = 1;
-
     if (width >= 1241) count = 4;
     else if (width >= 950) count = 3;
     else if (width >= 620) count = 2;
@@ -28,6 +28,7 @@ const RmzGroup: React.FC<RmzGroupProps> = ({ zoneIds, pageName }) => {
     const selected = zoneIds.slice(0, count);
     setVisibleZones(selected);
 
+    // Send analytics event
     selected.forEach((id, index) => {
       try {
         window.gtag?.("event", `${pageName}${index + 1} banner ${id}`, {
@@ -42,22 +43,28 @@ const RmzGroup: React.FC<RmzGroupProps> = ({ zoneIds, pageName }) => {
     });
   }, [zoneIds, pageName]);
 
+  // Inject Adcash lib once
   useEffect(() => {
-    if (visibleZones.length === 0) return;
+    if (!document.getElementById("aclib")) {
+      const script = document.createElement("script");
+      script.id = "aclib";
+      script.src = "//acscdn.com/script/aclib.js";
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }, []);
 
-    const interval = setInterval(() => {
-      if (window.aclib?.runBanner) {
-        visibleZones.forEach((id) => {
-          const el = document.getElementById(`ad-zone-${id}`);
-          if (el && el.childNodes.length === 0) {
-            window.aclib!.runBanner!({ zoneId: id });
-          }
-        });
-        clearInterval(interval);
+  // Inject inline script tag per zone
+  useEffect(() => {
+    visibleZones.forEach((zoneId) => {
+      const container = document.getElementById(`ad-zone-${zoneId}`);
+      if (container && !container.querySelector("script")) {
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.innerHTML = `aclib.runBanner({ zoneId: '${zoneId}' });`;
+        container.appendChild(script);
       }
-    }, 300);
-
-    return () => clearInterval(interval);
+    });
   }, [visibleZones]);
 
   return (
@@ -72,10 +79,10 @@ const RmzGroup: React.FC<RmzGroupProps> = ({ zoneIds, pageName }) => {
         minHeight: "250px",
       }}
     >
-      {visibleZones.map((id) => (
+      {visibleZones.map((zoneId) => (
         <div
-          key={id}
-          id={`ad-zone-${id}`}
+          key={zoneId}
+          id={`ad-zone-${zoneId}`}
           style={{ width: 300, height: 250 }}
         />
       ))}

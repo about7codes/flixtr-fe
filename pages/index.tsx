@@ -167,10 +167,31 @@ const Home: NextPage<HomeProps> = () => {
           //   pageName="Home"
           // />
 
-          <RmzGroup
-            zoneIds={["9989842", "9989834", "9989826", "9989818"]}
-            pageName="Home"
-          />
+          // <RmzGroup
+          //   zoneIds={["9989842", "9989834", "9989826", "9989818"]}
+          //   pageName="Home"
+          // />
+
+          <div
+            dangerouslySetInnerHTML={{
+              __html: `
+                <script type="text/javascript">
+                  aclib.runBanner({
+                    zoneId: '9989842',
+                  });
+                </script>
+              `,
+            }}
+          ></div>
+          // <div
+          //   dangerouslySetInnerHTML={{
+          //     __html: `
+          //       <script type="text/javascript">
+          //         aclib.runBanner({ zoneId: '9989842' });
+          //       </script>
+          //     `,
+          //   }}
+          // ></div>
 
           // <RmzLite
           //   pageName="Home"
