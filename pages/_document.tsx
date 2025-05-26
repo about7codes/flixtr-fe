@@ -60,6 +60,12 @@ export default class MyDocument extends Document {
               src="https://js.wpadmngr.com/banner/click-banner.m.js"
             />
           )}
+
+          <script
+            id="aclib"
+            type="text/javascript"
+            src="//acscdn.com/script/aclib.js"
+          ></script>
         </Head>
         <body>
           {/* <script

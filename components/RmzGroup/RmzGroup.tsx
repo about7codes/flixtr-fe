@@ -1,70 +1,85 @@
-import { Box } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
+
+declare global {
+  interface Window {
+    aclib?: {
+      runBanner?: (options: { zoneId: string }) => void;
+    };
+    gtag?: (...args: any[]) => void;
+  }
+}
 
 interface RmzGroupProps {
-  bannerIds: string[]; // Up to 4
-  ampId: string;
+  zoneIds: string[];
   pageName: string;
 }
 
-const RmzGroup: React.FC<RmzGroupProps> = ({ bannerIds, ampId, pageName }) => {
-  const rmzRef = useRef<HTMLDivElement>(null);
+const RmzGroup: React.FC<RmzGroupProps> = ({ zoneIds, pageName }) => {
+  const [visibleZones, setVisibleZones] = useState<string[]>([]);
 
   useEffect(() => {
-    const container = rmzRef.current;
-    if (!container) return;
-
-    container.innerHTML = "";
-
     const width = window.innerWidth;
-    let bannersToShow = 1;
+    let count = 1;
 
-    if (width >= 1241) bannersToShow = 4;
-    else if (width >= 950) bannersToShow = 3;
-    else if (width >= 620) bannersToShow = 2;
+    if (width >= 1241) count = 4;
+    else if (width >= 950) count = 3;
+    else if (width >= 620) count = 2;
 
-    for (let i = 0; i < Math.min(bannersToShow, bannerIds.length); i++) {
-      const div = document.createElement("div");
-      div.setAttribute("data-banner-id", bannerIds[i]);
-      container.appendChild(div);
+    const selected = zoneIds.slice(0, count);
+    setVisibleZones(selected);
 
+    selected.forEach((id, index) => {
       try {
-        window.gtag?.("event", `${pageName}${i + 1} banner ${bannerIds[i]}`, {
-          banner_id: bannerIds[i],
-          banner_name: `Banner ${i + 1}`,
+        window.gtag?.("event", `${pageName}${index + 1} banner ${id}`, {
+          banner_id: id,
+          banner_name: `Banner ${index + 1}`,
           screen_width: width,
           page_location: window.location.href,
         });
-      } catch (e) {
-        console.error("Error sending gtag event:", e);
+      } catch (err) {
+        console.warn("gtag failed", err);
       }
-    }
+    });
+  }, [zoneIds, pageName]);
 
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://js.wpadmngr.com/static/adManager.js";
-    script.setAttribute("data-admpid", ampId);
+  useEffect(() => {
+    if (visibleZones.length === 0) return;
 
-    document.body.appendChild(script);
+    const interval = setInterval(() => {
+      if (window.aclib?.runBanner) {
+        visibleZones.forEach((id) => {
+          const el = document.getElementById(`ad-zone-${id}`);
+          if (el && el.childNodes.length === 0) {
+            window.aclib!.runBanner!({ zoneId: id });
+          }
+        });
+        clearInterval(interval);
+      }
+    }, 300);
 
-    return () => {
-      script.remove();
-      container.innerHTML = "";
-    };
-  }, [bannerIds, ampId]);
+    return () => clearInterval(interval);
+  }, [visibleZones]);
 
   return (
-    <Box
-      ref={rmzRef}
-      sx={{
+    <div
+      style={{
         display: "flex",
         justifyContent: "center",
         flexWrap: "wrap",
+        gap: "16px",
         margin: "20px 0",
         width: "100%",
         minHeight: "250px",
       }}
-    />
+    >
+      {visibleZones.map((id) => (
+        <div
+          key={id}
+          id={`ad-zone-${id}`}
+          style={{ width: 300, height: 250 }}
+        />
+      ))}
+    </div>
   );
 };
 
