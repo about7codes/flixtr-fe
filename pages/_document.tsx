@@ -62,6 +62,7 @@ export default class MyDocument extends Document {
           )}
 
           <script
+            async
             id="aclib"
             type="text/javascript"
             src="//acscdn.com/script/aclib.js"
