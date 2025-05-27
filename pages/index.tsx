@@ -16,6 +16,7 @@ import SkeletonMovieSlider from "../components/SkeletonMovieSlider/SkeletonMovie
 import ShareButtons from "../components/ShareButtons/ShareButtons";
 import { disableAds } from "../utils/utils";
 import RmzGroup from "../components/RmzGroup/RmzGroup";
+import HilltopAd from "../components/Hilltop/Hilltop";
 // import RmzLite from "../components/RmzLite/RmzLite";
 
 type HomeProps = {};
@@ -155,48 +156,104 @@ const Home: NextPage<HomeProps> = () => {
         </Box>
 
         {!disableAds && (
-          // <Box
-          //   id="bsxzz"
-          //   ref={rmzRef}
-          //   sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-          // ></Box>
-
-          // <RmzGroup
-          //   bannerIds={["1448732", "1448786", "1448787", "1448788"]}
-          //   ampId="328007"
-          //   pageName="Home"
+          // <>
+          //   <div
+          //     dangerouslySetInnerHTML={{
+          //       __html: `
+          //       <script>
+          //         (function(jyyg){
+          //         var d = document,
+          //             s = d.createElement('script'),
+          //             l = d.scripts[d.scripts.length - 1];
+          //         s.settings = jyyg || {};
+          //         s.src = "\/\/definitive-priority.com\/baXhV-s.daGhlQ0BYPWLcL\/cekmx9nuAZoU\/llkSPUT\/YZz\/NADPEM4sOUDYc\/t\/NTjhMN0CMVTqgR4FOIAa";
+          //         s.async = true;
+          //         s.referrerPolicy = 'no-referrer-when-downgrade';
+          //         l.parentNode.insertBefore(s, l);
+          //         })({})
+          //       </script>
+          //     `,
+          //     }}
+          //   ></div>
+          //   <div
+          //     dangerouslySetInnerHTML={{
+          //       __html: `
+          //       <script>
+          //       (function(ostl){
+          //       var d = document,
+          //           s = d.createElement('script'),
+          //           l = d.scripts[d.scripts.length - 1];
+          //       s.settings = ostl || {};
+          //       s.src = "\/\/definitive-priority.com\/bsXhVhs.d\/GslZ0CY\/Woca\/VeMmS9OusZ-UGlWkAPPTgYGzzNcDXIWwvNvjikqtUN\/jeMy0-MsjTA\/3OM\/Ak";
+          //       s.async = true;
+          //       s.referrerPolicy = 'no-referrer-when-downgrade';
+          //       l.parentNode.insertBefore(s, l);
+          //       })({})
+          //       </script>
+          //     `,
+          //     }}
+          //   ></div>
+          //   <div
+          //     dangerouslySetInnerHTML={{
+          //       __html: `
+          //       <script>
+          //       (function(xfhwm){
+          //       var d = document,
+          //           s = d.createElement('script'),
+          //           l = d.scripts[d.scripts.length - 1];
+          //       s.settings = xfhwm || {};
+          //       s.src = "\/\/definitive-priority.com\/buXtV.sZdnGSl-0\/Y\/Wrcr\/webmB9IuTZwU\/lVk-PoTIYlztNBD\/IQwUNZzFk\/tvNQjLMO0GMyjDAc4RM\/AG";
+          //       s.async = true;
+          //       s.referrerPolicy = 'no-referrer-when-downgrade';
+          //       l.parentNode.insertBefore(s, l);
+          //       })({})
+          //       </script>
+          //     `,
+          //     }}
+          //   ></div>
+          //   <div
+          //     dangerouslySetInnerHTML={{
+          //       __html: `
+          //       <script>
+          //       (function(qzn){
+          //       var d = document,
+          //           s = d.createElement('script'),
+          //           l = d.scripts[d.scripts.length - 1];
+          //       s.settings = qzn || {};
+          //       s.src = "\/\/definitive-priority.com\/bqX.VDs\/dFGplc0zY\/WEcq\/Uepm-9euOZnUEl-kIPsTxYbz\/NkDHIqwCOtDIkXt-NxjAMY0EMwjcAF5XMWAH";
+          //       s.async = true;
+          //       s.referrerPolicy = 'no-referrer-when-downgrade';
+          //       l.parentNode.insertBefore(s, l);
+          //       })({})
+          //       </script>
+          //     `,
+          //     }}
+          //   ></div>
+          // </>
+          // <HilltopAd
+          //   pageName="homepage"
+          //   scripts={[
+          //     `(function(jyyg){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=jyyg||{};s.src="//definitive-priority.com/baXhV-s.daGhlQ0BYPWLcL/cekmx9nuAZoU/llkSPUT/YZz/NADPEM4sOUDYc/t/NTjhMN0CMVTqgR4FOIAa";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})`,
+          //     `(function(ostl){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=ostl||{};s.src="//definitive-priority.com/bsXhVhs.d/GslZ0CY/Woca/VeMmS9OusZ-UGlWkAPPTgYGzzNcDXIWwvNvjikqtUN/jeMy0-MsjTA/3OM/Ak";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})`,
+          //     `(function(xfhwm){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=xfhwm||{};s.src="//definitive-priority.com/buXtV.sZdnGSl-0/Y/Wrcr/webmB9IuTZwU/lVk-PoTIYlztNBD/IQwUNZzFk/tvNQjLMO0GMyjDAc4RM/AG";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})`,
+          //     `(function(qzn){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=qzn||{};s.src="//definitive-priority.com/bqX.VDs/dFGplc0zY/WEcq/Uepm-9euOZnUEl-kIPsTxYbz/NkDHIqwCOtDIkXt-NxjAMY0EMwjcAF5XMWAH";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})`,
+          //   ]}
           // />
-
-          // <RmzGroup
-          //   zoneIds={["9989842", "9989834", "9989826", "9989818"]}
-          //   pageName="Home"
-          // />
-
           <div
             dangerouslySetInnerHTML={{
               __html: `
                 <script type="text/javascript">
-                  aclib.runBanner({
-                    zoneId: '9989842',
-                  });
+                  atOptions = {
+                    'key' : '0697698d7ca3520afbbf9db3db14c281',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                  };
                 </script>
               `,
             }}
-          ></div>
-          // <div
-          //   dangerouslySetInnerHTML={{
-          //     __html: `
-          //       <script type="text/javascript">
-          //         aclib.runBanner({ zoneId: '9989842' });
-          //       </script>
-          //     `,
-          //   }}
-          // ></div>
-
-          // <RmzLite
-          //   pageName="Home"
-          //   spotIds={["1450767", "1450768", "1450769", "1450770"]}
-          // />
+          />
         )}
 
         <Box sx={classes.sliderContainer}>

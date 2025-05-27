@@ -60,13 +60,6 @@ export default class MyDocument extends Document {
               src="https://js.wpadmngr.com/banner/click-banner.m.js"
             />
           )}
-
-          <script
-            async
-            id="aclib"
-            type="text/javascript"
-            src="//acscdn.com/script/aclib.js"
-          ></script>
         </Head>
         <body>
           {/* <script
@@ -90,6 +83,10 @@ export default class MyDocument extends Document {
             <></>
             // <Script src="/utilsminall.js" strategy="lazyOnload" />
           )}
+          <script
+            type="text/javascript"
+            src="//www.highperformanceformat.com/0697698d7ca3520afbbf9db3db14c281/invoke.js"
+          ></script>
         </body>
       </Html>
     );
