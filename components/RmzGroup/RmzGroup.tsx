@@ -1,70 +1,92 @@
-import { Box } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
+
+declare global {
+  interface Window {
+    aclib?: {
+      runBanner?: (options: { zoneId: string }) => void;
+    };
+    gtag?: (...args: any[]) => void;
+  }
+}
 
 interface RmzGroupProps {
-  bannerIds: string[]; // Up to 4
-  ampId: string;
+  zoneIds: string[];
   pageName: string;
 }
 
-const RmzGroup: React.FC<RmzGroupProps> = ({ bannerIds, ampId, pageName }) => {
-  const rmzRef = useRef<HTMLDivElement>(null);
+const RmzGroup: React.FC<RmzGroupProps> = ({ zoneIds, pageName }) => {
+  const [visibleZones, setVisibleZones] = useState<string[]>([]);
 
+  // Determine how many banners to show based on screen width
   useEffect(() => {
-    const container = rmzRef.current;
-    if (!container) return;
-
-    container.innerHTML = "";
-
     const width = window.innerWidth;
-    let bannersToShow = 1;
+    let count = 1;
+    if (width >= 1241) count = 4;
+    else if (width >= 950) count = 3;
+    else if (width >= 620) count = 2;
 
-    if (width >= 1241) bannersToShow = 4;
-    else if (width >= 950) bannersToShow = 3;
-    else if (width >= 620) bannersToShow = 2;
+    const selected = zoneIds.slice(0, count);
+    setVisibleZones(selected);
 
-    for (let i = 0; i < Math.min(bannersToShow, bannerIds.length); i++) {
-      const div = document.createElement("div");
-      div.setAttribute("data-banner-id", bannerIds[i]);
-      container.appendChild(div);
-
+    // Send analytics event
+    selected.forEach((id, index) => {
       try {
-        window.gtag?.("event", `${pageName}${i + 1} banner ${bannerIds[i]}`, {
-          banner_id: bannerIds[i],
-          banner_name: `Banner ${i + 1}`,
+        window.gtag?.("event", `${pageName}${index + 1} banner ${id}`, {
+          banner_id: id,
+          banner_name: `Banner ${index + 1}`,
           screen_width: width,
           page_location: window.location.href,
         });
-      } catch (e) {
-        console.error("Error sending gtag event:", e);
+      } catch (err) {
+        console.warn("gtag failed", err);
       }
+    });
+  }, [zoneIds, pageName]);
+
+  // Inject Adcash lib once
+  useEffect(() => {
+    if (!document.getElementById("aclib")) {
+      const script = document.createElement("script");
+      script.id = "aclib";
+      script.src = "//acscdn.com/script/aclib.js";
+      script.async = true;
+      document.head.appendChild(script);
     }
+  }, []);
 
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://js.wpadmngr.com/static/adManager.js";
-    script.setAttribute("data-admpid", ampId);
-
-    document.body.appendChild(script);
-
-    return () => {
-      script.remove();
-      container.innerHTML = "";
-    };
-  }, [bannerIds, ampId]);
+  // Inject inline script tag per zone
+  useEffect(() => {
+    visibleZones.forEach((zoneId) => {
+      const container = document.getElementById(`ad-zone-${zoneId}`);
+      if (container && !container.querySelector("script")) {
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.innerHTML = `aclib.runBanner({ zoneId: '${zoneId}' });`;
+        container.appendChild(script);
+      }
+    });
+  }, [visibleZones]);
 
   return (
-    <Box
-      ref={rmzRef}
-      sx={{
+    <div
+      style={{
         display: "flex",
         justifyContent: "center",
         flexWrap: "wrap",
+        gap: "16px",
         margin: "20px 0",
         width: "100%",
         minHeight: "250px",
       }}
-    />
+    >
+      {visibleZones.map((zoneId) => (
+        <div
+          key={zoneId}
+          id={`ad-zone-${zoneId}`}
+          style={{ width: 300, height: 250 }}
+        />
+      ))}
+    </div>
   );
 };
 

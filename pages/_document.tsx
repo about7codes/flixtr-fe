@@ -60,6 +60,8 @@ export default class MyDocument extends Document {
               src="https://js.wpadmngr.com/banner/click-banner.m.js"
             />
           )}
+
+          <meta name="admaven-placement" content="BqdY6qjUE" />
         </Head>
         <body>
           {/* <script
