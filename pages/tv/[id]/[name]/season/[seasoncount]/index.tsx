@@ -33,11 +33,14 @@ import {
 import CustomHead from "../../../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../../../utils/utils";
 import Comments from "../../../../../../components/Comments/Comments";
-// import { topTvIframes, bottomTvIframes, } from "../../../../../../utils/iframeUtils";
+import {
+  topTvIframes,
+  bottomTvIframes,
+} from "../../../../../../utils/iframeUtils";
 import ShareButtons from "../../../../../../components/ShareButtons/ShareButtons";
 import { getSeriesSeasonById } from "../../../../../../apis/series.api";
 // import RmzGroup from "../../../../../../components/RmzGroup/RmzGroup";
-import RmzLite from "../../../../../../components/RmzLite/RmzLite";
+// import RmzLite from "../../../../../../components/RmzLite/RmzLite";
 
 function SeasonCount() {
   const router = useRouter();
@@ -284,30 +287,31 @@ function SeasonCount() {
         </Grid>
 
         {!disableAds && (
-          // <Grid sx={classes.con}>
-          //   {topTvIframes.map(({ className, idzone, size }) => (
-          //     <iframe
-          //       key={idzone}
-          //       className={className}
-          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-          //       width={size.split("x")[0]}
-          //       height={size.split("x")[1]}
-          //       scrolling="no"
-          //       marginWidth={0}
-          //       marginHeight={0}
-          //       frameBorder="0"
-          //     ></iframe>
-          //   ))}
-          // </Grid>
+          <Grid sx={classes.con}>
+            {topTvIframes.map(({ className, idzone, size }) => (
+              <iframe
+                key={idzone}
+                className={className}
+                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+                width={size.split("x")[0]}
+                height={size.split("x")[1]}
+                scrolling="no"
+                marginWidth={0}
+                marginHeight={0}
+                frameBorder="0"
+              ></iframe>
+            ))}
+          </Grid>
+
           // <RmzGroup
           //   bannerIds={["1449228", "1449229", "1449230", "1449231"]}
           //   ampId="329485"
           //   pageName="WatchShow"
           // />
-          <RmzLite
-            pageName="WatchShow"
-            spotIds={["1450819", "1450820", "1450821", "1450822"]}
-          />
+          // <RmzLite
+          //   pageName="WatchShow"
+          //   spotIds={["1450819", "1450820", "1450821", "1450822"]}
+          // />
         )}
 
         <Alert severity="info" sx={classes.alertBar} color="success">
@@ -561,30 +565,31 @@ function SeasonCount() {
         </Grid>
 
         {!disableAds && (
-          // <Grid sx={classes.con}>
-          //   {bottomTvIframes.map(({ className, idzone, size }) => (
-          //     <iframe
-          //       key={idzone}
-          //       className={className}
-          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-          //       width={size.split("x")[0]}
-          //       height={size.split("x")[1]}
-          //       scrolling="no"
-          //       marginWidth={0}
-          //       marginHeight={0}
-          //       frameBorder="0"
-          //     ></iframe>
-          //   ))}
-          // </Grid>
+          <Grid sx={classes.con}>
+            {bottomTvIframes.map(({ className, idzone, size }) => (
+              <iframe
+                key={idzone}
+                className={className}
+                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+                width={size.split("x")[0]}
+                height={size.split("x")[1]}
+                scrolling="no"
+                marginWidth={0}
+                marginHeight={0}
+                frameBorder="0"
+              ></iframe>
+            ))}
+          </Grid>
+
           // <RmzGroup
           //   bannerIds={["1449232", "1449233", "1449234", "1449235"]}
           //   ampId="329485"
           //   pageName="WatchShow"
           // />
-          <RmzLite
-            pageName="WatchShow"
-            spotIds={["1450823", "1450824", "1450825", "1450826"]}
-          />
+          // <RmzLite
+          //   pageName="WatchShow"
+          //   spotIds={["1450823", "1450824", "1450825", "1450826"]}
+          // />
         )}
 
         <ShareButtons
