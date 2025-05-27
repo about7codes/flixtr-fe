@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 interface RmzGroupProps {
-  scripts: string[]; // raw JS banner scripts
+  scripts: string[]; // JavaScript code strings (without <script> tags)
   pageName: string;
 }
 
@@ -11,14 +11,15 @@ const RmzGroup: React.FC<RmzGroupProps> = ({ scripts, pageName }) => {
   useEffect(() => {
     const width = window.innerWidth;
     let count = 1;
+
     if (width >= 1241) count = 4;
     else if (width >= 950) count = 3;
     else if (width >= 620) count = 2;
 
-    setVisibleScripts(scripts.slice(0, count));
+    const selected = scripts.slice(0, count);
+    setVisibleScripts(selected);
 
-    // Optional gtag analytics
-    scripts.slice(0, count).forEach((_, index) => {
+    selected.forEach((_, index) => {
       try {
         window.gtag?.("event", `${pageName}${index + 1} banner`, {
           banner_name: `Banner ${index + 1}`,
@@ -31,6 +32,22 @@ const RmzGroup: React.FC<RmzGroupProps> = ({ scripts, pageName }) => {
     });
   }, [scripts, pageName]);
 
+  useEffect(() => {
+    visibleScripts.forEach((code, index) => {
+      const container = document.getElementById(`hilltop-banner-${index}`);
+      if (!container) return;
+
+      // Prevent duplicate injection
+      if (container.getAttribute("data-loaded") === "true") return;
+
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.text = code;
+      container.appendChild(script);
+      container.setAttribute("data-loaded", "true");
+    });
+  }, [visibleScripts]);
+
   return (
     <div
       style={{
@@ -42,11 +59,11 @@ const RmzGroup: React.FC<RmzGroupProps> = ({ scripts, pageName }) => {
         width: "100%",
       }}
     >
-      {visibleScripts.map((script, index) => (
+      {visibleScripts.map((_, index) => (
         <div
           key={index}
+          id={`hilltop-banner-${index}`}
           style={{ width: 300, height: 250 }}
-          dangerouslySetInnerHTML={{ __html: `<script>${script}</script>` }}
         />
       ))}
     </div>

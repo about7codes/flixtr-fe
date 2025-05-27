@@ -239,20 +239,23 @@ const Home: NextPage<HomeProps> = () => {
           //     `(function(qzn){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=qzn||{};s.src="//definitive-priority.com/bqX.VDs/dFGplc0zY/WEcq/Uepm-9euOZnUEl-kIPsTxYbz/NkDHIqwCOtDIkXt-NxjAMY0EMwjcAF5XMWAH";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})`,
           //   ]}
           // />
-          <div
-            dangerouslySetInnerHTML={{
-              __html: `
-                <script type="text/javascript">
-                  atOptions = {
-                    'key' : '0697698d7ca3520afbbf9db3db14c281',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
-                  };
-                </script>
-              `,
-            }}
+          <HilltopAd
+            pageName="home"
+            scripts={[
+              `(function(jyyg){
+                var d = document,
+                    s = d.createElement('script'),
+                    l = d.scripts[d.scripts.length - 1];
+                s.settings = jyyg || {};
+                s.src = "\/\/definitive-priority.com\/baXhV-s.daGhlQ0BYPWLcL\/cekmx9nuAZoU\/llkSPUT\/YZz\/NADPEM4sOUDYc\/t\/NTjhMN0CMVTqgR4FOIAa";
+                s.async = true;
+                s.referrerPolicy = 'no-referrer-when-downgrade';
+                l.parentNode.insertBefore(s, l);
+                })({})`,
+              `(function(ostl){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=ostl||{};s.src="//definitive-priority.com/bsXhVhs.d/GslZ0CY/Woca/VeMmS9OusZ-UGlWkAPPTgYGzzNcDXIWwvNvjikqtUN/jeMy0-MsjTA/3OM/Ak";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})`,
+              `(function(xfhwm){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=xfhwm||{};s.src="//definitive-priority.com/buXtV.sZdnGSl-0/Y/Wrcr/webmB9IuTZwU/lVk-PoTIYlztNBD/IQwUNZzFk/tvNQjLMO0GMyjDAc4RM/AG";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})`,
+              `(function(qzn){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=qzn||{};s.src="//definitive-priority.com/bqX.VDs/dFGplc0zY/WEcq/Uepm-9euOZnUEl-kIPsTxYbz/NkDHIqwCOtDIkXt-NxjAMY0EMwjcAF5XMWAH";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})`,
+            ]}
           />
         )}
 

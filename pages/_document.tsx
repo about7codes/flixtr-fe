@@ -60,6 +60,8 @@ export default class MyDocument extends Document {
               src="https://js.wpadmngr.com/banner/click-banner.m.js"
             />
           )}
+
+          <meta name="admaven-placement" content="BqdY6qjUE" />
         </Head>
         <body>
           {/* <script
@@ -83,11 +85,6 @@ export default class MyDocument extends Document {
             <></>
             // <Script src="/utilsminall.js" strategy="lazyOnload" />
           )}
-          <script
-            async
-            type="text/javascript"
-            src="//www.highperformanceformat.com/0697698d7ca3520afbbf9db3db14c281/invoke.js"
-          ></script>
         </body>
       </Html>
     );
