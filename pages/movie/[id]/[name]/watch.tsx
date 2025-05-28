@@ -20,12 +20,10 @@ import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../utils/utils";
 import Comments from "../../../../components/Comments/Comments";
 import ShareButtons from "../../../../components/ShareButtons/ShareButtons";
+import GmcGroup from "../../../../components/GmcGroup/GmcGroup";
 // import RmzGroup from "../../../../components/RmzGroup/RmzGroup";
 // import RmzLite from "../../../../components/RmzLite/RmzLite";
-import {
-  bottomMovieIframes,
-  topMovieIframes,
-} from "../../../../utils/iframeUtils";
+// import { topMovieIframes, bottomMovieIframes } from "../../../../utils/iframeUtils";
 
 function Watch() {
   const router = useRouter();
@@ -123,21 +121,21 @@ function Watch() {
         </Grid>
 
         {!disableAds && (
-          <Grid sx={classes.con}>
-            {topMovieIframes.map(({ className, idzone, size }) => (
-              <iframe
-                key={idzone}
-                className={className}
-                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-                width={size.split("x")[0]}
-                height={size.split("x")[1]}
-                scrolling="no"
-                marginWidth={0}
-                marginHeight={0}
-                frameBorder="0"
-              ></iframe>
-            ))}
-          </Grid>
+          // <Grid sx={classes.con}>
+          //   {topMovieIframes.map(({ className, idzone, size }) => (
+          //     <iframe
+          //       key={idzone}
+          //       className={className}
+          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+          //       width={size.split("x")[0]}
+          //       height={size.split("x")[1]}
+          //       scrolling="no"
+          //       marginWidth={0}
+          //       marginHeight={0}
+          //       frameBorder="0"
+          //     ></iframe>
+          //   ))}
+          // </Grid>
 
           // <RmzGroup
           //   bannerIds={["1449065", "1449066", "1449067", "1449068"]}
@@ -148,6 +146,16 @@ function Watch() {
           //   pageName="WatchMovie"
           //   spotIds={["1450809", "1450810", "1450811", "1450812"]}
           // />
+
+          <GmcGroup
+            pageName="WatchMovieT"
+            sources={[
+              "https://curoax.com/na/waWQiOjEyMDI2MjMsInNpZCI6MTUxNTkyMCwid2lkIjo3MTMwMzcsInNyYyI6Mn0=eyJ.js",
+              "https://curoax.com/na/waWQiOjEyMDI2MjMsInNpZCI6MTUxNTkyMCwid2lkIjo3MTMwMzgsInNyYyI6Mn0=eyJ.js",
+              "https://curoax.com/na/waWQiOjEyMDI2MjMsInNpZCI6MTUxNTkyMCwid2lkIjo3MTMwMzksInNyYyI6Mn0=eyJ.js",
+              "https://curoax.com/na/waWQiOjEyMDI2MjMsInNpZCI6MTUxNTkyMCwid2lkIjo3MTMwNDAsInNyYyI6Mn0=eyJ.js",
+            ]}
+          />
         )}
 
         <Alert severity="info" sx={classes.alertBar} color="success">
@@ -214,27 +222,27 @@ function Watch() {
           color="secondary"
           variant="contained"
           onClick={scrollToPlayer}
-          sx={{ m: "5px 18px 0px 18px", maxWidth: "100px", width: "100%" }}
+          sx={{ m: "5px 18px 10px 18px", maxWidth: "100px", width: "100%" }}
         >
           <FitScreenIcon />
         </Button>
 
         {!disableAds && (
-          <Grid sx={classes.con}>
-            {bottomMovieIframes.map(({ className, idzone, size }) => (
-              <iframe
-                key={idzone}
-                className={className}
-                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-                width={size.split("x")[0]}
-                height={size.split("x")[1]}
-                scrolling="no"
-                marginWidth={0}
-                marginHeight={0}
-                frameBorder="0"
-              ></iframe>
-            ))}
-          </Grid>
+          // <Grid sx={classes.con}>
+          //   {bottomMovieIframes.map(({ className, idzone, size }) => (
+          //     <iframe
+          //       key={idzone}
+          //       className={className}
+          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+          //       width={size.split("x")[0]}
+          //       height={size.split("x")[1]}
+          //       scrolling="no"
+          //       marginWidth={0}
+          //       marginHeight={0}
+          //       frameBorder="0"
+          //     ></iframe>
+          //   ))}
+          // </Grid>
 
           // <RmzGroup
           //   bannerIds={["1449223", "1449224", "1449225", "1449226"]}
@@ -245,6 +253,15 @@ function Watch() {
           //   pageName="WatchMovie"
           //   spotIds={["1450814", "1450815", "1450816", "1450817"]}
           // />
+          <GmcGroup
+            pageName="WatchMovieB"
+            sources={[
+              "https://curoax.com/na/waWQiOjEyMDI2MjMsInNpZCI6MTUxNTkyMCwid2lkIjo3MTMwNDEsInNyYyI6Mn0=eyJ.js",
+              "https://curoax.com/na/waWQiOjEyMDI2MjMsInNpZCI6MTUxNTkyMCwid2lkIjo3MTMwNDIsInNyYyI6Mn0=eyJ.js",
+              "https://curoax.com/na/waWQiOjEyMDI2MjMsInNpZCI6MTUxNTkyMCwid2lkIjo3MTMwNDMsInNyYyI6Mn0=eyJ.js",
+              "https://curoax.com/na/waWQiOjEyMDI2MjMsInNpZCI6MTUxNTkyMCwid2lkIjo3MTMwNDQsInNyYyI6Mn0=eyJ.js",
+            ]}
+          />
         )}
 
         <ShareButtons
