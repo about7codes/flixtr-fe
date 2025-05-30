@@ -52,16 +52,6 @@ export default class MyDocument extends Document {
             strategy="beforeInteractive"
             src="./utilsminall.js"
           /> */}
-
-          {!disableAds && (
-            <script
-              async
-              data-admpid-banner="333307"
-              src="https://js.wpadmngr.com/banner/click-banner.m.js"
-            />
-          )}
-
-          <meta name="admaven-placement" content="BqdY6qjUE" />
         </Head>
         <body>
           {/* <script
