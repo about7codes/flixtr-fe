@@ -20,10 +20,9 @@ import CustomHead from "../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../utils/utils";
 import Comments from "../../../../components/Comments/Comments";
 import ShareButtons from "../../../../components/ShareButtons/ShareButtons";
-import {
-  topMovieIframes,
-  bottomMovieIframes,
-} from "../../../../utils/iframeUtils";
+import HmzGroup from "../../../../components/HmzGroup/HmzGroup";
+
+// import { topMovieIframes, bottomMovieIframes, } from "../../../../utils/iframeUtils";
 // import GmcGroup from "../../../../components/GmcGroup/GmcGroup";
 // import RmzGroup from "../../../../components/RmzGroup/RmzGroup";
 // import RmzLite from "../../../../components/RmzLite/RmzLite";
@@ -124,21 +123,31 @@ function Watch() {
         </Grid>
 
         {!disableAds && (
-          <Grid sx={classes.con}>
-            {topMovieIframes.map(({ className, idzone, size }) => (
-              <iframe
-                key={idzone}
-                className={className}
-                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-                width={size.split("x")[0]}
-                height={size.split("x")[1]}
-                scrolling="no"
-                marginWidth={0}
-                marginHeight={0}
-                frameBorder="0"
-              ></iframe>
-            ))}
-          </Grid>
+          // <Grid sx={classes.con}>
+          //   {topMovieIframes.map(({ className, idzone, size }) => (
+          //     <iframe
+          //       key={idzone}
+          //       className={className}
+          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+          //       width={size.split("x")[0]}
+          //       height={size.split("x")[1]}
+          //       scrolling="no"
+          //       marginWidth={0}
+          //       marginHeight={0}
+          //       frameBorder="0"
+          //     ></iframe>
+          //   ))}
+          // </Grid>
+
+          <HmzGroup
+            pageName="WatchMovieT"
+            scriptSources={[
+              "//definitive-priority.com/bmXJVgs/d.G/le0jYxW/cN/Remm/9/uDZeUylBk/PDTWYLzXOVTiUR2HM/zMEtt/N/jcM/5AN/TsYzzlMGgY",
+              "//definitive-priority.com/b/X.VwsgdsG/l/0dYBWVci/QeEmv9Cu/ZLUqlgkiPlT/YWz/O/T/Uv2kNmDGEltkNWj_MX5gNsTTYe0kMfgz",
+              "//definitive-priority.com/bCXhVjs.d/G/l/0lYIWfcw/Hetmg9RusZcUWlpkaPNTLYDz/O/T/Uf2nNRTwEdtBNfjjMt5NNaTAYc1VM/gK",
+              "//definitive-priority.com/b.X/VcspddGCln0XY/WXcA/ye/mO9ZugZPUPlTk/P-TEYaz/O/ThUy2SNyjhEXtNN/jiMF5gNvTNYe2VM/gJ",
+            ]}
+          />
 
           // <RmzGroup
           //   bannerIds={["1449065", "1449066", "1449067", "1449068"]}
@@ -231,21 +240,31 @@ function Watch() {
         </Button>
 
         {!disableAds && (
-          <Grid sx={classes.con}>
-            {bottomMovieIframes.map(({ className, idzone, size }) => (
-              <iframe
-                key={idzone}
-                className={className}
-                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-                width={size.split("x")[0]}
-                height={size.split("x")[1]}
-                scrolling="no"
-                marginWidth={0}
-                marginHeight={0}
-                frameBorder="0"
-              ></iframe>
-            ))}
-          </Grid>
+          // <Grid sx={classes.con}>
+          //   {bottomMovieIframes.map(({ className, idzone, size }) => (
+          //     <iframe
+          //       key={idzone}
+          //       className={className}
+          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+          //       width={size.split("x")[0]}
+          //       height={size.split("x")[1]}
+          //       scrolling="no"
+          //       marginWidth={0}
+          //       marginHeight={0}
+          //       frameBorder="0"
+          //     ></iframe>
+          //   ))}
+          // </Grid>
+
+          <HmzGroup
+            pageName="WatchMovieB"
+            scriptSources={[
+              "//definitive-priority.com/bWXfVPs.dlGDlt0WYlWYcj/GeOmT9iulZvU/lWkuPaTGYxzwOfTyUn2UNTzEE_tsNejxM/5BNuT_YB3yMvgr",
+              "//definitive-priority.com/b.XSVHsldNGul/0cYuWQcc/mesmR9vulZ/UXl/k_PhTkYAztOiTVUT2/O/D/EVtDNAjKMm5SN/TRYC4VMAgQ",
+              "//definitive-priority.com/baXNV.srdhG/lf0kYEWRcN/_eamq9kufZgU/l/kmPITTYsz_O-TeUY2AONTOEGtbN/jUMr5/NNTNYG5qMAgA",
+              "//definitive-priority.com/b.XdVisqdcGkl/0mYYWKc-/PeAmv9UuGZbUPlekWPST/YhzgO/T/UE3/MOD_EytiNojhML5QNqTqcTwwM-gB",
+            ]}
+          />
 
           // <RmzGroup
           //   bannerIds={["1449223", "1449224", "1449225", "1449226"]}
