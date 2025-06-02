@@ -33,11 +33,14 @@ import {
 import CustomHead from "../../../../../../components/CustomHead/CustomHead";
 import { convertToNumber, disableAds } from "../../../../../../utils/utils";
 import Comments from "../../../../../../components/Comments/Comments";
-// import { topTvIframes, bottomTvIframes } from "../../../../../../utils/iframeUtils";
+import {
+  topTvIframes,
+  bottomTvIframes,
+} from "../../../../../../utils/iframeUtils";
 import ShareButtons from "../../../../../../components/ShareButtons/ShareButtons";
 import { getSeriesSeasonById } from "../../../../../../apis/series.api";
-import HmzGroup from "../../../../../../components/HmzGroup/HmzGroup";
 
+// import HmzGroup from "../../../../../../components/HmzGroup/HmzGroup";
 // import GmcGroup from "../../../../../../components/GmcGroup/GmcGroup";
 // import RmzGroup from "../../../../../../components/RmzGroup/RmzGroup";
 // import RmzLite from "../../../../../../components/RmzLite/RmzLite";
@@ -287,31 +290,31 @@ function SeasonCount() {
         </Grid>
 
         {!disableAds && (
-          // <Grid sx={classes.con}>
-          //   {topTvIframes.map(({ className, idzone, size }) => (
-          //     <iframe
-          //       key={idzone}
-          //       className={className}
-          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-          //       width={size.split("x")[0]}
-          //       height={size.split("x")[1]}
-          //       scrolling="no"
-          //       marginWidth={0}
-          //       marginHeight={0}
-          //       frameBorder="0"
-          //     ></iframe>
-          //   ))}
-          // </Grid>
+          <Grid sx={classes.con}>
+            {topTvIframes.map(({ className, idzone, size }) => (
+              <iframe
+                key={idzone}
+                className={className}
+                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+                width={size.split("x")[0]}
+                height={size.split("x")[1]}
+                scrolling="no"
+                marginWidth={0}
+                marginHeight={0}
+                frameBorder="0"
+              ></iframe>
+            ))}
+          </Grid>
 
-          <HmzGroup
-            pageName="WatchShowT"
-            scriptSources={[
-              "//definitive-priority.com/bgXmV.sYd_GQlJ0sYEWycW/aeJmB9zujZZUilxkWPxTyYgzjOhTNUW3/MgTtEbtzNnjIMo5/NmTHc/x_MDg-",
-              "//definitive-priority.com/beXIVPsid.GXlx0hYrWfcD/Femm_9duaZWUPl/kxP/TlYdzrOeT_Us3lMzj-ErtxNij/Mp5aNRTocxyoMrgF",
-              "//definitive-priority.com/b.XBVlsAdiGblf0iY/WncW/fe/mR9JuNZYUVlDkaP/TkY/zEOMTxUO3JMuzTEhtCNxjzM/5eNNTBc_zfMUge",
-              "//definitive-priority.com/bWXbVEsqd.Gvlz0CYoWBci/Ge/mt9/uGZCUNl/ktP/ThYFz-OHTqU-3/NPDcEZtwNBjPMC5PNUTfcV0PMmgL",
-            ]}
-          />
+          // <HmzGroup
+          //   pageName="WatchShowT"
+          //   scriptSources={[
+          //     "//definitive-priority.com/bgXmV.sYd_GQlJ0sYEWycW/aeJmB9zujZZUilxkWPxTyYgzjOhTNUW3/MgTtEbtzNnjIMo5/NmTHc/x_MDg-",
+          //     "//definitive-priority.com/beXIVPsid.GXlx0hYrWfcD/Femm_9duaZWUPl/kxP/TlYdzrOeT_Us3lMzj-ErtxNij/Mp5aNRTocxyoMrgF",
+          //     "//definitive-priority.com/b.XBVlsAdiGblf0iY/WncW/fe/mR9JuNZYUVlDkaP/TkY/zEOMTxUO3JMuzTEhtCNxjzM/5eNNTBc_zfMUge",
+          //     "//definitive-priority.com/bWXbVEsqd.Gvlz0CYoWBci/Ge/mt9/uGZCUNl/ktP/ThYFz-OHTqU-3/NPDcEZtwNBjPMC5PNUTfcV0PMmgL",
+          //   ]}
+          // />
 
           // <RmzGroup
           //   bannerIds={["1449228", "1449229", "1449230", "1449231"]}
@@ -585,31 +588,31 @@ function SeasonCount() {
         </Grid>
 
         {!disableAds && (
-          // <Grid sx={classes.con}>
-          //   {bottomTvIframes.map(({ className, idzone, size }) => (
-          //     <iframe
-          //       key={idzone}
-          //       className={className}
-          //       src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
-          //       width={size.split("x")[0]}
-          //       height={size.split("x")[1]}
-          //       scrolling="no"
-          //       marginWidth={0}
-          //       marginHeight={0}
-          //       frameBorder="0"
-          //     ></iframe>
-          //   ))}
-          // </Grid>
+          <Grid sx={classes.con}>
+            {bottomTvIframes.map(({ className, idzone, size }) => (
+              <iframe
+                key={idzone}
+                className={className}
+                src={`//a.magsrv.com/iframe.php?idzone=${idzone}&size=${size}`}
+                width={size.split("x")[0]}
+                height={size.split("x")[1]}
+                scrolling="no"
+                marginWidth={0}
+                marginHeight={0}
+                frameBorder="0"
+              ></iframe>
+            ))}
+          </Grid>
 
-          <HmzGroup
-            pageName="WatchShowB"
-            scriptSources={[
-              "//definitive-priority.com/bDXzVts.dIG/lw0/YmWzcp/Yecmj9/ukZGU/lOkTP/T_YszSOsTEUT3dNUTbEEtuNKj/MQ5ONATtc/1LMrgM",
-              "//definitive-priority.com/bTX.VSs/d/Gtl/0sYwWDcg/Je/m/9GuUZSUtlHkuP/ThYCzAONTgUK3aNcj/E-tAN/jpM/5QNhTIcX2QMxge",
-              "//definitive-priority.com/bzX-V.ssdyGYlN0TYJWRcO/JeZm/9TuTZaU/lEkXPZTdY/zsOlTxUu3NNjzMEltMN/jcMO5/NVT/cz3/MBgW",
-              "//definitive-priority.com/bnX.V/shdPGMlT0/YcW-cd/LeYmX9PuoZyUWlIksP/TbYZz/ORTEU/3/OwDTEDtoNUjlMU5/NeTOch4GMAgW",
-            ]}
-          />
+          // <HmzGroup
+          //   pageName="WatchShowB"
+          //   scriptSources={[
+          //     "//definitive-priority.com/bDXzVts.dIG/lw0/YmWzcp/Yecmj9/ukZGU/lOkTP/T_YszSOsTEUT3dNUTbEEtuNKj/MQ5ONATtc/1LMrgM",
+          //     "//definitive-priority.com/bTX.VSs/d/Gtl/0sYwWDcg/Je/m/9GuUZSUtlHkuP/ThYCzAONTgUK3aNcj/E-tAN/jpM/5QNhTIcX2QMxge",
+          //     "//definitive-priority.com/bzX-V.ssdyGYlN0TYJWRcO/JeZm/9TuTZaU/lEkXPZTdY/zsOlTxUu3NNjzMEltMN/jcMO5/NVT/cz3/MBgW",
+          //     "//definitive-priority.com/bnX.V/shdPGMlT0/YcW-cd/LeYmX9PuoZyUWlIksP/TbYZz/ORTEU/3/OwDTEDtoNUjlMU5/NeTOch4GMAgW",
+          //   ]}
+          // />
 
           // <RmzGroup
           //   bannerIds={["1449232", "1449233", "1449234", "1449235"]}
