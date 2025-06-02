@@ -16,7 +16,7 @@ import SkeletonSlider from "../components/SkeletonSlider/SkeletonSlider";
 import SkeletonMovieSlider from "../components/SkeletonMovieSlider/SkeletonMovieSlider";
 import ShareButtons from "../components/ShareButtons/ShareButtons";
 import { disableAds } from "../utils/utils";
-import HmzGroup from "../components/HmzGroup/HmzGroup";
+// import HmzGroup from "../components/HmzGroup/HmzGroup";
 
 // import GmcGroup from "../components/GmcGroup/GmcGroup";
 // import RmzGroup from "../components/RmzGroup/RmzGroup";
@@ -34,66 +34,66 @@ const Home: NextPage<HomeProps> = () => {
   // console.log("MovieDATA", toPercent(movieData[1].vote_average || 0));
   // console.log("seriesDATA", seriesData);
 
-  // const adRef = useRef<HTMLDivElement>();
+  const adRef = useRef<HTMLDivElement>();
 
-  // useEffect(() => {
-  //   const width = window.innerWidth;
+  useEffect(() => {
+    const width = window.innerWidth;
 
-  //   const script1 = document.createElement("script");
-  //   script1.async = true;
-  //   script1.type = "application/javascript";
-  //   script1.src = "https://a.magsrv.com/ad-provider.js";
+    const script1 = document.createElement("script");
+    script1.async = true;
+    script1.type = "application/javascript";
+    script1.src = "https://a.magsrv.com/ad-provider.js";
 
-  //   const script2 = document.createElement("script");
-  //   script2.async = true;
-  //   script2.type = "application/javascript";
-  //   script2.innerHTML =
-  //     '(AdProvider = window.AdProvider || []).push({"serve": {}});';
+    const script2 = document.createElement("script");
+    script2.async = true;
+    script2.type = "application/javascript";
+    script2.innerHTML =
+      '(AdProvider = window.AdProvider || []).push({"serve": {}});';
 
-  //   const adEl1 = document.createElement("ins");
-  //   adEl1.className = "eas6a97888e2";
-  //   adEl1.dataset.zoneid = "5494226";
+    const adEl1 = document.createElement("ins");
+    adEl1.className = "eas6a97888e2";
+    adEl1.dataset.zoneid = "5494226";
 
-  //   const adEl2 = document.createElement("ins");
-  //   adEl2.className = "eas6a97888e2";
-  //   adEl2.dataset.zoneid = "5494228";
+    const adEl2 = document.createElement("ins");
+    adEl2.className = "eas6a97888e2";
+    adEl2.dataset.zoneid = "5494228";
 
-  //   const adEl3 = document.createElement("ins");
-  //   adEl3.className = "eas6a97888e2";
-  //   adEl3.dataset.zoneid = "5583506";
+    const adEl3 = document.createElement("ins");
+    adEl3.className = "eas6a97888e2";
+    adEl3.dataset.zoneid = "5583506";
 
-  //   const adEl4 = document.createElement("ins");
-  //   adEl4.className = "eas6a97888e2";
-  //   adEl4.dataset.zoneid = "5583508";
+    const adEl4 = document.createElement("ins");
+    adEl4.className = "eas6a97888e2";
+    adEl4.dataset.zoneid = "5583508";
 
-  //   adRef.current?.appendChild(script1);
+    adRef.current?.appendChild(script1);
 
-  //   if (width >= 1241) {
-  //     adRef.current?.appendChild(adEl1);
-  //     adRef.current?.appendChild(adEl2);
-  //     adRef.current?.appendChild(adEl3);
-  //     adRef.current?.appendChild(adEl4);
-  //   } else if (width >= 950) {
-  //     adRef.current?.appendChild(adEl1);
-  //     adRef.current?.appendChild(adEl2);
-  //     adRef.current?.appendChild(adEl3);
-  //   } else if (width >= 620) {
-  //     adRef.current?.appendChild(adEl1);
-  //     adRef.current?.appendChild(adEl2);
-  //   } else {
-  //     adRef.current?.appendChild(adEl1);
-  //   }
+    if (width >= 1241) {
+      adRef.current?.appendChild(adEl1);
+      adRef.current?.appendChild(adEl2);
+      adRef.current?.appendChild(adEl3);
+      adRef.current?.appendChild(adEl4);
+    } else if (width >= 950) {
+      adRef.current?.appendChild(adEl1);
+      adRef.current?.appendChild(adEl2);
+      adRef.current?.appendChild(adEl3);
+    } else if (width >= 620) {
+      adRef.current?.appendChild(adEl1);
+      adRef.current?.appendChild(adEl2);
+    } else {
+      adRef.current?.appendChild(adEl1);
+    }
 
-  //   adRef.current?.appendChild(script2);
+    adRef.current?.appendChild(script2);
 
-  //   return () => {
-  //     [script1, adEl1, adEl2, adEl3, adEl4, script2].forEach((el) => {
-  //       try {
-  //         adRef.current?.removeChild(el);
-  //       } catch (_) {}
-  //     });
-  //   };
-  // }, []);
+    return () => {
+      [script1, adEl1, adEl2, adEl3, adEl4, script2].forEach((el) => {
+        try {
+          adRef.current?.removeChild(el);
+        } catch (_) {}
+      });
+    };
+  }, []);
 
   return (
     <>
@@ -159,20 +159,20 @@ const Home: NextPage<HomeProps> = () => {
         </Box>
 
         {!disableAds && (
-          // <Box
-          //   sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-          //   ref={adRef}
-          // ></Box>
+          <Box
+            sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+            ref={adRef}
+          ></Box>
 
-          <HmzGroup
-            pageName="Home"
-            scriptSources={[
-              "//definitive-priority.com/b.XvVZsddEGxl_0/YnWfcP/Nesmq9/u/Z/UulBkSP/TuY/z/NPDBEu4FOtDwc/tANYjNMa0NM/TBgV4/OuAk",
-              "//definitive-priority.com/brXBVNsUd.G/l-0mY/WKcv/IeZmT9ouQZcUGlVkbPzTEYDzCNjDnIXwbNmj/kXtoNFjdMZ0PMLjJAm3oMYAA",
-              "//definitive-priority.com/bHXMV.sbdPGali0_YwWYcI/hekmo9nu/ZPU/lzkFPTT/YkzXNvDjIMwANqzlkft/N_jpMq0aMEjtA/4KMaAg",
-              "//definitive-priority.com/bnXwV.suduGsl_0/YwWHcE/Detm/9Wu/ZPUslJkfP/TAYGzgNrDQIpwaOEDjkjtiNDjdMZ0/MHjhAP5SMwA-",
-            ]}
-          />
+          // <HmzGroup
+          //   pageName="Home"
+          //   scriptSources={[
+          //     "//definitive-priority.com/b.XvVZsddEGxl_0/YnWfcP/Nesmq9/u/Z/UulBkSP/TuY/z/NPDBEu4FOtDwc/tANYjNMa0NM/TBgV4/OuAk",
+          //     "//definitive-priority.com/brXBVNsUd.G/l-0mY/WKcv/IeZmT9ouQZcUGlVkbPzTEYDzCNjDnIXwbNmj/kXtoNFjdMZ0PMLjJAm3oMYAA",
+          //     "//definitive-priority.com/bHXMV.sbdPGali0_YwWYcI/hekmo9nu/ZPU/lzkFPTT/YkzXNvDjIMwANqzlkft/N_jpMq0aMEjtA/4KMaAg",
+          //     "//definitive-priority.com/bnXwV.suduGsl_0/YwWHcE/Detm/9Wu/ZPUslJkfP/TAYGzgNrDQIpwaOEDjkjtiNDjdMZ0/MHjhAP5SMwA-",
+          //   ]}
+          // />
         )}
 
         <Box sx={classes.sliderContainer}>
